@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promote your Campaign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* Variables */
+      :root {
+        --bg: #9b3424;
+      }
+      /* fonts */
+      .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+      /* Popup container */
+      .popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* background-color: rgba(0, 0, 0, 0.4); */
+      }
+      /* Main popup container */
+      .main-popup-content {
+        background-color: var(--bg);
+        border-radius: 25px;
+        width: 30%;
+        height: 85%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .main-popup-close-btn {
+        align-self: flex-end;
+        background-color: #fff;
+        color: black;
+        border-radius: 50%;
+        border: none;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 10px 10px 0 0;
+      }
+      .main-popup-close-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 20px 50px 30px;
+      }
+      .main-video-container {
+        width: 100%;
+        position: relative;
+      }
+      .main-video {
+        width: 100%;
+      }
+      .main-video-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 5em;
+        cursor: pointer;
+      }
+      .main-popup-form-title {
+        text-align: center;
+        color: white;
+        margin: 20px 0 0 0;
+      }
+      .main-popup-form-describe {
+        text-align: center;
+        color: white;
+        width: 80%;
+        margin: 20px 0;
+      }
+      .main-popup-form-input-container {
+        width: 100%;
+        margin-bottom: 10px;
+        position: relative;
+      }
+      .main-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+      }
+      .main-popup-form-badge {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .main-popup-form-btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .main-popup-form-btn:hover {
+        background-color: #ccc;
+      }
+      /* Success popup content */
+      .success-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 1.5em;
+        width: 35%;
+        height: 60%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .success-modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 30px 30px 30px;
+      }
+      .success-close-popup-btn {
+        align-self: flex-end;
+        background-color: #ccc;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-close-popup-btn:hover {
+        opacity: 0.8;
+      }
+      .success-image {
+        width: 6em;
+      }
+      .success-title {
+        color: #08b29d;
+        font-size: 4em;
+        margin: 20px 0 0 0;
+      }
+      .success-describe {
+        margin: 0 0 20px 0;
+        text-align: center;
+      }
+      .coupon-code {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: 2px dashed black;
+        padding: 1em 4em;
+        margin: 0 0 20px;
+        width: 100%;
+      }
+      .success-copy-icon {
+        position: absolute;
+        right: 0;
+        margin: 0 4px;
+        padding: 0 4px;
+        cursor: pointer;
+      }
+      .success-btn {
+        background-color: #08b29d;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        color: white;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="openPopupBtn">Open Modal</button>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <!-- Main Popup -->
+      <div id="mainPopupContent" class="main-popup-content">
+        <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#000"
+            />
+          </svg>
+        </button>
+        <div class="main-popup-body">
+          <div class="main-video-container">
+            <img class="main-video" src="./mainImage.png" alt="Subscribe" />
+            <svg
+              class="main-video-play"
+              viewBox="0 0 19 18"
+              fill="white"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_1446_2260)">
+                <path d="M6 3.75V14.25L14.25 9L6 3.75Z" fill="white"></path>
+              </g>
+              <defs>
+                <clipPath id="clip0_1446_2260">
+                  <rect width="18" height="18" fill="white"></rect>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <h1 class="main-popup-form-title roboto-black">
+              FOR MORE<br />INSPIRATION✨
+            </h1>
+          </div>
+          <p class="main-popup-form-describe roboto-regular">
+            Sign up with your email address and get video inspiration weekly.
+          </p>
+          <div class="main-popup-form-input-container">
+            <input
+              type="email"
+              id="subscribeInput"
+              class="main-popup-form-input roboto-regular"
+              name="subscribe"
+              placeholder="Email Address"
+            />
+            <svg
+              class="main-popup-form-badge"
+              width="6"
+              height="6"
+              viewBox="0 0 6 6"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 2.07667L5.31741 0.923333L3.68259 1.84667V0H2.31741V1.84667L0.682594 0.923333L0 2.07667L1.63481 3L0 3.92333L0.682594 5.07667L2.31741 4.15333V6H3.68259V4.15333L5.31741 5.07667L6 3.92333L4.36519 3L6 2.07667Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <button id="subscribeBtn" class="main-popup-form-btn roboto-regular">
+            Submit
+          </button>
+        </div>
+      </div>
+      <!-- Success Popup -->
+      <div id="successPopupContent" class="success-popup-content">
+        <button id="successClosePopupBtn" class="success-close-popup-btn">
+          <svg
+            width="26"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="success-modal-body">
+          <img class="success-image" src="./success.png" alt="Subscribe" />
+          <h1 class="success-title roboto-bold">Success</h1>
+          <p class="success-describe roboto-regular">
+            You've successfully subscribed to out newsletter.
+          </p>
+          <p class="coupon-code">
+            [COUPON CODE]
+            <?xml version="1.0" encoding="utf-8"?><svg
+              width="24"
+              height="24"
+              class="success-copy-icon"
+              version="1.1"
+              id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 115.77 122.88"
+              xml:space="preserve"
+            >
+              <g>
+                <path
+                  class="st0"
+                  d="M89.62,13.96v7.73h12.19h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02v0.02 v73.27v0.01h-0.02c-0.01,3.84-1.57,7.33-4.1,9.86c-2.51,2.5-5.98,4.06-9.82,4.07v0.02h-0.02h-61.7H40.1v-0.02 c-3.84-0.01-7.34-1.57-9.86-4.1c-2.5-2.51-4.06-5.98-4.07-9.82h-0.02v-0.02V92.51H13.96h-0.01v-0.02c-3.84-0.01-7.34-1.57-9.86-4.1 c-2.5-2.51-4.06-5.98-4.07-9.82H0v-0.02V13.96v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07V0h0.02h61.7 h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02V13.96L89.62,13.96z M79.04,21.69v-7.73v-0.02h0.02 c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v64.59v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h12.19V35.65 v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07v-0.02h0.02H79.04L79.04,21.69z M105.18,108.92V35.65v-0.02 h0.02c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v73.27v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h61.7h0.02 v0.02c0.91,0,1.75-0.39,2.37-1.01c0.61-0.61,1-1.46,1-2.37h-0.02V108.92L105.18,108.92z"
+                />
+              </g>
+            </svg>
+          </p>
+          <button class="success-btn roboto-regular">OKAY</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Open Popup
+      document.querySelector("#openPopupBtn").addEventListener("click", () => {
+        document.querySelector("#popup").style.display = "flex";
+      });
+      // Close main popup
+      document
+        .querySelector("#mainPopupCloseBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+        });
+      // Click success button
+      document.querySelector("#subscribeBtn").addEventListener("click", () => {
+        document.querySelector("#mainPopupContent").style.display = "none";
+        document.querySelector("#successPopupContent").style.display = "flex";
+      });
+
+      // Close main popup
+      document
+        .querySelector("#successClosePopupBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+          document.querySelector("#mainPopupContent").style.display = "flex";
+          document.querySelector("#successPopupContent").style.display = "none";
+        });
+    </script>
+  </body>
+</html>

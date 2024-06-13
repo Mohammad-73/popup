@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grow your email</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* Variables */
+      :root {
+        --bg: #fff;
+      }
+      /* fonts */
+      .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+      /* Popup container */
+      .popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* background-color: rgba(0, 0, 0, 0.4); */
+      }
+      /* Main popup container */
+      .main-popup-content {
+        background-color: var(--bg);
+        border-radius: 2em;
+        width: 65%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .main-popup-close-btn {
+        align-self: flex-end;
+        background-color: #000;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 15px 15px 0 0;
+        transition: 0.2s;
+      }
+      .main-popup-close-btn:hover {
+        background-color: #b5b5b5;
+      }
+      .main-popup-body {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        height: 100%;
+      }
+      .main-popup-body-form-and-success {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
+      .main-popup-form {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 40px;
+        height: 100%;
+      }
+      .main-popup-form-title {
+        text-align: left;
+        margin: 20px 0 0 0;
+      }
+      .main-popup-form-describe {
+        font-size: 18px;
+      }
+      .main-popup-form-input-container {
+        width: 100%;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .main-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+      }
+      .main-popup-form-badge {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .main-popup-form-input:focus {
+        border: 2px solid #ccc;
+        box-shadow: #ccc 0px 5px 15px;
+      }
+      .main-popup-form-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #ff5823;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .main-popup-form-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-image {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        width: auto;
+      }
+      .main-image {
+        height: 100%;
+        border-top-left-radius: 2em;
+        border-bottom-left-radius: 2em;
+      }
+      .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 100%;
+        text-align: left;
+      }
+      .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 3px;
+        border: 2px solid gray;
+        background-color: #fff;
+      }
+      .checkbox-container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+      .checkbox-container input:checked ~ .checkmark {
+        background-color: #e5552a;
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .checkbox-container .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .main-popup-form-link {
+        color: black;
+      }
+
+      /* Success popup content */
+      .success-popup-content {
+        background-color: var(--bg);
+        padding: 20px;
+        border-radius: 35px;
+        width: 25%;
+        height: 70%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .success-modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 30px 30px 30px;
+      }
+      .success-close-popup-btn {
+        align-self: flex-end;
+        background-color: #000;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-close-popup-btn:hover {
+        background-color: #b5b5b5;
+      }
+      .success-image {
+        width: 12em;
+      }
+      .success-title {
+        font-size: 2em;
+        margin: 20px 0 0 0;
+      }
+      .success-describe {
+        margin: 20px 0;
+        text-align: center;
+      }
+      .success-social-icons {
+        display: flex;
+        justify-content: space-between;
+        width: 30%;
+      }
+      .success-btn {
+        background-color: #e5552a;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-btn:hover {
+        opacity: 0.8;
+      }
+      /* Mobile view */
+      @media screen and (max-width: 600px) {
+        .main-popup-content {
+          position: relative;
+          width: 80%;
+          height: 90%;
+        }
+        .main-popup-body {
+          flex-direction: column;
+        }
+        .main-popup-body-form-and-success {
+          width: 100%;
+        }
+        .main-popup-image {
+          height: 50%;
+          width: 100%;
+        }
+        .main-image {
+          width: 100%;
+          border-bottom-left-radius: 0;
+          border-top-right-radius: 2em;
+          object-fit: cover;
+        }
+        .main-popup-close-btn {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
+        .main-popup-form {
+          padding: 20px;
+        }
+        .main-popup-form-title {
+          margin: 10px 0 0 0;
+          font-size: 24px;
+        }
+        .main-popup-form-describe {
+          font-size: 16px;
+        }
+        .main-popup-form-input-container {
+          margin-bottom: 10px;
+        }
+        .main-popup-form-input {
+          width: 100%;
+          padding: 6px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          margin-bottom: 10px;
+        }
+        .main-describe {
+          margin: 10px 0;
+          text-align: left;
+          font-size: 14px;
+        }
+        .checkbox-container {
+          font-size: 12px;
+          margin-bottom: 20px;
+        }
+        .main-popup-form-btn {
+          padding: 10px;
+          font-size: 16px;
+        }
+        /* Success popup */
+        .success-popup-content {
+          width: 70%;
+          height: 60%;
+        }
+        .success-modal-body {
+          padding: 20px 20px;
+        }
+        .success-image {
+          width: 8em;
+        }
+        .success-title {
+          font-size: 1.5em;
+          margin: 0;
+        }
+        .success-describe {
+          margin: 10px 0;
+          font-size: 14px;
+        }
+        .success-btn {
+          padding: 10px;
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="openPopupBtn">Open Modal</button>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <!-- Main Popup -->
+      <div id="mainPopupContent" class="main-popup-content">
+        <div class="main-popup-body">
+          <div class="main-popup-image">
+            <img class="main-image" src="./mainImage.png" alt="Subscribe" />
+          </div>
+          <div class="main-popup-body-form-and-success">
+            <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+              <svg
+                width="26"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+                  fill="#fff"
+                />
+              </svg>
+            </button>
+            <div id="mainPopupForm" class="main-popup-form">
+              <h1 class="main-popup-form-title roboto-bold">Giveaway time</h1>
+              <p class="main-popup-form-describe roboto-bold">
+                Submit your email address to
+                <br />join the mega giveaway!
+              </p>
+              <div class="main-popup-form-input-container">
+                <input
+                  type="email"
+                  id="subscribeInput"
+                  class="main-popup-form-input roboto-regular"
+                  name="subscribe"
+                  placeholder="Enter your email address"
+                />
+                <svg
+                  class="main-popup-form-badge"
+                  width="6"
+                  height="6"
+                  viewBox="0 0 6 6"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 2.07667L5.31741 0.923333L3.68259 1.84667V0H2.31741V1.84667L0.682594 0.923333L0 2.07667L1.63481 3L0 3.92333L0.682594 5.07667L2.31741 4.15333V6H3.68259V4.15333L5.31741 5.07667L6 3.92333L4.36519 3L6 2.07667Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+
+              <label class="checkbox-container roboto-regular">
+                <input type="checkbox" />
+                <span class="checkmark roboto-regular"></span>
+                I have read and accept the
+                <a href="" class="main-popup-form-link roboto-regular"
+                  >privacy policy</a
+                >
+              </label>
+              <button
+                id="subscribeBtn"
+                class="main-popup-form-btn roboto-regular"
+              >
+                Join now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Success Popup -->
+      <div id="successPopupContent" class="success-popup-content">
+        <button id="successClosePopupBtn" class="success-close-popup-btn">
+          <svg
+            width="26"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="success-modal-body">
+          <img class="success-image" src="./successImage.png" alt="Subscribe" />
+          <h1 class="success-title roboto-bold">Success</h1>
+          <p class="success-describe roboto-regular">
+            Follow us on social media not to
+            <br />
+            miss the result of the giveaway.
+          </p>
+
+          <div class="success-social-icons">
+            <svg
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+            >
+              <path
+                d="M18 5.962c3.907 0 4.388 0 5.913.106a6.333 6.333 0 0 1 2.692.528c.627.237 1.2.596 1.688 1.056a4.355 4.355 0 0 1 1.055 1.688c.292.87.47 1.775.528 2.692.053 1.531.105 2.006.105 5.913 0 3.907 0 4.387-.105 5.913a6.332 6.332 0 0 1-.528 2.693 5.073 5.073 0 0 1-1.055 1.688 4.355 4.355 0 0 1-1.688 1.056 8.642 8.642 0 0 1-2.692.528c-1.531.052-2.007.105-5.913.105s-4.387 0-5.913-.105a6.338 6.338 0 0 1-2.692-.528 5.08 5.08 0 0 1-1.687-1.056 4.354 4.354 0 0 1-1.056-1.688 10.591 10.591 0 0 1-.527-2.693c-.053-1.531-.106-2.006-.106-5.913 0-3.907 0-4.388.106-5.913a6.331 6.331 0 0 1 .524-2.695c.237-.626.596-1.2 1.055-1.687a4.354 4.354 0 0 1 1.688-1.056 8.63 8.63 0 0 1 2.692-.528c1.641-.104 2.062-.104 5.916-.104Zm0-2.587c-3.96 0-4.487 0-6.018.106a11.31 11.31 0 0 0-3.538.686 6.3 6.3 0 0 0-2.587 1.687 7.312 7.312 0 0 0-1.688 2.588 9.975 9.975 0 0 0-.686 3.537c-.053 1.531-.106 2.059-.106 6.019s0 4.487.106 6.018c.038 1.209.27 2.404.686 3.539a6.3 6.3 0 0 0 1.688 2.587 7.305 7.305 0 0 0 2.587 1.688 9.963 9.963 0 0 0 3.537.686c1.532.053 2.06.106 6.02.106 3.96 0 4.487 0 6.018-.106a11.292 11.292 0 0 0 3.537-.686 6.29 6.29 0 0 0 2.587-1.688 7.312 7.312 0 0 0 1.688-2.587 9.976 9.976 0 0 0 .686-3.538c.053-1.532.106-2.06.106-6.02 0-3.96 0-4.487-.106-6.018a11.31 11.31 0 0 0-.686-3.537 6.299 6.299 0 0 0-1.688-2.588 7.312 7.312 0 0 0-2.587-1.687 9.973 9.973 0 0 0-3.537-.686c-1.531-.053-2.006-.106-6.019-.106Z"
+                fill="currentColor"
+              ></path>
+              <path
+                d="M18 10.503A7.497 7.497 0 1 0 25.497 18 7.46 7.46 0 0 0 18 10.503Zm0 12.355A4.858 4.858 0 1 1 22.858 18 4.844 4.844 0 0 1 18 22.858ZM25.815 11.981a1.795 1.795 0 1 0 0-3.59 1.795 1.795 0 0 0 0 3.59Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <svg
+              viewBox="0 0 36 36"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="36"
+            >
+              <path
+                d="M32.625 10.604a11.21 11.21 0 0 1-3.162.91 5.326 5.326 0 0 0 2.4-3.214 10.462 10.462 0 0 1-3.514 1.395 5.312 5.312 0 0 0-4.04-1.819 5.624 5.624 0 0 0-5.565 5.761c-.003.451.056.9.175 1.335A15.326 15.326 0 0 1 7.5 8.966a5.321 5.321 0 0 0-.762 2.851 5.667 5.667 0 0 0 2.46 4.725 5.1 5.1 0 0 1-2.519-.728v.061a5.625 5.625 0 0 0 4.452 5.58 5.392 5.392 0 0 1-1.463.182 4.488 4.488 0 0 1-.995-.121 5.44 5.44 0 0 0 5.153 3.937 11.06 11.06 0 0 1-6.91 2.426c-.43.01-.861-.01-1.289-.061a14.802 14.802 0 0 0 8.493 2.547c10.192 0 15.75-8.733 15.75-16.313v-.727a8.538 8.538 0 0 0 2.756-2.722Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Open Popup
+      document.querySelector("#openPopupBtn").addEventListener("click", () => {
+        document.querySelector("#popup").style.display = "flex";
+      });
+      //   Close main popup
+      document
+        .querySelector("#mainPopupCloseBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+        });
+      // Submit main popup and show Success popup
+      document.querySelector("#subscribeBtn").addEventListener("click", () => {
+        document.querySelector("#mainPopupContent").style.display = "none";
+        document.querySelector("#successPopupContent").style.display = "flex";
+      });
+      //   Close main popup
+      document
+        .querySelector("#successClosePopupBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+          document.querySelector("#mainPopupContent").style.display = "flex";
+          document.querySelector("#successPopupContent").style.display = "none";
+        });
+    </script>
+  </body>
+</html>

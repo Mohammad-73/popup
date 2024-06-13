@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grow your email</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* Variables */
+      :root {
+        --bg: #fff;
+      }
+      /* fonts */
+      .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+      /* Popup container */
+      .popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* background-color: rgba(0, 0, 0, 0.4); */
+      }
+      /* Main popup container */
+      .main-popup-content {
+        background-color: var(--bg);
+        border-radius: 2em;
+        width: 60%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .main-popup-close-btn {
+        align-self: flex-end;
+        background-color: #ccc;
+        border: none;
+        color: white;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 15px 15px 0 0;
+        transition: 0.2s;
+      }
+      .main-popup-close-btn:hover {
+        background-color: #b5b5b5;
+      }
+      .main-popup-body {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        height: 100%;
+      }
+      .main-popup-body-form-and-success {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
+      .main-popup-form {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 0 40px;
+        height: 100%;
+      }
+      .main-popup-form-title {
+        text-align: left;
+        margin: 20px 0 0 0;
+        color: #e5552a;
+      }
+      .main-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        margin-bottom: 20px;
+      }
+      .main-popup-form-input:focus {
+        border: 2px solid #ccc;
+        box-shadow: #ccc 0px 5px 15px;
+      }
+      .main-popup-form-btn {
+        width: 100%;
+        padding: 20px;
+        background-color: #e5552a;
+        color: white;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .main-popup-form-btn:hover {
+        background-color: #ea7755;
+      }
+      .main-popup-image {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+      }
+      .main-image {
+        height: 100%;
+        border-top-left-radius: 2em;
+        border-bottom-left-radius: 2em;
+        object-fit: cover;
+      }
+      .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 3px;
+        border: 2px solid gray;
+        background-color: #fff;
+      }
+      .checkbox-container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+      .checkbox-container input:checked ~ .checkmark {
+        background-color: #e5552a;
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .checkbox-container .checkmark:after {
+        left: 5px;
+        top: 0px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .main-popup-form-link {
+        color: black;
+      }
+      /* Success popup content */
+      .success-popup-content {
+        background-color: var(--bg);
+        margin: 5% auto;
+        padding: 10px;
+        border: 1px solid #888;
+        border-radius: 2em;
+        width: 30%;
+        height: 55%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .success-modal-body {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 40px;
+      }
+      .success-close-popup-btn {
+        align-self: flex-end;
+        background-color: #ccc;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-close-popup-btn:hover {
+        background-color: #b5b5b5;
+      }
+      .success-image {
+        width: 6em;
+      }
+      .success-title {
+        color: #e5552a;
+        font-size: 2em;
+        margin: 20px 0 0 0;
+      }
+      .success-describe {
+        margin: 20px 0;
+      }
+      .coupon-code {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: 2px dashed black;
+        padding: 1em 4em;
+        margin: 0 0 20px;
+        width: 100%;
+      }
+      .success-copy-icon {
+        position: absolute;
+        right: 0;
+        margin: 0 4px;
+        padding: 0 4px;
+        cursor: pointer;
+      }
+      .success-btn {
+        background-color: #e5552a;
+        padding: 20px;
+        width: 100%;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-btn:hover {
+        background-color: #ea7755;
+      }
+      /* Mobile view */
+      @media screen and (max-width: 600px) {
+        .main-popup-content {
+          position: relative;
+          width: 80%;
+          height: 90%;
+        }
+        .main-popup-body {
+          flex-direction: column;
+        }
+        .main-popup-body-form-and-success {
+          width: 100%;
+        }
+        .main-popup-image {
+          height: 50%;
+          width: 100%;
+        }
+        .main-image {
+          width: 100%;
+          border-bottom-left-radius: 0;
+          border-top-right-radius: 2em;
+          object-fit: cover;
+        }
+        .main-popup-close-btn {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
+        .main-popup-form-title {
+          margin: 10px 0 0 0;
+          font-size: 24px;
+        }
+        .main-popup-form-input {
+          width: 100%;
+          padding: 6px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          margin-bottom: 10px;
+        }
+        .main-describe {
+          margin: 10px 0;
+          text-align: left;
+          font-size: 14px;
+        }
+        .checkbox-container {
+          font-size: 12px;
+          margin-bottom: 10px;
+        }
+        .main-popup-form-btn {
+          padding: 10px;
+          font-size: 16px;
+        }
+        /* Success popup */
+        .success-modal-body {
+          padding: 20px 20px;
+        }
+        .success-image {
+          width: 3em;
+        }
+        .success-title {
+          margin: 10px 0 0 0;
+        }
+        .success-describe {
+          font-size: 16px;
+          margin: 10px 0;
+        }
+        .coupon-code {
+          padding: 0.5em 2em;
+          margin: 0 0 10px;
+        }
+        .success-btn {
+          padding: 10px;
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="openPopupBtn">Open Modal</button>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <!-- Main Popup -->
+      <div id="mainPopupContent" class="main-popup-content">
+        <div class="main-popup-body">
+          <div class="main-popup-image">
+            <img class="main-image" src="./mainImage.png" alt="Subscribe" />
+          </div>
+          <div class="main-popup-body-form-and-success">
+            <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+              <svg
+                width="26"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+                  fill="#fff"
+                />
+              </svg>
+            </button>
+            <div id="mainPopupForm" class="main-popup-form">
+              <h1 class="main-popup-form-title roboto-bold">
+                Win Sneakers<br />Right Now!
+              </h1>
+              <p class="main-describe roboto-regular">
+                Enter now for you chance to win a pair of sneakers!
+              </p>
+              <input
+                type="email"
+                id="subscribeInput"
+                class="main-popup-form-input roboto-regular"
+                name="subscribe"
+                placeholder="Enter your name"
+              />
+              <input
+                type="email"
+                id="subscribeInput"
+                class="main-popup-form-input roboto-regular"
+                name="subscribe"
+                placeholder="Enter your email address"
+              />
+              <label class="checkbox-container roboto-regular">
+                <input type="checkbox" />
+                <span class="checkmark roboto-regular"></span>
+                I have read and accept the
+                <a href="" class="main-popup-form-link roboto-regular"
+                  >privacy policy</a
+                >
+              </label>
+              <button
+                id="subscribeBtn"
+                class="main-popup-form-btn roboto-regular"
+              >
+                Subscribe
+              </button>
+            </div>
+            <!-- Success Popup -->
+            <div id="successModalBody" class="success-modal-body">
+              <img
+                class="success-image"
+                src="./successImage.png"
+                alt="Subscribe"
+              />
+              <h1 class="success-title roboto-bold">Success</h1>
+              <p class="success-describe roboto-regular">
+                You've successfully subscribed to out newsletter.
+              </p>
+              <p class="coupon-code">
+                [COUPON CODE]
+                <?xml version="1.0" encoding="utf-8"?><svg
+                  width="24"
+                  height="24"
+                  class="success-copy-icon"
+                  version="1.1"
+                  id="Layer_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 115.77 122.88"
+                  xml:space="preserve"
+                >
+                  <g>
+                    <path
+                      class="st0"
+                      d="M89.62,13.96v7.73h12.19h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02v0.02 v73.27v0.01h-0.02c-0.01,3.84-1.57,7.33-4.1,9.86c-2.51,2.5-5.98,4.06-9.82,4.07v0.02h-0.02h-61.7H40.1v-0.02 c-3.84-0.01-7.34-1.57-9.86-4.1c-2.5-2.51-4.06-5.98-4.07-9.82h-0.02v-0.02V92.51H13.96h-0.01v-0.02c-3.84-0.01-7.34-1.57-9.86-4.1 c-2.5-2.51-4.06-5.98-4.07-9.82H0v-0.02V13.96v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07V0h0.02h61.7 h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02V13.96L89.62,13.96z M79.04,21.69v-7.73v-0.02h0.02 c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v64.59v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h12.19V35.65 v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07v-0.02h0.02H79.04L79.04,21.69z M105.18,108.92V35.65v-0.02 h0.02c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v73.27v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h61.7h0.02 v0.02c0.91,0,1.75-0.39,2.37-1.01c0.61-0.61,1-1.46,1-2.37h-0.02V108.92L105.18,108.92z"
+                    />
+                  </g>
+                </svg>
+              </p>
+              <button class="success-btn">OKAY</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Open Popup
+      document.querySelector("#openPopupBtn").addEventListener("click", () => {
+        document.querySelector("#popup").style.display = "flex";
+      });
+      //   Close main popup
+      document
+        .querySelector("#mainPopupCloseBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+          document.querySelector("#mainPopupForm").style.display = "flex";
+          document.querySelector("#successModalBody").style.display = "none";
+        });
+      // Submit main popup and show Success popup
+      document.querySelector("#subscribeBtn").addEventListener("click", () => {
+        document.querySelector("#mainPopupForm").style.display = "none";
+        document.querySelector("#successModalBody").style.display = "flex";
+      });
+    </script>
+  </body>
+</html>

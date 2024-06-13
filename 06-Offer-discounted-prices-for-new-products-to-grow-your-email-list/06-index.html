@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* Variables */
+      :root {
+        --bg: #fff;
+      }
+      /* fonts */
+      .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+      /* Popup container */
+      .popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* background-color: rgba(0, 0, 0, 0.4); */
+      }
+      /* Main popup container */
+      .main-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 25px;
+        width: 30%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .main-popup-close-btn {
+        align-self: flex-end;
+        background-color: #222222;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 5px 5px 0 0;
+        transition: 0.2s;
+      }
+      .main-popup-close-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-body {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        height: 100%;
+      }
+      .main-popup-form {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        padding: 0 30px;
+        height: 100%;
+        width: 100%;
+      }
+      .main-popup-form-title {
+        text-align: left;
+        margin: 20px 0;
+        font-size: 52px;
+        color: #222222;
+      }
+      .main-describe {
+        margin: 0 0 20px 0;
+        color: #222222;
+      }
+      .main-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #222222;
+        border-radius: 5px;
+      }
+      .main-popup-form-input:focus {
+        border: 2px solid #222222;
+        box-shadow: 172171 0px 5px 15px;
+      }
+      .main-popup-form-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #222222;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        margin: 20px 0;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      .main-popup-form-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 50%;
+      }
+      .main-image {
+        width: 200px;
+        height: 200px;
+      }
+      /* Success popup content */
+      .success-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 25px;
+        width: 30%;
+        height: 70%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .success-popup-body {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 30px 30px 30px;
+      }
+      .success-close-popup-btn {
+        align-self: flex-end;
+        background-color: #222222;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 26px;
+        height: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 5px 5px 0 0;
+        transition: 0.2s;
+      }
+      .success-close-popup-btn:hover {
+        opacity: 0.8;
+      }
+      .success-image {
+        width: 200px;
+        height: 200px;
+      }
+      .success-title {
+        color: #222222;
+        font-size: 3em;
+        margin: 20px 0;
+        /* letter-spacing: 0px; */
+      }
+      .success-describe {
+        margin: 0 0 20px 0;
+      }
+      .success-btn {
+        background-color: #222222;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        width: fit-content;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      .success-btn:hover {
+        opacity: 0.8;
+      }
+      /* Mobile view */
+      @media screen and (max-width: 600px) {
+        .main-popup-content {
+          width: 80%;
+          height: 80%;
+        }
+        .main-popup-form-btn {
+          font-size: 16px;
+        }
+        /* Success popup content */
+        .success-popup-content {
+          width: 70%;
+        }
+        .success-image {
+          width: 150px;
+          height: 150px;
+        }
+        .success-title {
+          font-size: 2.5em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="openPopupBtn">Open Modal</button>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <!-- Main Popup -->
+      <div id="mainPopupContent" class="main-popup-content">
+        <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="main-popup-body">
+          <div id="mainPopupForm" class="main-popup-form">
+            <img class="main-image" src="./mainImage.png" alt="Subscribe" />
+            <h1 class="main-popup-form-title roboto-bold">HEY YOU!</h1>
+            <p class="main-describe roboto-regular">
+              Check out our amazing offers, tune in and slide like a pro.
+            </p>
+            <input
+              type="email"
+              id="subscribeInput"
+              class="main-popup-form-input roboto-regular"
+              name="subscribe"
+              placeholder="Email Address"
+            />
+            <button
+              id="subscribeBtn"
+              class="main-popup-form-btn roboto-regular"
+            >
+              Keep me updated
+            </button>
+          </div>
+        </div>
+        <!-- Success Popup -->
+        <div id="successPopupBody" class="success-popup-body">
+          <img class="success-image" src="./mainImage.png" alt="Subscribe" />
+          <h1 class="success-title roboto-bold">THANK YOU</h1>
+          <button class="success-btn roboto-regular">Close</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Open Popup
+      document.querySelector("#openPopupBtn").addEventListener("click", () => {
+        document.querySelector("#popup").style.display = "flex";
+      });
+      //   Close main popup
+      document
+        .querySelector("#mainPopupCloseBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+        });
+      // Submit main popup and show Success popup
+      document.querySelector("#subscribeBtn").addEventListener("click", () => {
+        document.querySelector("#mainPopupForm").style.display = "none";
+        document.querySelector("#successPopupBody").style.display = "flex";
+        document.querySelector(".main-popup-content").style.height = "55%";
+      });
+    </script>
+  </body>
+</html>
