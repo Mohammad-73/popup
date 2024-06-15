@@ -135,7 +135,10 @@
       .main-image {
         height: 70%;
       }
-
+      .main-popup-form-input-error {
+        border: 2px solid tomato;
+        box-shadow: tomato 0px 5px 15px;
+      }
       /* Success popup content */
       .success-popup-content {
         background-color: var(--bg);
@@ -293,12 +296,16 @@
             <h1 class="main-popup-form-title roboto-black">STAY<br />TUNED</h1>
             <input
               type="email"
-              id="subscribeInput"
+              id="subscribeEmailInput"
               class="main-popup-form-input roboto-regular"
               name="subscribe"
               placeholder="Email Address"
             />
-            <button id="subscribeBtn" class="main-popup-form-btn roboto-bold">
+            <button
+              id="subscribeBtn"
+              class="main-popup-form-btn roboto-bold"
+              disabled
+            >
               SUBSCRIBE
             </button>
           </div>
@@ -382,6 +389,39 @@
           document.querySelector("#popup").style.display = "none";
           document.querySelector("#mainPopupContent").style.display = "flex";
           document.querySelector("#successPopupContent").style.display = "none";
+        });
+
+      // Email validation
+      // const validateEmail = (email) => {
+      //   return String(email)
+      //     .toLowerCase()
+      //     .match(
+      //       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      //     );
+      // };
+      const emailPattern =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      document
+        .querySelector("#subscribeEmailInput")
+        .addEventListener("input", (event) => {
+          if (!emailPattern.test(event.target.value)) {
+            console.log("log>");
+            document
+              .querySelector("#subscribeEmailInput")
+              .classList.add("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = true;
+          } else {
+            console.log("log>>");
+            document
+              .querySelector("#subscribeEmailInput")
+              .classList.remove("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = false;
+          }
+          return String(event.target.value)
+            .toLowerCase()
+            .match(
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
         });
     </script>
   </body>
