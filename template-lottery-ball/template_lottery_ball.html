@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>mobile spin wheel</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            crossorigin="anonymous">
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+            crossorigin="anonymous"/>
+
+        <meta name="viewport" content="width=device-width">
+        <style>
+
+            .desktop-main-overlay-container-wrapper .main-overlay-container {
+                position: fixed;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(1, 1, 1, 0.5);
+                max-height: 100vh;
+                overflow: hidden;
+            }
+            .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper {
+                position: absolute;
+                width: 680px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 450px;
+                background-color: white;
+                border-radius: 20px;
+                background-image: url('./background.webp');
+                box-shadow: rgb(0 0 0 / 15%) 0 5px 10px;
+            }
+            .desktop-main-overlay-container-wrapper .close-red-btn {
+                width: 30px;
+                height: 30px;
+                background-color: #ce5536;
+                border-radius: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+            }
+            .desktop-main-overlay-container-wrapper .title {
+                font-size: 36px;
+                color: #000;
+                font-weight: bold;
+                line-height: 42px;
+            }
+            .desktop-main-overlay-container-wrapper .lottery-ball-wrapper {
+                width: 50%;
+            }
+            .desktop-main-overlay-container-wrapper .detail-wrapper {
+                width: 50%;
+            }
+            .desktop-main-overlay-container-wrapper .description {
+                font-size: 18px;
+                color: #000;
+                font-weight: 400;
+                line-height: 25px;
+            }
+            .desktop-main-overlay-container-wrapper .email-input-wrapper {
+                position: relative;
+            }
+            .desktop-main-overlay-container-wrapper .email-wrapper {
+                border: 1px solid rgba(0, 0, 0, 0.4);
+                border-radius: 6px;
+                background-color: transparent;
+                padding: 10px;
+                width: 100%;
+            }
+            .desktop-main-overlay-container-wrapper .email-input-wrapper input:focus-visible {
+                box-shadow: 0 0 0 4px rgba(0, 128, 96, 0.1) !important;
+                border: 1px solid #008060 !important;
+                outline: none;
+            }
+            .desktop-main-overlay-container-wrapper .email-wrapper-star {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                top: -5px;
+                right: -6px;
+                background-color: #0000001f;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+
+            }
+            .desktop-main-overlay-container-wrapper .submit-email-btn {
+                background-color: #ce5636;
+                width: 100%;
+                border-radius: 6px;
+                padding: 10px 12px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                cursor: pointer;
+                font-size: 16px;
+                color: #fff;
+            }
+            .desktop-main-overlay-container-wrapper .submit-email-btn:hover {
+                /* background-color: #ce5736be; */
+                opacity: 0.8;
+            }
+            .desktop-main-overlay-container-wrapper .submit-email-btn p {
+                color: #fff;
+                font-weight: 400;
+                margin-bottom: 0 !important;
+            }
+            .desktop-main-overlay-container-wrapper #emailFeedback {
+                color: #ee0c0c;
+                font-size: 14px;
+            }
+            .main-rotation {
+                animation: rotate 5s;
+            }
+            .rotation1 {
+
+                animation: rotate 6s;
+            }
+
+            .rotation2 {
+                animation: rotate 6s;
+            }
+
+            .rotation3 {
+                animation: rotate 2s;
+                /* animation-direction: alternate-reverse; */
+            }
+            .fadeOut {
+                animation: getOut 2s ease 0s 1 normal forwards;
+            }
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .lottery-ball-wrapper {
+                position: relative;
+
+            }
+            .lottery-ball-one {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 19%;
+                left: 46%;
+                background-color: #ec8d6f;
+                box-shadow: inset 0 0 10px 0 #0000007d;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+
+                transform: rotate(130deg);
+            }
+            .lottery-ball-wrapper span {
+                color: #fff;
+                font-size: 12px;
+            }
+            .lottery-ball-two {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 29%;
+                left: 30%;
+                background-color: #9c5944;
+                box-shadow: inset 0 0 10px 0 #0000007d;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(-60deg);
+
+            }
+            .lottery-ball-three {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 13%;
+                right: 17%;
+                background-color: #f8a287;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(20deg);
+
+            }
+            .lottery-ball-four {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 29%;
+                right: 7%;
+                background-color: #ca4f27;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(40deg);
+
+            }
+            .lottery-ball-five {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 35%;
+                right: 25%;
+                background-color: #face31;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(-20deg);
+
+            }
+            .lottery-ball-six {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 6%;
+                left: 32%;
+                background-color: #f2e3b7;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(-20deg);
+
+            }
+            .lottery-ball-seven {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 16%;
+                left: 15.2%;
+                background-color: #fac5b4;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(-120deg);
+
+            }
+            .lottery-ball-eight {
+                position: absolute;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                bottom: 33%;
+                left: 6%;
+                background-color: #eb8d71;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                transform: rotate(90deg);
+
+            }
+            #winner-ball {
+                animation: getIn 2s ease 0s 1 normal forwards;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                color: #fff !important;
+                background-color: #eb8d71;
+                box-shadow: inset 0 0 10px 0 #00000091;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                position: absolute;
+                top: 50%;
+                left: 45%;
+                text-align: center;
+
+            }
+            #lottery-ball-layer-5 {
+                height: 315px;
+                width: 315px;
+                position: relative;
+            }
+            #lottery-ball-layer-1 {
+                height: 315px;
+                width: 315px;
+                position: relative;
+            }
+            #lottery-ball-layer-2 {
+                height: 315px;
+                width: 315px;
+                position: relative;
+            }
+            #lottery-ball-layer-3 {
+                height: 315px;
+                width: 315px;
+                position: relative;
+            }
+            #anim {
+                display: none;
+                position: absolute;
+                top: -10%;
+                left: -7%;
+                animation: myAnim 7s ease 50s 1 normal forwards;
+            }
+            @keyframes fadeIn {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.6);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            #anim img {
+                width: 400px;
+
+            }
+            @keyframes getIn {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-200px);
+                }
+
+                90% {
+                    opacity: 1;
+                    transform: translateY(0);
+
+                }
+                92% {
+                    transform: scale(1.1);
+                }
+                94% {
+                    transform: scale(1.2);
+                }
+                96% {
+                    transform: scale(1.3);
+                }
+                98% {
+                    transform: scale(1.4);
+                }
+                100% {
+                    transform: scale(1.5);
+                }
+            }
+            .lottery-balls {
+                background-image: url('./back.svg');
+                position: relative;
+                height: 315px;
+                width: 315px;
+                background-size: contain;
+            }
+            @keyframes getOut {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                99% {
+                    opacity: 0;
+                    transform: translateY(-250px);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-500px);
+                    display: none;
+                }
+            }
+            @keyframes myAnim {
+                0% {
+                    animation-timing-function: ease-in;
+                    opacity: 1;
+                    transform: translateX(1px);
+                }
+
+                24% {
+                    opacity: 1;
+                }
+
+                40% {
+                    animation-timing-function: ease-in;
+                    transform: translateX(-1px);
+                }
+
+                65% {
+                    animation-timing-function: ease-in;
+                    transform: translateX(1px);
+                }
+
+                82% {
+                    animation-timing-function: ease-in;
+                    transform: translateX(-1px);
+                }
+
+                93% {
+                    animation-timing-function: ease-in;
+                    transform: translateX(1px);
+                }
+
+                25%,
+                55%,
+                75%,
+                87%,
+                98% {
+                    animation-timing-function: ease-out;
+                    transform: translateX(-1px);
+                }
+
+                100% {
+                    animation-timing-function: ease-out;
+                    opacity: 1;
+                    transform: translateX(0px);
+                }
+            }
+            .mobile-description {
+                display: none;
+            }
+            .mobile-title {
+                display: none;
+            }
+            .mobile-close-btn {
+                display: none;
+            }
+            /*second-tab*/
+            .second-tab-wrapper {
+                position: absolute;
+                width: 420px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 590px;
+                background-color: white;
+                border-radius: 20px;
+                background-image: url('./background.webp');
+                box-shadow: rgb(0 0 0 / 15%) 0 5px 10px;
+                background-position: center center;
+            }
+            .fox {
+                width: 160px;
+                height: 160px;
+                margin-right: auto;
+                margin-left: auto;
+                display: block;
+                animation: rotate 2s infinite;
+            }
+            .second-tab-wrapper .text-box {
+                padding: 68px 45px;
+            }
+            .code-box {
+                border: 1px dashed #000;
+                border-radius: 6px;
+                padding: 8px 3px;
+                position: relative;
+            }
+            .code-box span {
+                color: #000;
+                text-align: center;
+                margin: auto;
+                display: block;
+            }
+            .code-box button {
+                background-color: transparent;
+                border: none;
+                position: absolute;
+                top: 10%;
+                right: 2%;
+
+            }
+          /*responsive*/
+            @media screen and (max-width:450px) {
+                .second-tab-wrapper {
+                    width: 90% !important;
+                    height: max-content;
+
+                }
+                .second-tab-wrapper .text-box {
+                    padding: 35px 25px !important;
+                }
+            }
+            @media screen and (max-width:720px) {
+                .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper {
+                    width: 90% !important;
+                    height: max-content !important;
+                }
+                .desktop-description {
+                    display: none !important;
+                }
+                .mobile-description {
+                    display: block !important;
+                }
+                .desktop-title {
+                    display: none !important;
+                }
+                .mobile-title {
+                    display: block !important;
+                }
+
+            }
+            @media screen and (max-width:670px) {
+                .first-tab-wrapper .card-body-wrapper {
+                    flex-direction: column !important;
+                }
+                .first-tab-wrapper .desktop-close-btn {
+                    display: none !important;
+                }
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper {
+                    width: 100% !important;
+                }
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper #lottery-ball-layer-5 {
+                    margin: auto !important;
+                }
+                .desktop-main-overlay-container-wrapper .detail-wrapper {
+                    width: 100% !important;
+                }
+               
+                .mobile-close-btn {
+                    display: block !important;
+                    position: absolute;
+                    right: 0;
+                }
+                .desktop-close-btn {
+                    display: none !important;
+                }
+            }
+            @media screen and (max-width:360px) {
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper #lottery-ball-layer-5 {
+                    margin: auto !important;
+                    height: 250px;
+                    width: 250px;
+                }
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper #lottery-ball-layer-1 {
+                    margin: auto !important;
+                    height: 250px;
+                    width: 250px;
+                }
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper #lottery-ball-layer-2 {
+                    margin: auto !important;
+                    height: 250px;
+                    width: 250px;
+                }
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper #lottery-ball-layer-3 {
+                    margin: auto !important;
+                    height: 250px;
+                    width: 250px;
+                }
+                .desktop-main-overlay-container-wrapper .lottery-ball-wrapper #lottery-ball-layer-4 {
+                    margin: auto !important;
+                    height: 250px;
+                    width: 250px;
+                }
+                .lottery-balls {
+                    height: 250px;
+                    width: 250px;
+                    margin: auto !important;
+                }
+            }
+            @media screen and (max-width:300px) {
+                .lottery-balls {
+                    height: 200px;
+                    width: 200px;
+                    margin: auto !important;
+                }
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="main-overlay-container-wrapper">
+            <div class="desktop-main-overlay-container-wrapper">
+                <div
+                    class="main-overlay-container d-flex flex-row flex-wrap justify-content-center align-items-center">
+                    <div class="first-tab-wrapper card-wrapper ">
+                        <div class="">
+                            <div
+                                class="card-body-wrapper d-flex flex-row justify-content-between align-items-center">
+                                <button class="bg-transparent border-0 mr-1 mt-2 float-right mobile-close-btn">
+                                    <div class="close-red-btn p-2">
+                                        <svg
+                                            fill="#fff"
+                                            width="10px"
+                                            height="10px"
+                                            viewBox="0 0 12 13"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            preserveAspectRatio="xMinYMin"
+                                            class="jam jam-close"><path
+                                            d='M7.314 5.9l3.535-3.536A1 1 0 1 0 9.435.95L5.899 4.485 2.364.95A1 1 0 1 0 .95 2.364l3.535 3.535L.95 9.435a1 1 0 1 0 1.414 1.414l3.535-3.535 3.536 3.535a1 1 0 1 0 1.414-1.414L7.314 5.899z'/>
+                                        </svg>
+                                    </div>
+                                </button>
+                                <div class="lottery-ball-wrapper ">
+                                    <div id="lottery-ball-layer-5">
+                                        <div id="lottery-ball-layer-1">
+                                            <div id="lottery-ball-layer-2">
+                                                <div id="lottery-ball-layer-3">
+                                                    <div id="lottery-ball-layer-4" class="lottery-balls">
+
+                                                        <div class="lottery-ball-one">
+                                                            <span>
+                                                                50%
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-two">
+                                                            <span>
+                                                                No Luck
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-three">
+                                                            <span>
+                                                                15%
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-four">
+                                                            <span>
+                                                                5%
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-five">
+                                                            <span>
+                                                                50%
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-six">
+                                                            <span>
+                                                                No Luck
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-seven">
+                                                            <span>
+                                                                10%
+                                                            </span>
+                                                        </div>
+                                                        <div class="lottery-ball-eight">
+                                                            <span>
+                                                                35%
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="winner-balls" id="winner-ball">
+                                        50%
+                                    </div>
+                                    <div id="anim" class="m">
+                                        <img src="./animation2.gif"/>
+                                    </div>
+                                </div>
+
+                                <div class="detail-wrapper ">
+
+                                    <button class="bg-transparent border-0 mr-1 mt-2 float-right desktop-close-btn">
+                                        <div class="close-red-btn p-2">
+                                            <svg
+                                                fill="#fff"
+                                                width="10px"
+                                                height="10px"
+                                                viewBox="0 0 12 13"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                preserveAspectRatio="xMinYMin"
+                                                class="jam jam-close"><path
+                                                d='M7.314 5.9l3.535-3.536A1 1 0 1 0 9.435.95L5.899 4.485 2.364.95A1 1 0 1 0 .95 2.364l3.535 3.535L.95 9.435a1 1 0 1 0 1.414 1.414l3.535-3.535 3.536 3.535a1 1 0 1 0 1.414-1.414L7.314 5.899z'/>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div class="pt-3 pb-3 pr-4 pl-4">
+                                        <div class=" mb-3 mt-5">
+                                            <p class="title text-left desktop-title">
+                                                Unlock a</br>
+                                            special offer
+                                        </br>
+                                        now!
+                                    </p>
+                                    <p class="title text-left mobile-title">
+                                        Unlock a special offer now!
+                                    </p>
+                                </div>
+                                <div class="my-3">
+                                    <p class="description text-left desktop-description">
+                                        Enter your email & start
+                                    </br>
+                                    playing to win a discount of up
+                                </br>
+                                to 50% on your next order.
+                            </p>
+                            <p class="description text-left mobile-description">
+                                Enter your email & start playing to win a discount of up to 50% on your next
+                                order.
+                            </p>
+                        </div>
+                        <div class="email-input-wrapper">
+
+                            <div class="email-wrapper-star">
+                                <svg
+                                    width="6"
+                                    height="6"
+                                    viewBox="0 0 6 6"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 2.07667L5.31741 0.923333L3.68259 1.84667V0H2.31741V1.84667L0.682594 0.923333L0 2.07667L1.63481 3L0 3.92333L0.682594 5.07667L2.31741 4.15333V6H3.68259V4.15333L5.31741 5.07667L6 3.92333L4.36519 3L6 2.07667Z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <input
+                                type="email"
+                                id="user-email"
+                                placeholder="Email Address"
+                                class="email-wrapper">
+                            <span id="emailFeedback"></span>
+
+                        </div>
+                        <div class="submit-btn-wrapper d-flex flex-row justify-content-center mt-2">
+                            <button
+                                class="submit-email-btn border-0"
+                                onclick="validateEmailInput(); testi()">
+                                <p>Let's start the game!</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="second-tab-wrapper d-none">
+        <div class="d-flex flex-column">
+            <button class="bg-transparent border-0 mr-1 mt-2 ">
+                <div class="close-red-btn p-2 float-right">
+                    <svg
+                        fill="#fff"
+                        width="10px"
+                        height="10px"
+                        viewBox="0 0 12 13"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="xMinYMin"
+                        class="jam jam-close"><path
+                        d='M7.314 5.9l3.535-3.536A1 1 0 1 0 9.435.95L5.899 4.485 2.364.95A1 1 0 1 0 .95 2.364l3.535 3.535L.95 9.435a1 1 0 1 0 1.414 1.414l3.535-3.535 3.536 3.535a1 1 0 1 0 1.414-1.414L7.314 5.899z'/>
+                    </svg>
+                </div>
+            </button>
+
+            <div class="text-box">
+                <img src="./fox.svg" class="fox"/>
+                <div class=" mb-3 mt-5">
+                    <p class="title text-left">
+                        Congrates!
+                    </p>
+                </div>
+                <div class="my-3">
+                    <p class="description text-left desktop-description">
+                        Now you can enjoy your special discount
+                    </br>
+                    & start shopping for our new collection.
+                </p>
+                <p class="description text-left mobile-description">
+                    Now you can enjoy your special discount & start shopping for our new collection.
+                </p>
+            </div>
+            <div class="code-box">
+                <span>
+                    Code_8
+                </span>
+                <button>
+                    <img src="./copy.svg"/>
+                </button>
+            </div>
+            <div class="submit-btn-wrapper d-flex flex-row justify-content-center mt-4">
+                <button
+                    class="submit-email-btn border-0"
+                    onclick="validateEmailInput(); testi()">
+                    <p>See the collection</p>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+function validateEmailInput() {
+
+    const emailInput = document
+        .getElementById('user-email')
+        .value;
+    const feedbackElement = document.getElementById('emailFeedback');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(emailInput)) {
+        feedbackElement.textContent = ""; // Email is valid
+    } else {
+        feedbackElement.textContent = "Enter a valid email address";
+    }
+}
+</script>
+
+<script>
+function testi() {
+
+    console.log("hhh");
+    document
+        .getElementById('lottery-ball-layer-1')
+        .classList
+        .add('main-rotation');
+    document
+        .getElementById('lottery-ball-layer-2')
+        .classList
+        .add('rotation1');
+    document
+        .getElementById('lottery-ball-layer-3')
+        .classList
+        .add('rotation2');
+    document
+        .getElementById('lottery-ball-layer-4')
+        .classList
+        .add('rotation3');
+
+    let i = 1
+    setTimeout(function timer() {
+        document
+            .getElementById('lottery-ball-layer-5')
+            .classList
+            .add('fadeOut');
+        document
+            .getElementById('winner-ball')
+            .classList
+            .add('d-block');
+
+    }, i * 5000);
+
+    let j = 1
+    setTimeout(function timer() {
+        document
+            .getElementById('winner-ball')
+            .classList
+            .remove('d-block');
+        document
+            .getElementById('winner-ball')
+            .classList
+            .add('d-none');
+        document
+            .getElementById('anim')
+            .classList
+            .add('d-block');
+    }, j * 7000);
+
+}
+</script>
+
+</body>
+</html>

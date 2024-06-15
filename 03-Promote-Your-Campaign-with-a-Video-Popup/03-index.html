@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Promote your Campaign</title>
+    <title>03 Popup</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -134,13 +134,17 @@
         border-radius: 5px;
         border: none;
         font-size: 18px;
-        cursor: pointer;
+        cursor: not-allowed;
         transition: 0.2s;
         background-color: white;
         color: black;
       }
       .main-popup-form-btn:hover {
         background-color: #ccc;
+      }
+      .main-popup-form-input-error {
+        border: 2px solid tomato;
+        box-shadow: tomato 0px 5px 15px;
       }
       /* Success popup content */
       .success-popup-content {
@@ -220,6 +224,22 @@
         transition: 0.2s;
         cursor: pointer;
       }
+      /* Mobile view */
+      @media screen and (max-width: 600px) {
+        .main-popup-content {
+          width: 80%;
+          height: 85%;
+        }
+        /* Success popup content */
+        .success-popup-content {
+          width: 80%;
+          height: 70%;
+        }
+        .coupon-code {
+          padding: 0.5em 2em;
+          margin: 0 0 10px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -274,10 +294,17 @@
           <div class="main-popup-form-input-container">
             <input
               type="email"
-              id="subscribeInput"
+              id="subscribeEmailInput"
               class="main-popup-form-input roboto-regular"
               name="subscribe"
               placeholder="Email Address"
+            />
+            <input
+              type="tel"
+              id="subscribeTelInput"
+              class="main-popup-form-input roboto-regular"
+              name="subscribeTel"
+              placeholder="Phone number"
             />
             <svg
               class="main-popup-form-badge"
@@ -322,14 +349,14 @@
           <p class="success-describe roboto-regular">
             You've successfully subscribed to out newsletter.
           </p>
-          <p class="coupon-code">
+          <p id="couponCode" class="coupon-code">
             [COUPON CODE]
             <?xml version="1.0" encoding="utf-8"?><svg
               width="24"
               height="24"
               class="success-copy-icon"
               version="1.1"
-              id="Layer_1"
+              id="copyButton"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               x="0px"
@@ -351,6 +378,20 @@
       </div>
     </div>
     <script>
+      (async function () {
+        try {
+          const response = await fetch(
+            "https://dummy.restapiexample.com/api/v1/employees"
+          );
+          const employees = await response.json();
+          chooseSubscribeInput("email");
+          console.log(employees);
+        } catch (error) {
+          chooseSubscribeInput("email");
+        }
+      })();
+    </script>
+    <script>
       // Open Popup
       document.querySelector("#openPopupBtn").addEventListener("click", () => {
         document.querySelector("#popup").style.display = "flex";
@@ -362,10 +403,27 @@
           document.querySelector("#popup").style.display = "none";
         });
       // Click success button
-      document.querySelector("#subscribeBtn").addEventListener("click", () => {
-        document.querySelector("#mainPopupContent").style.display = "none";
-        document.querySelector("#successPopupContent").style.display = "flex";
-      });
+      document
+        .querySelector("#subscribeBtn")
+        .addEventListener("click", async () => {
+          document.querySelector("#mainPopupContent").style.display = "none";
+          document.querySelector("#successPopupContent").style.display = "flex";
+          const emailValue = document.querySelector(
+            "#subscribeEmailInput"
+          ).value;
+          const phoneValue = document.querySelector("#subscribeTelInput").value;
+
+          const response = await fetch(
+            "https://dummy.restapiexample.com/api/v1/create",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: emailValue ? emailValue : phoneValue,
+              }),
+            }
+          );
+          const employees = await response.json();
+        });
 
       // Close main popup
       document
@@ -375,6 +433,93 @@
           document.querySelector("#mainPopupContent").style.display = "flex";
           document.querySelector("#successPopupContent").style.display = "none";
         });
+      // Email validation
+      document
+        .querySelector("#subscribeEmailInput")
+        .addEventListener("input", (event) => {
+          const emailPattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!emailPattern.test(event.target.value)) {
+            document
+              .querySelector("#subscribeEmailInput")
+              .classList.add("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = true;
+            document.querySelector("#subscribeBtn").style.cursor =
+              "not-allowed";
+          } else {
+            document
+              .querySelector("#subscribeEmailInput")
+              .classList.remove("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = false;
+            document.querySelector("#subscribeBtn").style.cursor = "pointer";
+          }
+          return String(event.target.value)
+            .toLowerCase()
+            .match(
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+        });
+
+      // Phone validation
+      document
+        .querySelector("#subscribeTelInput")
+        .addEventListener("input", (event) => {
+          const phonePattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
+          if (!phonePattern.test(event.target.value)) {
+            document
+              .querySelector("#subscribeTelInput")
+              .classList.add("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = true;
+            document.querySelector("#subscribeBtn").style.cursor =
+              "not-allowed";
+          } else {
+            document
+              .querySelector("#subscribeTelInput")
+              .classList.remove("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = false;
+            document.querySelector("#subscribeBtn").style.cursor = "pointer";
+          }
+          return String(event.target.value)
+            .toLowerCase()
+            .match(/^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/);
+        });
+
+      //  Choose the input (Email Address or Phone Number)
+      function chooseSubscribeInput(subscribeInputType) {
+        if (subscribeInputType === "email") {
+          document.querySelector("#subscribeTelInput").style.display = "none";
+          document.querySelector("#subscribeEmailInput").style.display =
+            "block";
+        } else if (subscribeInputType === "phone") {
+          document.querySelector("#subscribeEmailInput").style.display = "none";
+          document.querySelector("#subscribeTelInput").style.display = "block";
+        }
+      }
+
+      // Copy coupon code to clipboard
+      document
+        .getElementById("copyButton")
+        .addEventListener("click", copyParagraphToClipboard);
+      function copyParagraphToClipboard() {
+        const paragraph = document.querySelector("#couponCode");
+        const range = document.createRange();
+        range.selectNode(paragraph);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try {
+          navigator.clipboard.writeText(paragraph.textContent).then(
+            function () {
+              alert("Paragraph copied to clipboard!");
+            },
+            function (err) {
+              console.error("Failed to copy text: ", err);
+            }
+          );
+        } catch (err) {
+          console.error("Clipboard API is not available in this browser.");
+        }
+        window.getSelection().removeAllRanges();
+      }
     </script>
   </body>
 </html>
