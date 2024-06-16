@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <title>07 Prevent</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      /* Variables */
+      :root {
+        --bg: #fff;
+        --primary-color: #ff5174;
+      }
+      /* fonts */
+      .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+      /* Popup container */
+      .popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* background-color: rgba(0, 0, 0, 0.4); */
+      }
+      /* Main popup container */
+      .main-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 1.5em;
+        width: 60%;
+        height: 70%;
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .main-popup-close-btn {
+        align-self: flex-end;
+        background-color: #2e1016;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .main-popup-close-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-body {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        height: 100%;
+      }
+      .main-popup-form {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 30px;
+        height: 100%;
+        width: 50%;
+      }
+      .main-popup-form-title {
+        text-align: left;
+        margin: 20px 0;
+        font-size: 52px;
+        color: #2e1016;
+        line-height: 1em;
+      }
+      .main-popup-form-describe {
+        font-size: 18px;
+        color: #2e1016;
+        text-align: left;
+      }
+      .main-popup-time-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main-popup-time-bg {
+        background-color: #2e1016;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin: 0 6px 0 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .main-popup-colon {
+        font-weight: bold;
+      }
+      .main-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        background-color: #baf4ee;
+        border: 2px solid #55c1b1;
+        color: var(--primary-color);
+      }
+      .main-popup-form-input:focus {
+        border: 2px solid yellow;
+        box-shadow: rgba(85, 193, 177, 1) 0px 5px 15px;
+      }
+      .main-popup-form-btn {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        margin: 20px 0;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      .main-popup-form-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 50%;
+      }
+      .main-image {
+        height: 70%;
+      }
+      .main-popup-form-input-error {
+        border: 2px solid tomato;
+        box-shadow: tomato 0px 5px 15px;
+      }
+      /* Step Two popup content */
+      .step-two-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 1.5em;
+        width: 30%;
+        height: 70%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .step-two-popup-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 30px 30px 30px;
+      }
+      .step-two-close-popup-btn {
+        align-self: flex-end;
+        background-color: #2e1016;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .step-two-close-popup-btn:hover {
+        opacity: 0.8;
+      }
+      .step-two-popup-form-title {
+        text-align: left;
+        margin: 20px 0;
+        font-size: 42px;
+        color: #2e1016;
+        line-height: 1em;
+      }
+      .step-two-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+      }
+      .step-two-popup-form-badge {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .step-two-popup-form-input:focus {
+        border: 2px solid #ccc;
+        box-shadow: #ccc 0px 5px 15px;
+      }
+      .step-two-popup-form-btn {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+        width: 100%;
+      }
+      /* Success popup content */
+      .success-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 1.5em;
+        width: 30%;
+        height: 70%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .success-modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        height: 100%;
+        padding: 0 30px 30px 30px;
+      }
+      .success-close-popup-btn {
+        align-self: flex-end;
+        background-color: #2e1016;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-close-popup-btn:hover {
+        opacity: 0.8;
+      }
+      .success-image {
+        width: 6em;
+      }
+      .success-title {
+        color: #2e1016;
+        font-size: 4em;
+        margin: 20px 0 0 0;
+      }
+      .success-describe {
+        margin: 0 0 20px 0;
+        text-align: left;
+      }
+      .coupon-code {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: 2px dashed black;
+        padding: 1em 4em;
+        margin: 0 0 20px;
+        width: 100%;
+      }
+      .success-copy-icon {
+        position: absolute;
+        right: 0;
+        margin: 0 4px;
+        padding: 0 4px;
+        cursor: pointer;
+      }
+      .success-btn {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      /* Mobile view */
+      @media screen and (max-width: 600px) {
+        .main-popup-content {
+          width: 80%;
+          height: 80%;
+        }
+        .main-popup-body {
+          flex-direction: column-reverse;
+        }
+        .main-popup-form {
+          width: 100%;
+        }
+        .main-popup-form-title {
+          margin: 10px 0;
+          font-size: 32px;
+        }
+        .main-popup-form-input {
+          padding: 6px;
+        }
+        .main-popup-form-btn {
+          padding: 10px 20px;
+          margin: 10px 0;
+          font-size: 16px;
+        }
+        .main-popup-image {
+          width: 100%;
+          height: 40%;
+        }
+        .main-image {
+          height: 100%;
+        }
+        /* Step Two popup content */
+        .step-two-popup-content {
+          width: 70%;
+          height: 70%;
+        }
+        .step-two-popup-form-title {
+          text-align: left;
+          margin: 20px 0;
+          font-size: 32px;
+          color: #2e1016;
+          line-height: 1em;
+        }
+        .step-two-popup-form-input {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 20px;
+          background-color: #fff;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+        }
+        .step-two-popup-form-badge {
+          position: absolute;
+          top: -1px;
+          right: -1px;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+            rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+            rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+        .step-two-popup-form-input:focus {
+          border: 2px solid #ccc;
+          box-shadow: #ccc 0px 5px 15px;
+        }
+        .step-two-popup-form-btn {
+          font-size: 14px;
+        }
+        /* Success popup content */
+        .success-popup-content {
+          width: 70%;
+          height: 60%;
+        }
+        .success-title {
+          font-size: 2.5em;
+        }
+        .success-describe {
+          margin: 0 0 10px 0;
+          font-size: 14px;
+        }
+        .coupon-code {
+          padding: 0.5em 2em;
+          margin: 0 0 10px;
+        }
+        .success-btn {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="openPopupBtn">Open Modal</button>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <!-- Main Popup -->
+      <div id="mainPopupContent" class="main-popup-content">
+        <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+          <svg
+            width="26"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="main-popup-body">
+          <div class="main-popup-form">
+            <h1 class="main-popup-form-title roboto-black">
+              Stop! <br />
+              Don't leave<br />
+              just yet..
+            </h1>
+            <p class="main-popup-form-describe">
+              Get %20 off your order <br />
+              + free shipping! 🐈
+            </p>
+            <div class="main-popup-time-container roboto-regular">
+              <div class="main-popup-time-bg"><span class="time">0</span></div>
+              <div class="main-popup-time-bg"><span>1</span></div>
+              <span class="main-popup-colon">:</span>
+              <div class="main-popup-time-bg"><span>2</span></div>
+              <div class="main-popup-time-bg"><span>9</span></div>
+            </div>
+            <button id="subscribeBtn" class="main-popup-form-btn roboto-bold">
+              Get My 20% Off
+            </button>
+          </div>
+          <div class="main-popup-image">
+            <img class="main-image" src="./mainImage.png" alt="Subscribe" />
+          </div>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div id="stepTwoPopupContent" class="step-two-popup-content d-none">
+        <button id="stepTwoClosePopupBtn" class="step-two-close-popup-btn">
+          <svg
+            width="26"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="step-two-popup-body">
+          <div class="step-two-popup-form-input-container">
+            <h1 class="step-two-popup-form-title roboto-black">
+              Get %20 off <br />
+              and free <br />
+              shipping
+            </h1>
+            <div class="position-relative">
+              <input
+                type="email"
+                id="subscribeEmailInput"
+                class="step-two-popup-form-input roboto-regular"
+                name="subscribe"
+                placeholder="Enter your email address"
+              />
+              <svg
+                class="step-two-popup-form-badge"
+                width="6"
+                height="6"
+                viewBox="0 0 6 6"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 2.07667L5.31741 0.923333L3.68259 1.84667V0H2.31741V1.84667L0.682594 0.923333L0 2.07667L1.63481 3L0 3.92333L0.682594 5.07667L2.31741 4.15333V6H3.68259V4.15333L5.31741 5.07667L6 3.92333L4.36519 3L6 2.07667Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="tel"
+              id="subscribeTelInput"
+              class="step-two-popup-form-input roboto-regular"
+              name="subscribeTel"
+              placeholder="Enter your phone number"
+            />
+            <button id="stepTwoBtn" class="step-two-popup-form-btn roboto-bold">
+              Get the Coupon Code
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Success Popup -->
+      <div id="successPopupContent" class="success-popup-content">
+        <button id="successClosePopupBtn" class="success-close-popup-btn">
+          <svg
+            width="26"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="success-modal-body">
+          <h1 class="success-title roboto-bold">Hooray! 🎉</h1>
+          <p class="success-describe roboto-regular">
+            Here is the coupon code to apply free shipping and %20 discount.
+          </p>
+          <p id="couponCode" class="coupon-code">
+            [COUPON CODE]
+            <?xml version="1.0" encoding="utf-8"?><svg
+              width="24"
+              height="24"
+              class="success-copy-icon"
+              version="1.1"
+              id="copyButton"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 115.77 122.88"
+              xml:space="preserve"
+            >
+              <g>
+                <path
+                  class="st0"
+                  d="M89.62,13.96v7.73h12.19h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02v0.02 v73.27v0.01h-0.02c-0.01,3.84-1.57,7.33-4.1,9.86c-2.51,2.5-5.98,4.06-9.82,4.07v0.02h-0.02h-61.7H40.1v-0.02 c-3.84-0.01-7.34-1.57-9.86-4.1c-2.5-2.51-4.06-5.98-4.07-9.82h-0.02v-0.02V92.51H13.96h-0.01v-0.02c-3.84-0.01-7.34-1.57-9.86-4.1 c-2.5-2.51-4.06-5.98-4.07-9.82H0v-0.02V13.96v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07V0h0.02h61.7 h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02V13.96L89.62,13.96z M79.04,21.69v-7.73v-0.02h0.02 c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v64.59v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h12.19V35.65 v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07v-0.02h0.02H79.04L79.04,21.69z M105.18,108.92V35.65v-0.02 h0.02c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v73.27v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h61.7h0.02 v0.02c0.91,0,1.75-0.39,2.37-1.01c0.61-0.61,1-1.46,1-2.37h-0.02V108.92L105.18,108.92z"
+                />
+              </g>
+            </svg>
+          </p>
+          <button class="success-btn roboto-regular">Bye!</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (async function () {
+        try {
+          const response = await fetch(
+            "https://dummy.restapiexample.com/api/v1/employees"
+          );
+          const employees = await response.json();
+          chooseSubscribeInput("email");
+          console.log(employees);
+        } catch (error) {
+          chooseSubscribeInput("email");
+        }
+      })();
+      // (async function () {
+      //   const response = await fetch(
+      //     "https://dummy.restapiexample.com/api/v1/create",
+      //     {
+      //       method: "POST",
+      //       body: JSON.stringify({ name: "test", salary: "123", age: "23" }),
+      //     }
+      //   );
+      //   const employees = await response.json();
+      // })();
+    </script>
+    <script>
+      // Open Popup
+      document.querySelector("#openPopupBtn").addEventListener("click", () => {
+        document.querySelector("#popup").classList.add("d-flex");
+      });
+      // Close main popup
+      document
+        .querySelector("#mainPopupCloseBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").classList.add("d-none");
+          document.querySelector("#popup").classList.remove("d-flex");
+        });
+
+      // Click main button
+      document.querySelector("#subscribeBtn").addEventListener("click", () => {
+        document.querySelector("#mainPopupContent").classList.add("d-none");
+        document
+          .querySelector("#stepTwoPopupContent")
+          .classList.remove("d-none");
+        document.querySelector("#stepTwoPopupContent").classList.add("d-flex");
+      });
+
+      // Click step two button
+      document
+        .querySelector("#stepTwoBtn")
+        .addEventListener("click", async () => {
+          document
+            .querySelector("#stepTwoPopupContent")
+            .classList.remove("d-flex");
+          document
+            .querySelector("#stepTwoPopupContent")
+            .classList.add("d-none");
+          document
+            .querySelector("#successPopupContent")
+            .classList.remove("d-none");
+          document
+            .querySelector("#successPopupContent")
+            .classList.add("d-flex");
+          const emailValue = document.querySelector(
+            "#subscribeEmailInput"
+          ).value;
+          const phoneValue = document.querySelector("#subscribeTelInput").value;
+
+          const response = await fetch(
+            "https://dummy.restapiexample.com/api/v1/create",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: emailValue ? emailValue : phoneValue,
+              }),
+            }
+          );
+          const employees = await response.json();
+        });
+
+      // Close success popup
+      document
+        .querySelector("#successClosePopupBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").classList.add("d-none");
+          document.querySelector("#mainPopupContent").classList.add("d-flex");
+          document
+            .querySelector("#successPopupContent")
+            .classList.add("d-none");
+        });
+
+      // Close step two popup
+      document
+        .querySelector("#stepTwoClosePopupBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").classList.add("d-none");
+          document.querySelector("#mainPopupContent").classList.add("d-flex");
+          document
+            .querySelector("#stepTwoPopupContent")
+            .classList.remove("d-flex");
+        });
+
+      // Email validation
+      // document
+      //   .querySelector("#subscribeEmailInput")
+      //   .addEventListener("input", (event) => {
+      //   const emailPattern =
+      //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      //   if (!emailPattern.test(event.target.value)) {
+      //     document
+      //       .querySelector("#subscribeEmailInput")
+      //       .classList.add("main-popup-form-input-error");
+      //     document.querySelector("#subscribeBtn").disabled = true;
+      //     document.querySelector("#subscribeBtn").style.cursor =
+      //       "not-allowed";
+      //   } else {
+      //     document
+      //       .querySelector("#subscribeEmailInput")
+      //       .classList.remove("main-popup-form-input-error");
+      //     document.querySelector("#subscribeBtn").disabled = false;
+      //     document.querySelector("#subscribeBtn").style.cursor = "pointer";
+      //   }
+      //   return String(event.target.value)
+      //     .toLowerCase()
+      //     .match(
+      //       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      //     );
+      // });
+
+      // Phone validation
+      // document
+      //   .querySelector("#subscribeTelInput")
+      //   .addEventListener("input", (event) => {
+      //     const phonePattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
+      //     if (!phonePattern.test(event.target.value)) {
+      //       document
+      //         .querySelector("#subscribeTelInput")
+      //         .classList.add("main-popup-form-input-error");
+      //       document.querySelector("#subscribeBtn").disabled = true;
+      //       document.querySelector("#subscribeBtn").style.cursor =
+      //         "not-allowed";
+      //     } else {
+      //       document
+      //         .querySelector("#subscribeTelInput")
+      //         .classList.remove("main-popup-form-input-error");
+      //       document.querySelector("#subscribeBtn").disabled = false;
+      //       document.querySelector("#subscribeBtn").style.cursor = "pointer";
+      //     }
+      //     return String(event.target.value)
+      //       .toLowerCase()
+      //       .match(
+      //         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      //       );
+      //   });
+
+      //  Choose the input (Email Address or Phone Number)
+      function chooseSubscribeInput(subscribeInputType) {
+        if (subscribeInputType === "email") {
+          document.querySelector("#subscribeTelInput").style.display = "none";
+          document.querySelector("#subscribeEmailInput").style.display =
+            "block";
+        } else if (subscribeInputType === "phone") {
+          document.querySelector("#subscribeEmailInput").style.display = "none";
+          document.querySelector("#subscribeTelInput").style.display = "block";
+        }
+      }
+
+      // Copy coupon code to clipboard
+      document
+        .getElementById("copyButton")
+        .addEventListener("click", copyParagraphToClipboard);
+      function copyParagraphToClipboard() {
+        const paragraph = document.querySelector("#couponCode");
+        const range = document.createRange();
+        range.selectNode(paragraph);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try {
+          navigator.clipboard.writeText(paragraph.textContent).then(
+            function () {
+              alert("Paragraph copied to clipboard!");
+            },
+            function (err) {
+              console.error("Failed to copy text: ", err);
+            }
+          );
+        } catch (err) {
+          console.error("Clipboard API is not available in this browser.");
+        }
+        window.getSelection().removeAllRanges();
+      }
+    </script>
+  </body>
+</html>
