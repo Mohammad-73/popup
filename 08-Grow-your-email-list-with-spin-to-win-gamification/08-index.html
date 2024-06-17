@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grow your email</title>
+    <style>
+      /* body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #000;
+      }
+      canvas {
+        background-color: #fff;
+        border-radius: 50%;
+      } */
+      * {
+        box-sizing: border-box;
+      }
+      /* Variables */
+      :root {
+        --bg: #000;
+        --primary-color: #d23331;
+      }
+      /* fonts */
+      .roboto-regular {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      .roboto-bold {
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+      }
+      .roboto-black {
+        font-family: "Roboto", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+      }
+      /* Popup container */
+      .popup {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        /* background-color: rgba(0, 0, 0, 0.4); */
+      }
+      /* Main popup container */
+      .main-popup-content {
+        background-color: var(--bg);
+        border-radius: 25px;
+        width: 30%;
+        height: 85%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        position: relative;
+      }
+      .main-popup-close-btn {
+        align-self: flex-end;
+        background-color: #fff;
+        color: black;
+        border-radius: 50%;
+        border: none;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        margin: 10px 10px 0 0;
+        position: absolute;
+        top: 2px;
+        right: 2px;
+      }
+      .main-popup-close-btn:hover {
+        opacity: 0.8;
+      }
+      .main-popup-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 20px 50px 30px;
+      }
+      .main-video-container {
+        width: 100%;
+        position: relative;
+      }
+      .main-video {
+        width: 100%;
+      }
+      .main-video-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 5em;
+        cursor: pointer;
+      }
+      .main-popup-form-title {
+        text-align: center;
+        color: white;
+        margin: 20px 0 0 0;
+      }
+      .main-popup-form-describe {
+        text-align: center;
+        color: white;
+        width: 80%;
+        margin: 20px 0;
+      }
+      .main-popup-time-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .main-popup-time-bg {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        margin: 0 6px 0 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .main-popup-colon {
+        font-weight: bold;
+        color: white;
+      }
+      .main-popup-form-input-container {
+        width: 100%;
+        margin-bottom: 10px;
+        position: relative;
+      }
+      .main-popup-form-input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+      }
+      .main-popup-form-badge {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .main-popup-form-btn {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        font-size: 18px;
+        cursor: not-allowed;
+        transition: 0.2s;
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+      .main-popup-form-btn:hover {
+        background-color: #ccc;
+      }
+      .main-popup-form-input-error {
+        border: 2px solid tomato;
+        box-shadow: tomato 0px 5px 15px;
+      }
+      /* Success popup content */
+      .success-popup-content {
+        background-color: var(--bg);
+        padding: 10px;
+        border-radius: 1.5em;
+        width: 35%;
+        height: 60%;
+        display: none;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .success-modal-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0 30px 30px 30px;
+      }
+      .success-close-popup-btn {
+        align-self: flex-end;
+        background-color: #ccc;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .success-close-popup-btn:hover {
+        opacity: 0.8;
+      }
+      .success-image {
+        width: 6em;
+      }
+      .success-title {
+        color: white;
+        font-size: 4em;
+        margin: 20px 0 0 0;
+      }
+      .success-describe {
+        margin: 0 0 20px 0;
+        text-align: center;
+        color: white;
+      }
+      .coupon-code {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: 2px dashed white;
+        padding: 1em 4em;
+        margin: 0 0 20px;
+        width: 100%;
+        color: white;
+      }
+      .success-copy-icon {
+        position: absolute;
+        right: 0;
+        margin: 0 4px;
+        padding: 0 4px;
+        cursor: pointer;
+        color: white;
+      }
+      .success-btn {
+        background-color: white;
+        color: black;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        font-size: 18px;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      /* Mobile view */
+      @media screen and (max-width: 600px) {
+        .main-popup-content {
+          width: 80%;
+          height: 85%;
+        }
+        /* Success popup content */
+        .success-popup-content {
+          width: 80%;
+          height: 70%;
+        }
+        .coupon-code {
+          padding: 0.5em 2em;
+          margin: 0 0 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="openPopupBtn">Open Modal</button>
+    <!-- Popup -->
+    <div id="popup" class="popup">
+      <!-- Main Popup -->
+      <div id="mainPopupContent" class="main-popup-content">
+        <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#000"
+            />
+          </svg>
+        </button>
+        <div class="main-popup-body">
+          <canvas id="wheelCanvas" width="300" height="300"></canvas>
+          <div>
+            <h1 class="main-popup-form-title roboto-black">Black Friday</h1>
+          </div>
+          <p class="main-popup-form-describe roboto-regular">
+            To get your coupon code, SPIN!
+          </p>
+          <div class="main-popup-time-container roboto-regular">
+            <div class="main-popup-time-bg"><span class="time">0</span></div>
+            <div class="main-popup-time-bg"><span>1</span></div>
+            <span class="main-popup-colon">:</span>
+            <div class="main-popup-time-bg"><span>2</span></div>
+            <div class="main-popup-time-bg"><span>1</span></div>
+            <span class="main-popup-colon">:</span>
+            <div class="main-popup-time-bg"><span>2</span></div>
+            <div class="main-popup-time-bg"><span>9</span></div>
+            <span class="main-popup-colon">:</span>
+            <div class="main-popup-time-bg"><span>2</span></div>
+            <div class="main-popup-time-bg"><span>9</span></div>
+          </div>
+          <div class="main-popup-form-input-container">
+            <input
+              type="email"
+              id="subscribeEmailInput"
+              class="main-popup-form-input roboto-regular"
+              name="subscribe"
+              placeholder="Enter your email address"
+            />
+            <input
+              type="tel"
+              id="subscribeTelInput"
+              class="main-popup-form-input roboto-regular"
+              name="subscribeTel"
+              placeholder="Phone number"
+            />
+          </div>
+          <button id="subscribeBtn" class="main-popup-form-btn roboto-regular">
+            Try my luck!
+          </button>
+        </div>
+      </div>
+      <!-- Success Popup -->
+      <div id="successPopupContent" class="success-popup-content">
+        <button id="successClosePopupBtn" class="success-close-popup-btn">
+          <svg
+            width="26"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+              fill="#fff"
+            />
+          </svg>
+        </button>
+        <div class="success-modal-body">
+          <img class="success-image" src="./successImage.png" alt="Subscribe" />
+          <h1 class="success-title roboto-bold">Success</h1>
+          <p class="success-describe roboto-regular">
+            You've successfully subscribed to out newsletter.
+          </p>
+          <p id="couponCode" class="coupon-code">
+            [COUPON CODE]
+            <?xml version="1.0" encoding="utf-8"?><svg
+              width="24"
+              height="24"
+              class="success-copy-icon"
+              version="1.1"
+              id="copyButton"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 115.77 122.88"
+              xml:space="preserve"
+              fill="#fff"
+            >
+              <g>
+                <path
+                  class="st0"
+                  d="M89.62,13.96v7.73h12.19h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02v0.02 v73.27v0.01h-0.02c-0.01,3.84-1.57,7.33-4.1,9.86c-2.51,2.5-5.98,4.06-9.82,4.07v0.02h-0.02h-61.7H40.1v-0.02 c-3.84-0.01-7.34-1.57-9.86-4.1c-2.5-2.51-4.06-5.98-4.07-9.82h-0.02v-0.02V92.51H13.96h-0.01v-0.02c-3.84-0.01-7.34-1.57-9.86-4.1 c-2.5-2.51-4.06-5.98-4.07-9.82H0v-0.02V13.96v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07V0h0.02h61.7 h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02V13.96L89.62,13.96z M79.04,21.69v-7.73v-0.02h0.02 c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v64.59v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h12.19V35.65 v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07v-0.02h0.02H79.04L79.04,21.69z M105.18,108.92V35.65v-0.02 h0.02c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v73.27v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h61.7h0.02 v0.02c0.91,0,1.75-0.39,2.37-1.01c0.61-0.61,1-1.46,1-2.37h-0.02V108.92L105.18,108.92z"
+                />
+              </g>
+            </svg>
+          </p>
+          <button class="success-btn roboto-regular">OKAY</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (async function () {
+        try {
+          const response = await fetch(
+            "https://dummy.restapiexample.com/api/v1/employees"
+          );
+          const employees = await response.json();
+          chooseSubscribeInput("email");
+          console.log(employees);
+        } catch (error) {
+          chooseSubscribeInput("email");
+        }
+      })();
+    </script>
+    <script>
+      // Open Popup
+      document.querySelector("#openPopupBtn").addEventListener("click", () => {
+        document.querySelector("#popup").style.display = "flex";
+      });
+      // Close main popup
+      document
+        .querySelector("#mainPopupCloseBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+        });
+      // Click success button
+      document
+        .querySelector("#subscribeBtn")
+        .addEventListener("click", async () => {
+          document.querySelector("#mainPopupContent").style.display = "none";
+          document.querySelector("#successPopupContent").style.display = "flex";
+          const emailValue = document.querySelector(
+            "#subscribeEmailInput"
+          ).value;
+          const phoneValue = document.querySelector("#subscribeTelInput").value;
+
+          const response = await fetch(
+            "https://dummy.restapiexample.com/api/v1/create",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: emailValue ? emailValue : phoneValue,
+              }),
+            }
+          );
+          const employees = await response.json();
+        });
+
+      // Close main popup
+      document
+        .querySelector("#successClosePopupBtn")
+        .addEventListener("click", () => {
+          document.querySelector("#popup").style.display = "none";
+          document.querySelector("#mainPopupContent").style.display = "flex";
+          document.querySelector("#successPopupContent").style.display = "none";
+        });
+      // Email validation
+      document
+        .querySelector("#subscribeEmailInput")
+        .addEventListener("input", (event) => {
+          const emailPattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!emailPattern.test(event.target.value)) {
+            document
+              .querySelector("#subscribeEmailInput")
+              .classList.add("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = true;
+            document.querySelector("#subscribeBtn").style.cursor =
+              "not-allowed";
+          } else {
+            document
+              .querySelector("#subscribeEmailInput")
+              .classList.remove("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = false;
+            document.querySelector("#subscribeBtn").style.cursor = "pointer";
+          }
+          return String(event.target.value)
+            .toLowerCase()
+            .match(
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+        });
+
+      // Phone validation
+      document
+        .querySelector("#subscribeTelInput")
+        .addEventListener("input", (event) => {
+          const phonePattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
+          if (!phonePattern.test(event.target.value)) {
+            document
+              .querySelector("#subscribeTelInput")
+              .classList.add("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = true;
+            document.querySelector("#subscribeBtn").style.cursor =
+              "not-allowed";
+          } else {
+            document
+              .querySelector("#subscribeTelInput")
+              .classList.remove("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = false;
+            document.querySelector("#subscribeBtn").style.cursor = "pointer";
+          }
+          return String(event.target.value)
+            .toLowerCase()
+            .match(/^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/);
+        });
+
+      //  Choose the input (Email Address or Phone Number)
+      function chooseSubscribeInput(subscribeInputType) {
+        if (subscribeInputType === "email") {
+          document.querySelector("#subscribeTelInput").style.display = "none";
+          document.querySelector("#subscribeEmailInput").style.display =
+            "block";
+        } else if (subscribeInputType === "phone") {
+          document.querySelector("#subscribeEmailInput").style.display = "none";
+          document.querySelector("#subscribeTelInput").style.display = "block";
+        }
+      }
+
+      // Copy coupon code to clipboard
+      document
+        .getElementById("copyButton")
+        .addEventListener("click", copyParagraphToClipboard);
+      function copyParagraphToClipboard() {
+        const paragraph = document.querySelector("#couponCode");
+        const range = document.createRange();
+        range.selectNode(paragraph);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try {
+          navigator.clipboard.writeText(paragraph.textContent).then(
+            function () {
+              alert("Paragraph copied to clipboard!");
+            },
+            function (err) {
+              console.error("Failed to copy text: ", err);
+            }
+          );
+        } catch (err) {
+          console.error("Clipboard API is not available in this browser.");
+        }
+        window.getSelection().removeAllRanges();
+      }
+    </script>
+    <script>
+      const canvas = document.getElementById("wheelCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const segments = [
+        { color: "#9e1c1c", text: "Text 1", icon: "😊" },
+        { color: "#216e39", text: "Text 2", icon: "🎁" },
+        { color: "#9e1c1c", text: "Text 3", icon: "😊" },
+        { color: "#216e39", text: "Text 4", icon: "⚙️" },
+        { color: "#9e1c1c", text: "Text 5", icon: "🔄" },
+        { color: "#216e39", text: "Text 6", icon: "💰" },
+        { color: "#9e1c1c", text: "Text 7", icon: "📱" },
+        { color: "#216e39", text: "Text 8", icon: "🎁" },
+        { color: "#9e1c1c", text: "Text 9", icon: "😊" },
+        { color: "#216e39", text: "Text 10", icon: "💡" },
+        { color: "#9e1c1c", text: "Text 11", icon: "🎁" },
+        { color: "#216e39", text: "Text 12", icon: "⚙️" },
+      ];
+
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = 150;
+      let angle = 0;
+      let isSpinning = false;
+      let spinSpeed = 0;
+      let winningSegment = null;
+
+      function drawSegment(startAngle, endAngle, segment) {
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.fillStyle = segment.color;
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate((startAngle + endAngle) / 2);
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 20px Arial";
+        ctx.fillText(segment.text, radius / 1.5, 0);
+        ctx.font = "bold 30px Arial";
+        ctx.fillText(segment.icon, radius / 2, 30);
+        ctx.restore();
+      }
+
+      function drawWheel() {
+        const segmentAngle = (2 * Math.PI) / segments.length;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < segments.length; i++) {
+          drawSegment(
+            i * segmentAngle + angle,
+            (i + 1) * segmentAngle + angle,
+            segments[i]
+          );
+        }
+
+        // Draw pointer
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.moveTo(0, -radius - 20);
+        ctx.lineTo(20, -radius + 10);
+        ctx.lineTo(-20, -radius + 10);
+        ctx.fill();
+        ctx.restore();
+
+        if (isSpinning) {
+          angle += spinSpeed;
+          spinSpeed *= 0.99;
+          if (spinSpeed < 0.001) {
+            isSpinning = false;
+            determineWinner();
+          }
+        }
+
+        requestAnimationFrame(drawWheel);
+      }
+
+      function determineWinner() {
+        const segmentAngle = (2 * Math.PI) / segments.length;
+        const normalizedAngle =
+          ((angle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+        const winningIndex =
+          Math.floor((2 * Math.PI - normalizedAngle) / segmentAngle) %
+          segments.length;
+        winningSegment = segments[winningIndex];
+        alert(
+          `The winning segment is: ${winningSegment.text} ${winningSegment.icon}`
+        );
+      }
+
+      canvas.addEventListener("click", () => {
+        if (!isSpinning) {
+          isSpinning = true;
+          spinSpeed = Math.random() * 0.3 + 0.3;
+        }
+      });
+
+      drawWheel();
+    </script>
+  </body>
+</html>
