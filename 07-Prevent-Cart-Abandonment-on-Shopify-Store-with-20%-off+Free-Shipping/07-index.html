@@ -410,7 +410,7 @@
   <body>
     <button id="openPopupBtn">Open Modal</button>
     <!-- Popup -->
-    <div id="popup" class="popup">
+    <div id="popup" class="popup d-flex">
       <!-- Main Popup -->
       <div id="mainPopupContent" class="main-popup-content">
         <button id="mainPopupCloseBtn" class="main-popup-close-btn">
@@ -594,6 +594,7 @@
       // Open Popup
       document.querySelector("#openPopupBtn").addEventListener("click", () => {
         document.querySelector("#popup").classList.add("d-flex");
+        document.querySelector("#popup").classList.remove("d-none");
       });
       // Close main popup
       document
@@ -606,6 +607,7 @@
       // Click main button
       document.querySelector("#subscribeBtn").addEventListener("click", () => {
         document.querySelector("#mainPopupContent").classList.add("d-none");
+        document.querySelector("#mainPopupContent").classList.remove("d-flex");
         document
           .querySelector("#stepTwoPopupContent")
           .classList.remove("d-none");
@@ -628,6 +630,7 @@
           document
             .querySelector("#successPopupContent")
             .classList.add("d-flex");
+
           const emailValue = document.querySelector(
             "#subscribeEmailInput"
           ).value;
@@ -650,10 +653,17 @@
         .querySelector("#successClosePopupBtn")
         .addEventListener("click", () => {
           document.querySelector("#popup").classList.add("d-none");
+          document.querySelector("#popup").classList.remove("d-flex");
           document.querySelector("#mainPopupContent").classList.add("d-flex");
+          document
+            .querySelector("#mainPopupContent")
+            .classList.remove("d-none");
           document
             .querySelector("#successPopupContent")
             .classList.add("d-none");
+          document
+            .querySelector("#successPopupContent")
+            .classList.remove("d-flex");
         });
 
       // Close step two popup
@@ -661,10 +671,17 @@
         .querySelector("#stepTwoClosePopupBtn")
         .addEventListener("click", () => {
           document.querySelector("#popup").classList.add("d-none");
+          document.querySelector("#popup").classList.remove("d-flex");
           document.querySelector("#mainPopupContent").classList.add("d-flex");
+          document
+            .querySelector("#mainPopupContent")
+            .classList.remove("d-none");
           document
             .querySelector("#stepTwoPopupContent")
             .classList.remove("d-flex");
+          document
+            .querySelector("#stepTwoPopupContent")
+            .classList.add("d-none");
         });
 
       // Email validation
