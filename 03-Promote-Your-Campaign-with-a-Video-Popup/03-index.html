@@ -91,7 +91,7 @@
         padding: 20px 50px 30px;
       }
       .main-video-container {
-        width: 100%;
+        width: 80%;
         position: relative;
       }
       .main-video {
@@ -102,23 +102,23 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 5em;
+        width: em;
         cursor: pointer;
       }
       .main-popup-form-title {
         text-align: center;
         color: white;
-        margin: 20px 0 0 0;
+        margin: 15px 0 0 0;
+        font-size: 2em;
       }
       .main-popup-form-describe {
         text-align: center;
         color: white;
         width: 80%;
-        margin: 20px 0;
+        margin: 15px 0;
       }
       .main-popup-form-input-container {
         width: 100%;
-        margin-bottom: 10px;
         position: relative;
       }
       .main-popup-form-input {
@@ -126,6 +126,7 @@
         padding: 10px;
         border-radius: 5px;
         border: none;
+        margin-bottom: 15px;
       }
       .main-popup-form-badge {
         position: absolute;
@@ -170,7 +171,7 @@
         align-items: center;
         justify-content: center;
         height: 100%;
-        padding: 0 30px 30px 30px;
+        padding: 0 30px;
       }
       .success-close-popup-btn {
         align-self: flex-end;
@@ -185,6 +186,7 @@
         align-items: center;
         cursor: pointer;
         transition: 0.2s;
+        position: absolute;
       }
       .success-close-popup-btn:hover {
         opacity: 0.8;
@@ -232,10 +234,25 @@
         cursor: pointer;
       }
       /* Mobile view */
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1024px) {
         .main-popup-content {
           width: 80%;
           height: 85%;
+        }
+        .main-video-container {
+          width: 100%;
+          position: relative;
+        }
+        .main-popup-form-input {
+          font-size: 14px;
+          padding: 4px 6px;
+        }
+        .main-popup-form-title {
+          font-size: 1.5em;
+        }
+        .main-popup-form-describe {
+          font-size: 14px;
+          width: 100%;
         }
         /* Success popup content */
         .success-popup-content {
@@ -300,6 +317,13 @@
           </p>
           <div class="main-popup-form-input-container">
             <input
+              type="text"
+              id="subscribeNameInput"
+              class="main-popup-form-input roboto-regular"
+              name="subscribeName"
+              placeholder="Name"
+            />
+            <input
               type="email"
               id="subscribeEmailInput"
               class="main-popup-form-input roboto-regular"
@@ -327,7 +351,11 @@
               ></path>
             </svg>
           </div>
-          <button id="subscribeBtn" class="main-popup-form-btn roboto-regular">
+          <button
+            id="subscribeBtn"
+            class="main-popup-form-btn roboto-regular"
+            disabled
+          >
             Submit
           </button>
         </div>
@@ -357,7 +385,7 @@
             You've successfully subscribed to out newsletter.
           </p>
           <p id="couponCode" class="coupon-code">
-            [COUPON CODE]
+            [COUPON CODE 3]
             <?xml version="1.0" encoding="utf-8"?><svg
               width="24"
               height="24"
@@ -380,23 +408,33 @@
               </g>
             </svg>
           </p>
-          <button class="success-btn roboto-regular">OKAY</button>
+          <button id="successBtn" class="success-btn roboto-regular">
+            OKAY
+          </button>
         </div>
+      </div>
+      <!-- Error message -->
+      <div
+        id="errorMessage"
+        class="alert alert-danger text-center d-none"
+        role="alert"
+      >
+        This is a danger alert—check it out!
       </div>
     </div>
     <script>
-      (async function () {
-        try {
-          const response = await fetch(
-            "https://dummy.restapiexample.com/api/v1/employees"
-          );
-          const employees = await response.json();
-          chooseSubscribeInput("email");
-          console.log(employees);
-        } catch (error) {
-          chooseSubscribeInput("email");
-        }
-      })();
+      // (async function () {
+      //   try {
+      //     const response = await fetch(
+      //       "https://dummy.restapiexample.com/api/v1/employees"
+      //     );
+      //     const employees = await response.json();
+      //     chooseSubscribeInput("email");
+      //     console.log(employees);
+      //   } catch (error) {
+      //     chooseSubscribeInput("email");
+      //   }
+      // })();
     </script>
     <script>
       // Open Popup
@@ -445,23 +483,23 @@
           const employees = await response.json();
         });
 
-      // Close main popup
+      // Close Success popup
+      const closeSuccessPopup = () => {
+        document.querySelector("#popup").classList.add("d-none");
+        document.querySelector("#popup").classList.remove("d-flex");
+        document.querySelector("#mainPopupContent").classList.add("d-flex");
+        document.querySelector("#mainPopupContent").classList.remove("d-none");
+        document.querySelector("#successPopupContent").classList.add("d-none");
+        document
+          .querySelector("#successPopupContent")
+          .classList.remove("d-flex");
+      };
       document
         .querySelector("#successClosePopupBtn")
-        .addEventListener("click", () => {
-          document.querySelector("#popup").classList.add("d-none");
-          document.querySelector("#popup").classList.remove("d-flex");
-          document.querySelector("#mainPopupContent").classList.add("d-flex");
-          document
-            .querySelector("#mainPopupContent")
-            .classList.remove("d-none");
-          document
-            .querySelector("#successPopupContent")
-            .classList.add("d-none");
-          document
-            .querySelector("#successPopupContent")
-            .classList.remove("d-flex");
-        });
+        .addEventListener("click", closeSuccessPopup);
+      document
+        .querySelector("#successBtn")
+        .addEventListener("click", closeSuccessPopup);
 
       // Email validation
       document
@@ -488,6 +526,23 @@
             .match(
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
+        });
+      document
+        .querySelector("#subscribeEmailInput")
+        .addEventListener("blur", (event) => {
+          const emailPattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!emailPattern.test(event.target.value)) {
+            document
+              .querySelector("#errorMessage")
+              .classList.add("fixed-bottom");
+            document.querySelector("#errorMessage").classList.remove("d-none");
+          } else {
+            document.querySelector("#errorMessage").classList.add("d-none");
+            document
+              .querySelector("#errorMessage")
+              .classList.remove("fixed-bottom");
+          }
         });
 
       // Phone validation
@@ -517,12 +572,12 @@
       //  Choose the input (Email Address or Phone Number)
       function chooseSubscribeInput(subscribeInputType) {
         if (subscribeInputType === "email") {
-          document.querySelector("#subscribeTelInput").style.display = "none";
+          document.querySelector(".iti").style.display = "none";
           document.querySelector("#subscribeEmailInput").style.display =
             "block";
         } else if (subscribeInputType === "phone") {
           document.querySelector("#subscribeEmailInput").style.display = "none";
-          document.querySelector("#subscribeTelInput").style.display = "block";
+          document.querySelector(".iti").style.display = "block";
         }
       }
 

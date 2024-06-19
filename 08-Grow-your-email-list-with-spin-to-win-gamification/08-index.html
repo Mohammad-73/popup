@@ -366,7 +366,7 @@
             expires!
           </p>
           <p id="couponCode" class="coupon-code">
-            [COUPON CODE]
+            [COUPON CODE 8]
             <?xml version="1.0" encoding="utf-8"?><svg
               width="24"
               height="24"
@@ -394,18 +394,18 @@
       </div>
     </div>
     <script>
-      (async function () {
-        try {
-          const response = await fetch(
-            "https://dummy.restapiexample.com/api/v1/employees"
-          );
-          const employees = await response.json();
-          chooseSubscribeInput("email");
-          console.log(employees);
-        } catch (error) {
-          chooseSubscribeInput("email");
-        }
-      })();
+      // (async function () {
+      //   try {
+      //     const response = await fetch(
+      //       "https://dummy.restapiexample.com/api/v1/employees"
+      //     );
+      //     const employees = await response.json();
+      //     chooseSubscribeInput("email");
+      //     console.log(employees);
+      //   } catch (error) {
+      //     chooseSubscribeInput("email");
+      //   }
+      // })();
     </script>
     <script>
       // Open Popup
@@ -503,12 +503,12 @@
       //  Choose the input (Email Address or Phone Number)
       function chooseSubscribeInput(subscribeInputType) {
         if (subscribeInputType === "email") {
-          document.querySelector("#subscribeTelInput").style.display = "none";
+          document.querySelector(".iti").style.display = "none";
           document.querySelector("#subscribeEmailInput").style.display =
             "block";
         } else if (subscribeInputType === "phone") {
           document.querySelector("#subscribeEmailInput").style.display = "none";
-          document.querySelector("#subscribeTelInput").style.display = "block";
+          document.querySelector(".iti").style.display = "block";
         }
       }
 

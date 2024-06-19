@@ -76,6 +76,7 @@
         cursor: pointer;
         margin: 15px 15px 0 0;
         transition: 0.2s;
+        position: absolute;
       }
       .main-popup-close-btn:hover {
         background-color: #b5b5b5;
@@ -96,14 +97,14 @@
         display: flex;
         flex-direction: column;
         text-align: center;
-        justify-content: flex-start;
+        justify-content: center;
         align-items: flex-start;
         padding: 0 40px;
         height: 100%;
       }
       .main-popup-form-title {
         text-align: left;
-        margin: 20px 0 0 0;
+        margin: 0 0 20px 0;
         color: #e5552a;
       }
       .main-popup-form-input {
@@ -124,8 +125,8 @@
         color: white;
         border: none;
         font-size: 18px;
-        cursor: not-allowed;
         transition: 0.2s;
+        cursor: not-allowed;
       }
       .main-popup-form-btn:hover {
         background-color: #ea7755;
@@ -237,6 +238,7 @@
         align-items: center;
         cursor: pointer;
         transition: 0.2s;
+        position: absolute;
       }
       .success-close-popup-btn:hover {
         background-color: #b5b5b5;
@@ -283,7 +285,7 @@
         background-color: #ea7755;
       }
       /* Mobile view */
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1024px) {
         .main-popup-content {
           position: relative;
           width: 80%;
@@ -294,9 +296,10 @@
         }
         .main-popup-body-form-and-success {
           width: 100%;
+          overflow: auto;
         }
         .main-popup-image {
-          height: 50%;
+          height: 45%;
           width: 100%;
         }
         .main-image {
@@ -310,29 +313,38 @@
           top: 5px;
           right: 5px;
         }
+        .main-popup-form {
+          height: fit-content;
+          justify-content: center;
+        }
         .main-popup-form-title {
           margin: 10px 0 0 0;
-          font-size: 24px;
+          font-size: 1.5em;
         }
         .main-popup-form-input {
           width: 100%;
-          padding: 6px;
+          padding: 4px 6px;
           background-color: #fff;
           border: 1px solid #ccc;
           margin-bottom: 10px;
+          font-size: 14px;
         }
         .main-describe {
-          margin: 10px 0;
+          margin-bottom: 10px;
           text-align: left;
           font-size: 14px;
         }
         .checkbox-container {
-          font-size: 12px;
+          font-size: 10px;
           margin-bottom: 10px;
         }
         .main-popup-form-btn {
           padding: 10px;
           font-size: 16px;
+          margin-bottom: 10px;
+        }
+        .br {
+          display: none;
         }
         /* Success popup */
         .success-modal-body {
@@ -388,7 +400,8 @@
             </button>
             <div id="mainPopupForm" class="main-popup-form">
               <h1 class="main-popup-form-title roboto-bold">
-                Win Sneakers<br />Right Now!
+                Win Sneakers<br class="br" />
+                Right Now!
               </h1>
               <p class="main-describe roboto-regular">
                 Enter now for you chance to win a pair of sneakers!
@@ -425,6 +438,7 @@
               <button
                 id="subscribeBtn"
                 class="main-popup-form-btn roboto-regular"
+                disabled
               >
                 Subscribe
               </button>
@@ -441,7 +455,7 @@
                 You've successfully subscribed to out newsletter.
               </p>
               <p id="couponCode" class="coupon-code">
-                [COUPON CODE]
+                [COUPON CODE 2]
                 <?xml version="1.0" encoding="utf-8"?><svg
                   width="24"
                   height="24"
@@ -463,25 +477,33 @@
                   </g>
                 </svg>
               </p>
-              <button class="success-btn">OKAY</button>
+              <button id="successBtn" class="success-btn">OKAY</button>
             </div>
           </div>
         </div>
       </div>
+      <!-- Error message -->
+      <div
+        id="errorMessage"
+        class="alert alert-danger text-center d-none"
+        role="alert"
+      >
+        This is a danger alert—check it out!
+      </div>
     </div>
     <script>
-      (async function () {
-        try {
-          const response = await fetch(
-            "https://dummy.restapiexample.com/api/v1/employees"
-          );
-          const employees = await response.json();
-          chooseSubscribeInput("email");
-          console.log(employees);
-        } catch (error) {
-          chooseSubscribeInput("email");
-        }
-      })();
+      // (async function () {
+      //   try {
+      //     const response = await fetch(
+      //       "https://dummy.restapiexample.com/api/v1/employees"
+      //     );
+      //     const employees = await response.json();
+      //     chooseSubscribeInput("email");
+      //     console.log(employees);
+      //   } catch (error) {
+      //     chooseSubscribeInput("email");
+      //   }
+      // })();
     </script>
     <script>
       // Open Popup
@@ -491,18 +513,21 @@
       });
 
       //   Close main popup
+      const closeMainPopup = () => {
+        document.querySelector("#popup").classList.add("d-none");
+        document.querySelector("#popup").classList.remove("d-flex");
+        document.querySelector("#mainPopupForm").classList.add("d-flex");
+        document.querySelector("#mainPopupForm").classList.remove("d-none");
+        document.querySelector("#successModalBody").classList.add("d-none");
+        document.querySelector("#successModalBody").classList.remove("d-flex");
+      };
+
       document
         .querySelector("#mainPopupCloseBtn")
-        .addEventListener("click", () => {
-          document.querySelector("#popup").classList.add("d-none");
-          document.querySelector("#popup").classList.remove("d-flex");
-          document.querySelector("#mainPopupForm").classList.add("d-flex");
-          document.querySelector("#mainPopupForm").classList.remove("d-none");
-          document.querySelector("#successModalBody").classList.add("d-none");
-          document
-            .querySelector("#successModalBody")
-            .classList.remove("d-flex");
-        });
+        .addEventListener("click", closeMainPopup);
+      document
+        .querySelector("#successBtn")
+        .addEventListener("click", closeMainPopup);
 
       // Click Subscribe button and show Success popup
       document
@@ -557,42 +582,60 @@
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
         });
+      document
+        .querySelector("#subscribeEmailInput")
+        .addEventListener("blur", (event) => {
+          const emailPattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!emailPattern.test(event.target.value)) {
+            document
+              .querySelector("#errorMessage")
+              .classList.add("fixed-bottom");
+            document.querySelector("#errorMessage").classList.remove("d-none");
+          } else {
+            document.querySelector("#errorMessage").classList.add("d-none");
+            document
+              .querySelector("#errorMessage")
+              .classList.remove("fixed-bottom");
+          }
+        });
 
       // Phone validation
-      document
-        .querySelector("#subscribeTelInput")
-        .addEventListener("input", (event) => {
-          const phonePattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
-          if (!phonePattern.test(event.target.value)) {
-            document
-              .querySelector("#subscribeTelInput")
-              .classList.add("main-popup-form-input-error");
-            document.querySelector("#subscribeBtn").disabled = true;
-            document.querySelector("#subscribeBtn").style.cursor =
-              "not-allowed";
-          } else {
-            document
-              .querySelector("#subscribeTelInput")
-              .classList.remove("main-popup-form-input-error");
-            document.querySelector("#subscribeBtn").disabled = false;
-            document.querySelector("#subscribeBtn").style.cursor = "pointer";
-          }
-          return String(event.target.value)
-            .toLowerCase()
-            .match(/^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/);
-        });
+      // document
+      //   .querySelector("#subscribeTelInput")
+      //   .addEventListener("input", (event) => {
+      //     const phonePattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
+      //     if (!phonePattern.test(event.target.value)) {
+      //       document
+      //         .querySelector("#subscribeTelInput")
+      //         .classList.add("main-popup-form-input-error");
+      //       document.querySelector("#subscribeBtn").disabled = true;
+      //       document.querySelector("#subscribeBtn").style.cursor =
+      //         "not-allowed";
+      //     } else {
+      //       document
+      //         .querySelector("#subscribeTelInput")
+      //         .classList.remove("main-popup-form-input-error");
+      //       document.querySelector("#subscribeBtn").disabled = false;
+      //       document.querySelector("#subscribeBtn").style.cursor = "pointer";
+      //     }
+      //     return String(event.target.value)
+      //       .toLowerCase()
+      //       .match(/^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/);
+      //   });
 
       //  Choose the input (Email Address or Phone Number)
       function chooseSubscribeInput(subscribeInputType) {
         if (subscribeInputType === "email") {
-          document.querySelector("#subscribeTelInput").style.display = "none";
+          document.querySelector(".iti").style.display = "none";
           document.querySelector("#subscribeEmailInput").style.display =
             "block";
         } else if (subscribeInputType === "phone") {
           document.querySelector("#subscribeEmailInput").style.display = "none";
-          document.querySelector("#subscribeTelInput").style.display = "block";
+          document.querySelector(".iti").style.display = "block";
         }
       }
+
       // Copy coupon code to clipboard
       document
         .getElementById("copyButton")
