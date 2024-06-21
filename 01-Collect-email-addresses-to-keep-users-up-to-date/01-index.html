@@ -417,13 +417,14 @@
         This is a danger alert—check it out!
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/intlTelInput.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/intlTelInput.min.js"></script> -->
+    <script src="../internationalPhoneNumber/build/js/intlTelInputWithUtils.js"></script>
     <script>
       const input = document.querySelector("#subscribeTelInput");
       window.intlTelInput(input, {
-        utilsScript:
-          "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.12/build/js/utils.js",
+        utilsScript: "../internationalPhoneNumber/build/js/utils.js",
       });
+      // console.log(window);
     </script>
     <script>
       // (async function () {
