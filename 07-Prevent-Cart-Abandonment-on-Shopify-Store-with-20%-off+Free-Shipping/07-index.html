@@ -8,6 +8,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="../internationalPhoneNumber/build/css/intlTelInput.css"
+    />
     <title>07 Prevent</title>
     <style>
       * {
@@ -140,6 +144,10 @@
         border: 2px solid yellow;
         box-shadow: rgba(85, 193, 177, 1) 0px 5px 15px;
       }
+      .tel-input-container {
+        margin-bottom: 20px !important;
+        width: 100%;
+      }
       .main-popup-form-btn {
         padding: 10px 20px;
         background-color: var(--primary-color);
@@ -182,7 +190,7 @@
         align-items: center;
         justify-content: center;
         height: 100%;
-        padding: 0 30px 30px 30px;
+        padding: 0 30px;
       }
       .step-two-close-popup-btn {
         align-self: flex-end;
@@ -208,10 +216,12 @@
         color: #2e1016;
         line-height: 1em;
       }
+      .step-two-popup-form-input-container {
+        width: 100%;
+      }
       .step-two-popup-form-input {
         width: 100%;
         padding: 10px;
-        margin-bottom: 20px;
         background-color: #fff;
         border: 2px solid #ccc;
         border-radius: 10px;
@@ -321,7 +331,7 @@
         cursor: pointer;
       }
       /* Mobile view */
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1024px) {
         .main-popup-content {
           width: 80%;
           height: 80%;
@@ -356,6 +366,9 @@
           width: 70%;
           height: 70%;
         }
+        .step-two-popup-body {
+          padding: 0 20px;
+        }
         .step-two-popup-form-title {
           text-align: left;
           margin: 20px 0;
@@ -366,7 +379,6 @@
         .step-two-popup-form-input {
           width: 100%;
           padding: 10px;
-          margin-bottom: 20px;
           background-color: #fff;
           border: 2px solid #ccc;
           border-radius: 10px;
@@ -390,6 +402,9 @@
         .success-popup-content {
           width: 70%;
           height: 60%;
+        }
+        .success-modal-body {
+          padding: 0 20px;
         }
         .success-title {
           font-size: 2.5em;
@@ -482,7 +497,7 @@
               and free <br />
               shipping
             </h1>
-            <div class="position-relative">
+            <div class="tel-input-container position-relative">
               <input
                 type="email"
                 id="subscribeEmailInput"
@@ -504,13 +519,28 @@
                 ></path>
               </svg>
             </div>
-            <input
-              type="tel"
-              id="subscribeTelInput"
-              class="step-two-popup-form-input roboto-regular"
-              name="subscribeTel"
-              placeholder="Enter your phone number"
-            />
+            <div class="tel-input-container position-relative">
+              <input
+                type="tel"
+                id="subscribeTelInput"
+                class="step-two-popup-form-input roboto-regular"
+                name="subscribeTel"
+                placeholder="Enter your phone number"
+              />
+              <svg
+                class="step-two-popup-form-badge"
+                width="6"
+                height="6"
+                viewBox="0 0 6 6"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 2.07667L5.31741 0.923333L3.68259 1.84667V0H2.31741V1.84667L0.682594 0.923333L0 2.07667L1.63481 3L0 3.92333L0.682594 5.07667L2.31741 4.15333V6H3.68259V4.15333L5.31741 5.07667L6 3.92333L4.36519 3L6 2.07667Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
             <button id="stepTwoBtn" class="step-two-popup-form-btn roboto-bold">
               Get the Coupon Code
             </button>
@@ -566,6 +596,14 @@
           <button class="success-btn roboto-regular">Bye!</button>
         </div>
       </div>
+      <!-- Error message -->
+      <div
+        id="errorMessage"
+        class="alert alert-danger text-center d-none"
+        role="alert"
+      >
+        This is a danger alert—check it out!
+      </div>
     </div>
     <script src="../internationalPhoneNumber/build/js/intlTelInputWithUtils.js"></script>
     <script>
@@ -573,18 +611,18 @@
       const iti = intlTelInput(input);
     </script>
     <script>
-      (async function () {
-        try {
-          const response = await fetch(
-            "https://dummy.restapiexample.com/api/v1/employees"
-          );
-          const employees = await response.json();
-          chooseSubscribeInput("email");
-          console.log(employees);
-        } catch (error) {
-          chooseSubscribeInput("email");
-        }
-      })();
+      // (async function () {
+      //   try {
+      //     const response = await fetch(
+      //       "https://dummy.restapiexample.com/api/v1/employees"
+      //     );
+      //     const employees = await response.json();
+      //     chooseSubscribeInput("email");
+      //     console.log(employees);
+      //   } catch (error) {
+      //     chooseSubscribeInput("email");
+      //   }
+      // })();
       // (async function () {
       //   const response = await fetch(
       //     "https://dummy.restapiexample.com/api/v1/create",
@@ -715,8 +753,26 @@
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
         });
+      document
+        .querySelector("#subscribeEmailInput")
+        .addEventListener("blur", (event) => {
+          const emailPattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          if (!emailPattern.test(event.target.value)) {
+            document
+              .querySelector("#errorMessage")
+              .classList.add("fixed-bottom");
+            document.querySelector("#errorMessage").classList.remove("d-none");
+          } else {
+            document.querySelector("#errorMessage").classList.add("d-none");
+            document
+              .querySelector("#errorMessage")
+              .classList.remove("fixed-bottom");
+          }
+        });
 
       // Phone validation
+      document.querySelector(".iti").style.width = "100%";
       document
         .querySelector("#subscribeTelInput")
         .addEventListener("input", (event) => {
@@ -739,6 +795,21 @@
             .match(
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
+        });
+      document
+        .querySelector("#subscribeTelInput")
+        .addEventListener("blur", (event) => {
+          if (!iti.getValidationError()) {
+            document.querySelector("#errorMessage").classList.add("d-none");
+            document
+              .querySelector("#errorMessage")
+              .classList.remove("fixed-bottom");
+          } else {
+            document
+              .querySelector("#errorMessage")
+              .classList.add("fixed-bottom");
+            document.querySelector("#errorMessage").classList.remove("d-none");
+          }
         });
 
       //  Choose the input (Email Address or Phone Number)

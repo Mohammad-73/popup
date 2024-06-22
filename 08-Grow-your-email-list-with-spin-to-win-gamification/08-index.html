@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Grow your email</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="../internationalPhoneNumber/build/css/intlTelInput.css"
+    />
+    <title>08 Grow your email</title>
     <style>
       /* body {
         display: flex;
@@ -92,31 +103,17 @@
         height: 100%;
         padding: 20px 50px 30px;
       }
-      .main-video-container {
-        width: 100%;
-        position: relative;
-      }
-      .main-video {
-        width: 100%;
-      }
-      .main-video-play {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 5em;
-        cursor: pointer;
-      }
       .main-popup-form-title {
         text-align: center;
         color: white;
-        margin: 20px 0 0 0;
+        margin: 15px 0 0 0;
+        font-size: 2em;
       }
       .main-popup-form-describe {
         text-align: center;
         color: white;
         width: 80%;
-        margin: 20px 0;
+        margin: 15px 0;
       }
       .main-popup-time-container {
         display: flex;
@@ -143,12 +140,17 @@
       }
       .main-popup-form-input-container {
         width: 100%;
-        margin-bottom: 10px;
+
         position: relative;
+      }
+      .tel-input-container {
+        margin-bottom: 20px !important;
+        width: 100%;
       }
       .main-popup-form-input {
         width: 100%;
         padding: 10px;
+        margin-bottom: 15px;
         border-radius: 5px;
         border: none;
       }
@@ -259,10 +261,17 @@
         cursor: pointer;
       }
       /* Mobile view */
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 1024px) {
         .main-popup-content {
           width: 80%;
           height: 85%;
+        }
+        .main-popup-form-title {
+          font-size: 28px;
+        }
+        .main-popup-form-describe {
+          font-size: 14px;
+          margin: 10px 0;
         }
         /* Success popup content */
         .success-popup-content {
@@ -299,7 +308,7 @@
           </svg>
         </button>
         <div class="main-popup-body">
-          <canvas id="wheelCanvas" width="300" height="300"></canvas>
+          <canvas id="wheelCanvas" width="250" height="250"></canvas>
           <div>
             <h1 class="main-popup-form-title roboto-black">Black Friday</h1>
           </div>
@@ -327,13 +336,15 @@
               name="subscribe"
               placeholder="Enter your email address"
             />
-            <input
-              type="tel"
-              id="subscribeTelInput"
-              class="main-popup-form-input roboto-regular"
-              name="subscribeTel"
-              placeholder="Phone number"
-            />
+            <div class="tel-input-container">
+              <input
+                type="tel"
+                id="subscribeTelInput"
+                class="main-popup-form-input roboto-regular"
+                name="subscribeTel"
+                placeholder="Phone number"
+              />
+            </div>
           </div>
           <button id="subscribeBtn" class="main-popup-form-btn roboto-regular">
             Try my luck!
@@ -393,6 +404,11 @@
         </div>
       </div>
     </div>
+    <script src="../internationalPhoneNumber/build/js/intlTelInputWithUtils.js"></script>
+    <script>
+      const input = document.querySelector("#subscribeTelInput");
+      const iti = intlTelInput(input);
+    </script>
     <script>
       // (async function () {
       //   try {
@@ -477,6 +493,7 @@
         });
 
       // Phone validation
+      document.querySelector(".iti").style.width = "100%";
       document
         .querySelector("#subscribeTelInput")
         .addEventListener("input", (event) => {
@@ -558,7 +575,7 @@
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
-      const radius = 150;
+      const radius = 120;
       let angle = 0;
       let isSpinning = false;
       let spinSpeed = 0;
@@ -577,10 +594,10 @@
         ctx.rotate((startAngle + endAngle) / 2);
         ctx.textAlign = "center";
         ctx.fillStyle = "#fff";
-        ctx.font = "bold 20px Arial";
+        ctx.font = "bold 16px Arial";
         ctx.fillText(segment.text, radius / 1.5, 0);
-        ctx.font = "bold 30px Arial";
-        ctx.fillText(segment.icon, radius / 2, 30);
+        ctx.font = "bold 28px Arial";
+        ctx.fillText(segment.icon, radius / 1.2, 30);
         ctx.restore();
       }
 

@@ -15,6 +15,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="../internationalPhoneNumber/build/css/intlTelInput.css"
+    />
     <style>
       * {
         box-sizing: border-box;
@@ -148,6 +152,10 @@
       }
       .main-popup-form-btn:hover {
         opacity: 0.8;
+      }
+      .tel-input-container {
+        margin-bottom: 20px !important;
+        width: 100%;
       }
       .main-popup-image {
         display: flex;
@@ -446,13 +454,15 @@
                   name="subscribe"
                   placeholder="Enter your email address"
                 />
-                <input
-                  type="tel"
-                  id="subscribeTelInput"
-                  class="main-popup-form-input roboto-regular"
-                  name="subscribeTel"
-                  placeholder="Enter your phone number"
-                />
+                <div class="tel-input-container">
+                  <input
+                    type="tel"
+                    id="subscribeTelInput"
+                    class="main-popup-form-input roboto-regular"
+                    name="subscribeTel"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
                 <svg
                   class="main-popup-form-badge"
                   width="6"
