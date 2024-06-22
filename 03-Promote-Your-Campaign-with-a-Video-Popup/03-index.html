@@ -422,6 +422,11 @@
         This is a danger alert—check it out!
       </div>
     </div>
+    <script src="../internationalPhoneNumber/build/js/intlTelInputWithUtils.js"></script>
+    <script>
+      const input = document.querySelector("#subscribeTelInput");
+      const iti = intlTelInput(input);
+    </script>
     <script>
       // (async function () {
       //   try {
@@ -546,27 +551,25 @@
         });
 
       // Phone validation
+      document.querySelector(".iti").style.width = "100%";
       document
         .querySelector("#subscribeTelInput")
         .addEventListener("input", (event) => {
-          const phonePattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
-          if (!phonePattern.test(event.target.value)) {
+          if (!iti.getValidationError()) {
+            document
+              .querySelector("#subscribeTelInput")
+              .classList.remove("main-popup-form-input-error");
+            document.querySelector("#subscribeBtn").disabled = false;
+            document.querySelector("#subscribeBtn").style.cursor = "pointer";
+          } else {
             document
               .querySelector("#subscribeTelInput")
               .classList.add("main-popup-form-input-error");
             document.querySelector("#subscribeBtn").disabled = true;
             document.querySelector("#subscribeBtn").style.cursor =
               "not-allowed";
-          } else {
-            document
-              .querySelector("#subscribeTelInput")
-              .classList.remove("main-popup-form-input-error");
-            document.querySelector("#subscribeBtn").disabled = false;
-            document.querySelector("#subscribeBtn").style.cursor = "pointer";
+            console.log("InValid number");
           }
-          return String(event.target.value)
-            .toLowerCase()
-            .match(/^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/);
         });
 
       //  Choose the input (Email Address or Phone Number)
