@@ -550,6 +550,21 @@
             console.log("InValid number");
           }
         });
+      document
+        .querySelector("#subscribeTelInput")
+        .addEventListener("blur", (event) => {
+          if (!iti.getValidationError()) {
+            document.querySelector("#errorMessage").classList.add("d-none");
+            document
+              .querySelector("#errorMessage")
+              .classList.remove("fixed-bottom");
+          } else {
+            document
+              .querySelector("#errorMessage")
+              .classList.add("fixed-bottom");
+            document.querySelector("#errorMessage").classList.remove("d-none");
+          }
+        });
 
       //  Choose the input (Email Address or Phone Number)
       function chooseSubscribeInput(subscribeInputType) {
