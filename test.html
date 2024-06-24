@@ -1,159 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lottery Ball Simulator (SVG)</title>
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Freebie Lotto Number Picker</title>
     <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-      }
-      svg {
-        border: 2px solid #333;
-        border-radius: 50%;
-      }
-      .ball {
-        cursor: pointer;
+        body {
+        overflow: hidden;
+       margin-left: 0px;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-bottom: 0px;
+        }
+        .balltext{
+        font-size:40px;
+        color:#000000;
+        font-weight: bold;
+
+        }
+        #canvas {
+        height: 350px;
+        width: 468px;
+        background-repeat: no-repeat;<br />
+        z-index: 2;
+        }
+      #Layer1{
+        width:468px;
+        height:60px;
       }
     </style>
   </head>
   <body>
-    <svg id="lotterySVG" width="400" height="400"></svg>
-    <script>
-      // Initialize SVG
-      const svg = document.getElementById("lotterySVG");
-
-      // Constants for ball properties
-      const BALL_RADIUS = 30;
-      const COLORS = [
-        "#ff6347",
-        "#ff69b4",
-        "#9370db",
-        "#00bfff",
-        "#7cfc00",
-        "#ffd700",
-        "#ff8c00",
-        "#ff1493",
-      ];
-      const NUM_BALLS = 8;
-
-      // Array to hold balls
-      let balls = [];
-
-      // Function to generate random integer between min and max (inclusive)
-      function randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-      // Function to create a ball element
-      function createBall(x, y, color, number) {
-        const ball = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "circle"
-        );
-        ball.setAttribute("cx", x);
-        ball.setAttribute("cy", y);
-        ball.setAttribute("r", BALL_RADIUS);
-        ball.setAttribute("fill", color);
-        ball.setAttribute("class", "ball");
-        ball.dataset.number = number;
-
-        return ball;
-      }
-
-      // Function to check collision between two balls
-      function checkCollision(ball1, ball2) {
-        const dx = ball1.cx.baseVal.value - ball2.cx.baseVal.value;
-        const dy = ball1.cy.baseVal.value - ball2.cy.baseVal.value;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        return distance < BALL_RADIUS * 2; // Diameter of balls for collision check
-      }
-
-      // Function to initialize the lottery simulation
-      function initialize() {
-        // Clear previous state
-        svg.innerHTML = "";
-        balls = [];
-
-        // Generate random balls
-        for (let i = 0; i < NUM_BALLS; i++) {
-          let collision;
-          let ball;
-          do {
-            const x = randomInt(BALL_RADIUS, 400 - BALL_RADIUS);
-            const y = randomInt(BALL_RADIUS, 400 - BALL_RADIUS);
-            const color = COLORS[i];
-            const number = i + 1;
-            ball = createBall(x, y, color, number);
-
-            collision = false;
-            // Check for collisions with existing balls
-            for (let j = 0; j < balls.length; j++) {
-              if (checkCollision(ball, balls[j])) {
-                collision = true;
-                break;
-              }
-            }
-          } while (collision);
-
-          balls.push(ball);
-          svg.appendChild(ball);
-        }
-
-        // Start animation
-        animate();
-      }
-
-      // Function to update ball positions (simulation of gravity)
-      function update() {
-        balls.forEach((ball) => {
-          const cy = ball.cy.baseVal;
-          const newY = cy.value + ball.dy;
-
-          // Check collision with bottom
-          if (newY + BALL_RADIUS > svg.clientHeight) {
-            ball.dy *= -0.8; // Bounce back with some damping
-          } else {
-            ball.dy += 0.5; // Gravity effect
-          }
-
-          // Update ball position
-          ball.setAttribute("cy", newY);
-        });
-
-        // Check collisions and adjust velocities
-        for (let i = 0; i < balls.length; i++) {
-          for (let j = i + 1; j < balls.length; j++) {
-            if (checkCollision(balls[i], balls[j])) {
-              // Simple collision resolution (swap velocities)
-              const tempDy = balls[i].dy;
-              balls[i].dy = balls[j].dy;
-              balls[j].dy = tempDy;
-            }
-          }
-        }
-      }
-
-      // Animation loop
-      function animate() {
-        update();
-
-        // Request next frame
-        requestAnimationFrame(animate);
-      }
-
-      // Event listener for user click to play the lottery
-      svg.addEventListener("click", function () {
-        initialize();
-      });
-
-      // Initialize the simulation on page load
-      initialize();
-    </script>
+    <div id="canvas"></div>
+    <script src="protoclass.js"></script>
+    <br />
+    <script src="box2d.js"></script>
+    <br />
+    <script src="Main.js"></script>
+    <br />
   </body>
 </html>

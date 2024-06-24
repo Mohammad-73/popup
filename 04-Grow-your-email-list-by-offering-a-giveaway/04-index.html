@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -28,20 +28,95 @@
         --bg: #fff;
       }
       /* fonts */
-      .roboto-regular {
-        font-family: "Roboto", sans-serif;
+      .poppins-thin {
+        font-family: "Poppins", sans-serif;
+        font-weight: 100;
+        font-style: normal;
+      }
+      .poppins-extralight {
+        font-family: "Poppins", sans-serif;
+        font-weight: 200;
+        font-style: normal;
+      }
+      .poppins-light {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+      }
+      .poppins-regular {
+        font-family: "Poppins", sans-serif;
         font-weight: 400;
         font-style: normal;
       }
-      .roboto-bold {
-        font-family: "Roboto", sans-serif;
+      .poppins-medium {
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      }
+      .poppins-semibold {
+        font-family: "Poppins", sans-serif;
         font-weight: 600;
         font-style: normal;
       }
-      .roboto-black {
-        font-family: "Roboto", sans-serif;
+      .poppins-bold {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+      }
+      .poppins-extrabold {
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-style: normal;
+      }
+      .poppins-black {
+        font-family: "Poppins", sans-serif;
         font-weight: 900;
         font-style: normal;
+      }
+      .poppins-thin-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 100;
+        font-style: italic;
+      }
+      .poppins-extralight-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 200;
+        font-style: italic;
+      }
+      .poppins-light-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        font-style: italic;
+      }
+      .poppins-regular-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+      }
+      .poppins-medium-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: italic;
+      }
+      .poppins-semibold-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-style: italic;
+      }
+      .poppins-bold-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: italic;
+      }
+      .poppins-extrabold-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-style: italic;
+      }
+      .poppins-black-italic {
+        font-family: "Poppins", sans-serif;
+        font-weight: 900;
+        font-style: italic;
       }
       /* Popup container */
       .popup {
@@ -434,8 +509,10 @@
               </svg>
             </button>
             <div id="mainPopupForm" class="main-popup-form">
-              <h1 class="main-popup-form-title roboto-bold">Giveaway time</h1>
-              <p class="main-popup-form-describe roboto-bold">
+              <h1 class="main-popup-form-title poppins-semibold">
+                Giveaway time
+              </h1>
+              <p class="main-popup-form-describe poppins-semibold">
                 Submit your email address to
                 <br />join the mega giveaway!
               </p>
@@ -443,14 +520,14 @@
                 <input
                   type="text"
                   id="subscribeNameInput"
-                  class="main-popup-form-input roboto-regular"
+                  class="main-popup-form-input poppins-regular"
                   name="subscribeName"
                   placeholder="Enter your name"
                 />
                 <input
                   type="email"
                   id="subscribeEmailInput"
-                  class="main-popup-form-input roboto-regular"
+                  class="main-popup-form-input poppins-regular"
                   name="subscribe"
                   placeholder="Enter your email address"
                 />
@@ -458,7 +535,7 @@
                   <input
                     type="tel"
                     id="subscribeTelInput"
-                    class="main-popup-form-input roboto-regular"
+                    class="main-popup-form-input poppins-regular"
                     name="subscribeTel"
                     placeholder="Enter your phone number"
                   />
@@ -478,17 +555,17 @@
                 </svg>
               </div>
 
-              <label class="checkbox-container roboto-regular">
+              <label class="checkbox-container poppins-regular">
                 <input type="checkbox" />
-                <span class="checkmark roboto-regular"></span>
+                <span class="checkmark poppins-regular"></span>
                 I have read and accept the
-                <a href="" class="main-popup-form-link roboto-regular"
+                <a href="" class="main-popup-form-link poppins-regular"
                   >privacy policy</a
                 >
               </label>
               <button
                 id="subscribeBtn"
-                class="main-popup-form-btn roboto-regular"
+                class="main-popup-form-btn poppins-regular"
                 disabled
               >
                 Join now
@@ -517,8 +594,8 @@
         </button>
         <div class="success-modal-body">
           <img class="success-image" src="./successImage.png" alt="Subscribe" />
-          <h1 class="success-title roboto-bold">Success</h1>
-          <p class="success-describe roboto-regular">
+          <h1 class="success-title poppins-semibold">Success</h1>
+          <p class="success-describe poppins-regular">
             Follow us on social media not to
             <br />
             miss the result of the giveaway.

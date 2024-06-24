@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>05 Popup</title>
+    <title>09 Popup</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -25,7 +25,7 @@
       }
       /* Variables */
       :root {
-        --bg: #f3ae99;
+        --bg: #fff;
       }
       /* fonts */
       .inter-regular {
@@ -65,33 +65,33 @@
       }
       /* Main popup container */
       .main-popup-content {
+        background-image: url("background.png");
         background-color: var(--bg);
-        padding: 10px;
-        border-radius: 35px;
-        width: 35%;
-        height: 80%;
+        border-radius: 2em;
+        width: 65%;
+        height: 70%;
         display: flex;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
       }
       .main-popup-close-btn {
         align-self: flex-end;
-        background-color: #172171;
+        background-color: #ce5636;
         color: white;
         border: none;
-        border-radius: 20%;
-        width: 26px;
-        height: 26px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        margin: 15px 15px 0 0;
         transition: 0.2s;
-        margin: 5px 5px 0 0;
         position: absolute;
       }
       .main-popup-close-btn:hover {
-        opacity: 0.8;
+        background-color: #b5b5b5;
       }
       .main-popup-body {
         display: flex;
@@ -99,79 +99,211 @@
         flex: 1;
         height: 100%;
       }
+      .main-popup-body-form-and-success {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
       .main-popup-form {
         display: flex;
         flex-direction: column;
         text-align: center;
         justify-content: center;
-        align-items: center;
-        padding: 0 30px;
+        padding: 40px;
         height: 100%;
-        width: 100%;
       }
       .main-popup-form-title {
         text-align: left;
-        margin: 15px 0;
-        font-size: 52px;
-        color: #172171;
-      }
-      .main-describe {
         margin: 0 0 15px 0;
-        color: #172171;
+      }
+      .main-popup-form-describe {
+        font-size: 18px;
+        text-align: left;
+      }
+      .main-popup-form-input-container {
+        width: 100%;
+
+        position: relative;
       }
       .main-popup-form-input {
         width: 100%;
         padding: 10px;
-        background-color: #f3ae99;
-        border: 1px solid #172171;
-        border-radius: 5px;
-        color: #172171;
+        background-color: transparent;
+        border: 2px solid #ccc;
+        border-radius: 10px;
         margin-bottom: 15px;
       }
+      .main-popup-form-badge {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
       .main-popup-form-input:focus {
-        border: 2px solid #172171;
-        box-shadow: 172171 0px 5px 15px;
+        border: 2px solid #ccc;
+        box-shadow: #ccc 0px 5px 15px;
+      }
+      .main-popup-form-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #ce5636;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: not-allowed;
+        transition: 0.2s;
+      }
+      .main-popup-form-btn:hover {
+        opacity: 0.8;
       }
       .tel-input-container {
         margin-bottom: 20px !important;
         width: 100%;
       }
-      .main-popup-form-btn {
-        width: 100%;
-        padding: 10px;
-        background-color: #172171;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        margin-bottom: 20px;
-        font-size: 18px;
-        transition: 0.2s;
-        cursor: not-allowed;
-      }
-      .main-popup-form-btn:hover {
-        opacity: 0.8;
-      }
       .main-popup-image {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         height: 100%;
-        width: 50%;
+        width: auto;
       }
       .main-image {
-        height: 60%;
+        height: 100%;
+        border-top-left-radius: 2em;
+        border-bottom-left-radius: 2em;
+      }
+      .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        width: 100%;
+        text-align: left;
+      }
+      .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 3px;
+        border: 2px solid gray;
+        background-color: #fff;
+      }
+      .checkbox-container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+      .checkbox-container input:checked ~ .checkmark {
+        background-color: #e5552a;
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .checkbox-container .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .main-popup-form-link {
+        color: black;
       }
       .main-popup-form-input-error {
         border: 2px solid tomato;
         box-shadow: tomato 0px 5px 15px;
       }
+      /* }lottery ball style temporary */
+      .lottery-ball-wrapper {
+        width: 50%;
+        position: relative;
+        width: 100% !important;
+      }
+      .lottery-ball-wrapper span {
+        color: #fff;
+        font-size: 12px;
+      }
+      @media screen and (max-width: 670px) {
+        .lottery-ball-wrapper #lottery-ball-layer-5 {
+          margin: auto !important;
+        }
+      }
+      @media screen and (max-width: 360px) {
+        .desktop-main-overlay-container-wrapper
+          .lottery-ball-wrapper
+          #lottery-ball-layer-5 {
+          margin: auto !important;
+          height: 250px;
+          width: 250px;
+        }
+        .desktop-main-overlay-container-wrapper
+          .lottery-ball-wrapper
+          #lottery-ball-layer-1 {
+          margin: auto !important;
+          height: 250px;
+          width: 250px;
+        }
+        .desktop-main-overlay-container-wrapper
+          .lottery-ball-wrapper
+          #lottery-ball-layer-2 {
+          margin: auto !important;
+          height: 250px;
+          width: 250px;
+        }
+        .desktop-main-overlay-container-wrapper
+          .lottery-ball-wrapper
+          #lottery-ball-layer-3 {
+          margin: auto !important;
+          height: 250px;
+          width: 250px;
+        }
+        .desktop-main-overlay-container-wrapper
+          .lottery-ball-wrapper
+          #lottery-ball-layer-4 {
+          margin: auto !important;
+          height: 250px;
+          width: 250px;
+        }
+        .lottery-balls {
+          height: 250px;
+          width: 250px;
+          margin: auto !important;
+        }
+      }
+      /* }lottery ball style temporary */
       /* Success popup content */
       .success-popup-content {
+        background-image: url("background.png");
         background-color: var(--bg);
-        padding: 10px;
+        padding: 20px;
         border-radius: 35px;
-        width: 30%;
-        height: 55%;
+        width: 25%;
+        height: 70%;
         display: none;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -186,43 +318,48 @@
       }
       .success-close-popup-btn {
         align-self: flex-end;
-        background-color: #172171;
+        background-color: #000;
         color: white;
         border: none;
-        border-radius: 20%;
-        width: 26px;
-        height: 26px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
         transition: 0.2s;
-        margin: 5px 5px 0 0;
         position: absolute;
       }
       .success-close-popup-btn:hover {
-        opacity: 0.8;
+        background-color: #b5b5b5;
       }
+
       .success-image {
-        width: 6em;
+        width: 200px;
+        height: 200px;
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        animation: rotate 2s infinite;
       }
       .success-title {
-        color: #172171;
-        font-size: 4em;
-        margin: 20px 0 0 0;
+        font-size: 2em;
+        text-align: left;
+        margin: 15px 0 0 0;
+        width: 100%;
       }
       .success-describe {
-        margin: 0 0 20px 0;
-        color: #172171;
+        margin: 15px 0;
+        text-align: left;
       }
       .coupon-code {
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        border: 2px dashed #172171;
-        color: #172171;
-        padding: 1em 4em;
+        border: 2px dashed black;
+        padding: 0.5em 4em;
         margin: 0 0 20px;
         width: 100%;
       }
@@ -233,61 +370,121 @@
         padding: 0 4px;
         cursor: pointer;
       }
+      .success-social-icons {
+        display: flex;
+        justify-content: space-between;
+        width: 30%;
+      }
       .success-btn {
-        background-color: #172171;
-        padding: 10px;
         width: 100%;
-        border: none;
-        border-radius: 5px;
+        padding: 10px;
+        background-color: #ce5636;
         color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: not-allowed;
         transition: 0.2s;
-        cursor: pointer;
       }
       .success-btn:hover {
         opacity: 0.8;
       }
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
       /* Mobile view */
       @media screen and (max-width: 1024px) {
         .main-popup-content {
+          position: relative;
           width: 80%;
-          height: 80%;
+          height: 90%;
         }
-        .main-popup-form-title {
-          text-align: center;
-          margin: 10px 0;
-          font-size: 42px;
+        .main-popup-body {
+          flex-direction: column;
         }
-        .main-describe {
-          margin: 0 0 10px 0;
+        .main-popup-body-form-and-success {
+          width: 100%;
         }
-        .main-popup-form-input {
-          padding: 4px 8px;
-        }
-        .main-popup-form-btn {
-          padding: 8px;
-          margin-bottom: 10px;
-          font-size: 16px;
+        .main-popup-image {
+          height: 40%;
+          width: 100%;
         }
         .main-image {
-          height: 30%;
+          width: 100%;
+          border-bottom-left-radius: 0;
+          border-top-right-radius: 2em;
+          object-fit: cover;
         }
-        /* Success popup content */
+        .main-popup-close-btn {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
+        .main-popup-form {
+          padding: 20px;
+        }
+        .main-popup-form-title {
+          margin: 0;
+          font-size: 1.5em;
+        }
+        .main-popup-form-describe {
+          font-size: 0.875em;
+        }
+        .main-popup-form-input-container {
+          margin-bottom: 10px;
+        }
+        .main-popup-form-input {
+          width: 100%;
+          padding: 4px 6px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          margin-bottom: 10px;
+        }
+        .main-describe {
+          margin: 10px 0;
+          text-align: left;
+          font-size: 14px;
+        }
+        .checkbox-container {
+          font-size: 12px;
+          margin-bottom: 20px;
+        }
+        .main-popup-form-btn {
+          padding: 10px;
+          font-size: 16px;
+          cursor: not-allowed;
+        }
+        /* Success popup */
         .success-popup-content {
-          width: 80%;
-          height: 60%;
+          width: 70%;
+          height: 70%;
+        }
+        .success-modal-body {
+          padding: 20px 20px;
         }
         .success-image {
-          width: 4em;
+          width: 8em;
         }
         .success-title {
-          font-size: 2em;
+          font-size: 1.5em;
+          margin: 0;
         }
         .success-describe {
-          text-align: center;
+          margin: 10px 0;
+          font-size: 14px;
         }
         .coupon-code {
           padding: 0.5em 2em;
           margin: 0 0 10px;
+        }
+        .success-btn {
+          padding: 10px;
+          font-size: 16px;
         }
       }
     </style>
@@ -298,59 +495,82 @@
     <div id="popup" class="popup d-flex">
       <!-- Main Popup -->
       <div id="mainPopupContent" class="main-popup-content">
-        <button id="mainPopupCloseBtn" class="main-popup-close-btn">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
-              fill="#fff"
-            />
-          </svg>
-        </button>
         <div class="main-popup-body">
-          <div class="main-popup-form">
-            <img class="main-image" src="./mainImage.webp" alt="Subscribe" />
-            <h1 class="main-popup-form-title inter-bold">NEW STUFF</h1>
-            <p class="main-describe inter-regular">
-              Sign up for our newsletter and get 15% off your first order!
-            </p>
-            <input
-              type="text"
-              id="subscribeNameInput"
-              class="main-popup-form-input inter-regular"
-              name="subscribeName"
-              placeholder="Name"
-            />
-            <input
-              type="email"
-              id="subscribeEmailInput"
-              class="main-popup-form-input inter-regular"
-              name="subscribe"
-              placeholder="Email Address"
-            />
-            <div class="tel-input-container">
-              <input
-                type="tel"
-                id="subscribeTelInput"
-                class="main-popup-form-input inter-regular"
-                name="subscribeTel"
-                placeholder="Phone number"
-              />
-            </div>
-            <button
-              id="subscribeBtn"
-              class="main-popup-form-btn inter-regular"
-              disabled
-            >
-              Subscribe
+          <div class="main-popup-image">
+            <img class="main-image" src="./mainImage.png" alt="Subscribe" />
+          </div>
+          <div class="main-popup-body-form-and-success">
+            <button id="mainPopupCloseBtn" class="main-popup-close-btn">
+              <svg
+                width="26"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+                  fill="#fff"
+                />
+              </svg>
             </button>
+            <div id="mainPopupForm" class="main-popup-form">
+              <h1 class="main-popup-form-title roboto-bold">
+                Unlock a special offer now!
+              </h1>
+              <p class="main-popup-form-describe roboto-bold">
+                Enter your email & start playing to win a discount of up to 50%
+                on your next order. 🥳
+              </p>
+              <div class="main-popup-form-input-container">
+                <input
+                  type="text"
+                  id="subscribeNameInput"
+                  class="main-popup-form-input roboto-regular"
+                  name="subscribeName"
+                  placeholder="Enter your name"
+                />
+                <input
+                  type="email"
+                  id="subscribeEmailInput"
+                  class="main-popup-form-input roboto-regular"
+                  name="subscribe"
+                  placeholder="Enter your email address"
+                />
+                <div class="tel-input-container">
+                  <input
+                    type="tel"
+                    id="subscribeTelInput"
+                    class="main-popup-form-input roboto-regular"
+                    name="subscribeTel"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+                <svg
+                  class="main-popup-form-badge"
+                  width="6"
+                  height="6"
+                  viewBox="0 0 6 6"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 2.07667L5.31741 0.923333L3.68259 1.84667V0H2.31741V1.84667L0.682594 0.923333L0 2.07667L1.63481 3L0 3.92333L0.682594 5.07667L2.31741 4.15333V6H3.68259V4.15333L5.31741 5.07667L6 3.92333L4.36519 3L6 2.07667Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+
+              <button
+                id="subscribeBtn"
+                class="main-popup-form-btn roboto-regular"
+                disabled
+              >
+                Let's start the game!
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -358,8 +578,8 @@
       <div id="successPopupContent" class="success-popup-content">
         <button id="successClosePopupBtn" class="success-close-popup-btn">
           <svg
-            width="24"
-            height="24"
+            width="26"
+            height="28"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -373,13 +593,53 @@
           </svg>
         </button>
         <div class="success-modal-body">
-          <img class="success-image" src="./successImage.png" alt="Subscribe" />
-          <h1 class="success-title inter-bold">Success</h1>
-          <p class="success-describe inter-regular">
-            Check your email for to get 15% off.
+          <div class="lottery-ball-wrapper">
+            <div id="lottery-ball-layer-5">
+              <div id="lottery-ball-layer-1">
+                <div id="lottery-ball-layer-2">
+                  <div id="lottery-ball-layer-3">
+                    <div id="lottery-ball-layer-4" class="lottery-balls">
+                      <div class="lottery-ball-one">
+                        <span> 50% </span>
+                      </div>
+                      <div class="lottery-ball-two">
+                        <span> No Luck </span>
+                      </div>
+                      <div class="lottery-ball-three">
+                        <span> 15% </span>
+                      </div>
+                      <div class="lottery-ball-four">
+                        <span> 5% </span>
+                      </div>
+                      <div class="lottery-ball-five">
+                        <span> 50% </span>
+                      </div>
+                      <div class="lottery-ball-six">
+                        <span> No Luck </span>
+                      </div>
+                      <div class="lottery-ball-seven">
+                        <span> 10% </span>
+                      </div>
+                      <div class="lottery-ball-eight">
+                        <span> 35% </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="winner-balls" id="winner-ball">50%</div>
+            <div id="anim" class="m">
+              <img src="./animation2.gif" />
+            </div>
+          </div>
+          <h1 class="success-title roboto-bold">Congrats!</h1>
+          <p class="success-describe roboto-regular">
+            Now you can enjoy your special discount & start shopping for our new
+            collection.
           </p>
           <p id="couponCode" class="coupon-code">
-            [COUPON CODE 5]
+            [COUPON CODE 4]
             <?xml version="1.0" encoding="utf-8"?><svg
               width="24"
               height="24"
@@ -392,7 +652,6 @@
               y="0px"
               viewBox="0 0 115.77 122.88"
               xml:space="preserve"
-              fill="#172171"
             >
               <g>
                 <path
@@ -402,8 +661,8 @@
               </g>
             </svg>
           </p>
-          <button id="successBtn" class="success-btn inter-regular">
-            OKAY
+          <button id="subscribeBtn" class="success-btn roboto-regular" disabled>
+            See the collection
           </button>
         </div>
       </div>
@@ -442,7 +701,7 @@
         document.querySelector("#popup").classList.remove("d-none");
       });
 
-      // Close main popup
+      //   Close main popup
       document
         .querySelector("#mainPopupCloseBtn")
         .addEventListener("click", () => {
@@ -483,23 +742,22 @@
         });
 
       //   Close success popup
-      const closeSuccessPopup = () => {
-        document.querySelector("#popup").classList.add("d-none");
-        document.querySelector("#popup").classList.remove("d-flex");
-        document.querySelector("#mainPopupContent").classList.add("d-flex");
-        document.querySelector("#mainPopupContent").classList.remove("d-none");
-        document.querySelector("#successPopupContent").classList.add("d-none");
-        document
-          .querySelector("#successPopupContent")
-          .classList.remove("d-flex");
-      };
-
       document
         .querySelector("#successClosePopupBtn")
-        .addEventListener("click", closeSuccessPopup);
-      document
-        .querySelector("#successBtn")
-        .addEventListener("click", closeSuccessPopup);
+        .addEventListener("click", () => {
+          document.querySelector("#popup").classList.add("d-none");
+          document.querySelector("#popup").classList.remove("d-flex");
+          document.querySelector("#mainPopupContent").classList.add("d-flex");
+          document
+            .querySelector("#mainPopupContent")
+            .classList.remove("d-none");
+          document
+            .querySelector("#successPopupContent")
+            .classList.add("d-none");
+          document
+            .querySelector("#successPopupContent")
+            .classList.remove("d-flex");
+        });
 
       // Email validation
       document

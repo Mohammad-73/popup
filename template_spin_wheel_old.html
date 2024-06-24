@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>mobile spin wheel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous"/>
+
+    <meta name="viewport" content="width=device-width">
+
+
+    <style>
+        .desktop-main-overlay-container-wrapper .main-overlay-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(1, 1, 1, 0.5);
+            max-height: 100vh;
+            overflow: hidden;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper {
+            position: absolute;
+            width: 690px;
+            height: 534px;
+            background-color: white;
+            border-radius: 32px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .close-btn {
+            width: 30px;
+            height: 30px;
+            fill: #aaa;
+            cursor: pointer;
+        }
+
+        /* first tab */
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .detail-wrapper {
+            height: 500px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .title {
+            font-size: 34px;
+            font-weight: bold;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 19px;
+            line-height: 36px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-btn {
+            bottom: 10vw;
+            font-size: 36px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 0px;
+            padding-bottom: 3px;
+            border-radius: 50px;
+            background-color: #4A3AFF;
+            color: white;
+            transition: box-shadow 0.3s ease; 
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-btn:hover{
+            box-shadow: 1px 1px 30px 1px #b6afff;
+            cursor: pointer;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            width: 300px;
+            height: 300px; 
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-wheel-wrapper img {
+            width: 650px;
+            height: auto;
+        }
+        /* end of first tab */
+
+        /* second tab */
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .detail-wrapper {
+            height: 500px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 19px;
+            line-height: 36px;
+        }
+        .desktop-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .error-wrapper .message {
+            font-size: 16px;
+            line-height: 22px;
+        }
+        .desktop-main-overlay-container-wrapper .second-tab-wrapper .card-body-wrapper .error-wrapper .error-inner-wrapper {
+            background-color: #fff !important;
+            border:1px solid #E5E0EB;
+            border-radius: 5px;
+            border-left: 5px solid #F7D1DC;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .title {
+            font-size: 34px;
+            font-weight: bold;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .shopnameholder {
+            font-size: 14px;
+            font-weight: normal;
+            text-align: left;
+            color: rgb(137, 137, 137);
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .code-wrapper {
+            background-color: #278EFF;
+            color: white;
+            font-size: 20px;
+            border-radius: 30px;
+            border-bottom-left-radius: 0;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .get-code-message {
+            font-size: 34px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input-wrapper {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input {
+            bottom: 30vw;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input input {
+            width: 300px;
+            border-radius: 50px; 
+            border-width: 1px;
+            border-color: #ffffff;
+            box-shadow: 1px 1px 10px 1px #c2c2c2;
+            font-size: 18px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input-wrapper .email-btn-wrapper {
+            position: relative;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input-wrapper .email-btn-wrapper .email-btn {
+            position: absolute;
+            right: 52px;
+            background-color: #4A3AFF;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 35px;
+            color: white;
+            z-index: 5;
+            transition: box-shadow 0.3s ease; 
+        }
+        .desktop-main-overlay-container-wrapper .email-btn:hover{
+            box-shadow: 1px 1px 30px 1px #b6afff;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            width: 300px;
+            height: 300px;
+            
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper img {
+            width: 650px;
+            height: auto;
+        }
+        /* end of second tab */
+
+        /* tele-second tab */
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .detail-wrapper {
+            height: 500px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 16px;
+            line-height: 22px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .error-wrapper .message {
+            font-size: 16px;
+            line-height: 22px;
+        }
+        .desktop-main-overlay-container-wrapper .tele-second-tab-wrapper .card-body-wrapper .error-wrapper .error-inner-wrapper {
+            background-color: #fff !important;
+            border:1px solid #E5E0EB;
+            border-radius: 5px;
+            border-left: 5px solid #F7D1DC;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .title {
+            font-size: 34px;
+            font-weight: bold;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .shopnameholder {
+            font-size: 14px;
+            font-weight: normal;
+            text-align: left;
+            color: rgb(137, 137, 137);
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .code-wrapper {
+            background-color: #278EFF;
+            color: white;
+            font-size: 20px;
+            border-radius: 30px;
+            border-bottom-left-radius: 0;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .get-code-message {
+            font-size: 34px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-input-wrapper {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-input {
+            bottom: 30vw;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-input input {
+            width: 300px;
+            border-radius: 50px; 
+            border-width: 1px;
+            border-color: #ffffff;
+            box-shadow: 1px 1px 10px 1px #c2c2c2;
+            font-size: 18px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .phone-input-wrapper {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .phone-input {
+            bottom: 30vw;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .phone-input input {
+            width: 300px;
+            border-radius: 50px; 
+            border-width: 1px;
+            border-color: #ffffff;
+            box-shadow: 1px 1px 10px 1px #c2c2c2;
+            font-size: 18px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-btn-wrapper {
+            position: relative;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-btn-wrapper .email-btn {
+            bottom: 10vw;
+            font-size: 18px;
+            padding-left: 70px;
+            padding-right: 70px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 50px;
+            background-color: #4A3AFF;
+            color: white;
+            /* box-shadow: 1px 1px 30px 1px #b6afff; */
+            transition: box-shadow 0.3s ease;
+        }
+        .desktop-main-overlay-container-wrapper .email-btn:hover{
+            box-shadow: 1px 1px 30px 1px #b6afff;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            width: 300px;
+            height: 300px;
+            
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper img {
+            width: 650px;
+            height: auto;
+        }
+        /* end of tele-second tab */
+
+        /* third tab */
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .detail-wrapper {
+            height: 500px;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 17px;
+            line-height: 25px;
+            color: rgb(137, 137, 137);
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .title {
+            font-size: 34px;
+            font-weight: bold;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .shopnameholder {
+            font-size: 14px;
+            font-weight: normal;
+            text-align: left;
+            color: rgb(137, 137, 137);
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .code-wrapper {
+            background-color: #278EFF;
+            color: white;
+            font-size: 20px;
+            border-radius: 30px;
+            border-bottom-left-radius: 0;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .get-code-message {
+            font-size: 34px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .copy-code {
+            bottom: 10vw;
+            font-size: 36px;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 0px;
+            padding-bottom: 3px;
+            border-radius: 50px;
+            background-color: #4A3AFF;
+            color: white;
+            transition: box-shadow 0.3s ease; 
+            cursor: pointer;
+        }
+        .desktop-main-overlay-container-wrapper .spin-btn:hover{
+            box-shadow: 1px 1px 30px 1px #b6afff;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .third-tab-wrapper .card-body-wrapper .spin-wheel-wrapper img {
+            width: 650px;
+            height: auto;
+        }
+        /* end of third tab */
+
+        /* loading tab wrapper desktop */
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .loading-tab-wrapper {
+            z-index: 20;
+        }
+        .desktop-main-overlay-container-wrapper .main-overlay-container .card-wrapper .loading-tab-wrapper svg {
+            animation: 1s spinnow infinite linear;
+            fill: #001F30;
+            height: 80px;
+        }
+        @-webkit-keyframes spinnow {
+            100% {
+                transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes spinnow {
+            100% {
+                transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+            }
+        }
+        @-ms-keyframes spinnow {
+            100% {
+                transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+            }
+        }
+        /* end of loading tab wrapper */
+
+        /* spin wheel */
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .spin-wheel-inner-wrapper {
+            position: relative;
+            min-width: 550px;
+            min-height: 550px;
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .spin-logo-wrapper {
+            position: absolute;
+            height: 100% !important;
+            width: 100% !important;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .spin-logo-wrapper .spin-logo {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #333;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.1em;
+            border: 4px solid #333;
+            cursor: pointer;
+            user-select: none;
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .spin-logo-wrapper .spin-logo::before {
+            content: '';
+            position: absolute;
+            right: -18px;
+            width: 20px;
+            height: 50px;
+            background: #333;
+            clip-path: polygon(100% 50%, 0 15%, 0 85%);
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .wheel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 0 5px #333, 0 0 0 15px #333, 0 0 0 18px #111;
+            transition: transform 5s ease-in-out;
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .wheel .option {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: var(--clr);
+            transform-origin: bottom right;
+            transform: rotate(calc(45deg* var(--i)));
+            clip-path: polygon(0 0, 56% 0, 100% 100%, 0 56%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            cursor: pointer;
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .wheel .option span {
+            position: relative;
+            transform: rotate(225deg);
+            font-size: 1.5em;
+            font-weight: 700;
+            right: -10px;
+            color: #fff;
+            text-shadow: 3px 5px 2px rgba(0, 0, 0, 0.15);
+        }
+        .desktop-main-overlay-container-wrapper .spin-wheel-wrapper .wheel .option span::after
+        {
+            content: '';
+            position: absolute;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        /* end of spin wheel */
+
+
+        .mobile-main-overlay-container-wrapper {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(1, 1, 1, 0.5);
+            max-height: 100vh;
+            overflow: hidden;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper {
+            position: absolute;
+            top: 20vh;
+            bottom: 0;
+            width: 100vw;
+            background-color: white;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .card-header {
+            background-color: white;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            border: #ffffff;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .close-btn {
+            width: 50px;
+            height: 50px;
+            fill: #aaa   
+        }
+
+        /* first tab */
+        .mobile-main-overlay-container-wrapper .card-wrapper .first-tab-wrapper .card-body-wrapper .title {
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .first-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 20px;
+            padding-left: 14vw;
+            padding-right: 14vw;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-btn-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-btn {
+            position: absolute;
+            bottom: 30px;
+            font-size: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 100px;
+            background-color: #278EFF;
+            color: white;
+            box-shadow: 1px 1px 30px 1px #000000;
+            font-weight: bold;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .first-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            position: absolute;
+            bottom: 0px;
+            left: -20px;
+        }
+        /* end of first tab */
+
+        /* second tab */
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .title {
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 20px;
+            padding-left: 10vw;
+            padding-right: 10vw;
+            z-index: 15;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .code-wrapper {
+            background-color: #278EFF;
+            color: white;
+            font-size: 20px;
+            border-radius: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom-left-radius: 0;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .get-code-btn-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .get-code-btn {
+            position: absolute;
+            bottom: 50px;
+            font-size: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 100px;
+            background-color: #278EFF;
+            color: white;
+            box-shadow: 1px 1px 30px 1px #000000;
+            font-weight: bold;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input {
+            position: absolute;
+            bottom: 120px;
+            width: 400px;
+            font-size: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .email-input input {
+            width: 100%;
+            border-radius: 40px; 
+            border-color: #ffffff;
+            font-size: 20px;
+            box-shadow: 1px 1px 30px 1px #000000;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            position: absolute;
+            bottom: 0%;
+            left: -20px;
+        }
+        .mobile-main-overlay-container-wrapper .second-tab-wrapper .card-body-wrapper .error-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .second-tab-wrapper .card-body-wrapper .error-wrapper .message {
+            font-size: 16px;
+            line-height: 22px;
+            z-index: 20;
+            color: #D51A52 !important;
+        }
+        .mobile-main-overlay-container-wrapper .second-tab-wrapper .card-body-wrapper .error-wrapper .error-inner-wrapper {
+            background-color: #fff !important;
+            border:1px solid #E5E0EB;
+            border-radius: 5px;
+            border-left: 5px solid #F7D1DC;
+        }
+        
+        /* end of second tab */
+
+        /* tele-second tab */
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .title {
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 20px;
+            padding-left: 10vw;
+            padding-right: 10vw;
+            z-index: 15;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .code-wrapper {
+            background-color: #278EFF;
+            color: white;
+            font-size: 20px;
+            border-radius: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom-left-radius: 0;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .get-code-btn-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .get-code-btn {
+            position: absolute;
+            bottom: 50px;
+            font-size: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 100px;
+            background-color: #278EFF;
+            color: white;
+            box-shadow: 1px 1px 30px 1px #000000;
+            font-weight: bold;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-input-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-input {
+            position: absolute;
+            bottom: 120px;
+            width: 400px;
+            font-size: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .email-input input {
+            width: 100%;
+            border-radius: 70px; 
+            border-color: #ffffff;
+            font-size: 20px;
+            box-shadow: 1px 1px 30px 1px #000000;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .phone-input-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .phone-input {
+            position: absolute;
+            bottom: 220px;
+            width: 400px;
+            font-size: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .phone-input input {
+            width: 100%;
+            border-radius: 70px; 
+            border-color: #ffffff;
+            font-size: 20px;
+            box-shadow: 1px 1px 30px 1px #000000;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: -20px;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .tele-second-tab-wrapper .card-body-wrapper .spin-wheel-wrapper img {
+            width: 1300px;
+            height: auto;
+        }
+        .mobile-main-overlay-container-wrapper .tele-second-tab-wrapper .card-body-wrapper .error-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .tele-second-tab-wrapper .card-body-wrapper .error-wrapper .message {
+            font-size: 16px;
+            line-height: 22px;
+            z-index: 20;
+            color: white;
+        }
+        .mobile-main-overlay-container-wrapper .tele-second-tab-wrapper .card-body-wrapper .error-wrapper .error-inner-wrapper {
+            background-color: #fff !important;
+            border:1px solid #E5E0EB;
+            border-radius: 5px;
+            border-left: 5px solid #F7D1DC;
+        }
+        /* end of tele-second tab */
+
+        /* third tab */
+        .mobile-main-overlay-container-wrapper .card-wrapper .third-tab-wrapper .card-body-wrapper .title {
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .third-tab-wrapper .card-body-wrapper .message-wrapper .message {
+            font-size: 20px;
+            padding-left: 10vw;
+            padding-right: 10vw;
+            text-align: center;
+            z-index: 15;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .third-tab-wrapper .card-body-wrapper .code-wrapper {
+            background-color: #278EFF;
+            color: white;
+            font-size: 20px;
+            border-radius: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom-left-radius: 0;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .third-tab-wrapper .card-body-wrapper .get-code-btn-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .third-tab-wrapper .card-body-wrapper .copy-code {
+            position: absolute;
+            bottom: 50px;
+            font-size: 20px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 100px;
+            background-color: #278EFF;
+            color: white;
+            box-shadow: 1px 1px 30px 1px #000000;
+            font-weight: bold;
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .third-tab-wrapper .card-body-wrapper .spin-wheel-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: -20px;
+        }
+        /* end of third tab */
+
+        /* spin wheel */
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .spin-wheel-inner-wrapper {
+            position: relative;
+            min-width: 400px;
+            min-height: 400px;
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .spin-logo-wrapper {
+            position: absolute;
+            height: 100% !important;
+            width: 100% !important;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .spin-logo-wrapper .spin-logo {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #333;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.1em;
+            border: 4px solid #333;
+            cursor: pointer;
+            user-select: none;
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .spin-logo-wrapper .spin-logo::before {
+            content: '';
+            position: absolute;
+            right: -18px;
+            width: 20px;
+            height: 50px;
+            background: #333;
+            clip-path: polygon(100% 50%, 0 15%, 0 85%);
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .wheel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #333;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 0 5px #333, 0 0 0 15px #333, 0 0 0 18px #111;
+            transition: transform 5s ease-in-out;
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .wheel .option {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background: var(--clr);
+            transform-origin: bottom right;
+            transform: rotate(calc(45deg* var(--i)));
+            clip-path: polygon(0 0, 56% 0, 100% 100%, 0 56%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            cursor: pointer;
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .wheel .option span {
+            position: relative;
+            transform: rotate(225deg);
+            font-size: 20px;
+            font-weight: 700;
+            right: -10px;
+            color: #fff;
+            text-shadow: 3px 5px 2px rgba(0, 0, 0, 0.15);
+        }
+        .mobile-main-overlay-container-wrapper .spin-wheel-wrapper .wheel .option span::after
+        {
+            content: '';
+            position: absolute;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        /* end of spin wheel */
+
+        /* loading tab wrapper mobile */
+        .mobile-main-overlay-container-wrapper .card-wrapper .loading-tab-wrapper {
+            z-index: 20;
+        }
+        .mobile-main-overlay-container-wrapper .card-wrapper .loading-tab-wrapper svg {
+            animation: 1s spinnow infinite linear;
+            fill: #001F30;
+            height: 80px;
+        }
+        @-webkit-keyframes spinnow {
+            100% {
+                transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes spinnow {
+            100% {
+                transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+            }
+        }
+        @-ms-keyframes spinnow {
+            100% {
+                transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+            }
+        }
+        /* end of loading tab wrapper */
+
+    </style>
+</head>
+
+<body>
+    <div class="main-overlay-container-wrapper d-none">
+        <div class="desktop-main-overlay-container-wrapper d-none d-sm-none d-md-block">
+            <div class="main-overlay-container d-flex flex-row justify-content-center align-items-center">
+                <div class="card-wrapper">
+                    <div class="loading-tab-wrapper d-none w-100 h-100">
+                        <div class="w-100 h-100 d-flex flex-row justify-content-center align-items-center">
+                            <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><path d="M15.542 1.487A21.507 21.507 0 00.5 22c0 11.874 9.626 21.5 21.5 21.5 9.847 0 18.364-6.675 20.809-16.072a1.5 1.5 0 00-2.904-.756C37.803 34.755 30.473 40.5 22 40.5 11.783 40.5 3.5 32.217 3.5 22c0-8.137 5.3-15.247 12.942-17.65a1.5 1.5 0 10-.9-2.863z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="first-tab-wrapper">
+                        <div class="card-body-wrapper d-flex flex-row justify-content-between align-items-center">
+                            <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                                <div class="spin-wheel-inner-wrapper">
+                                    <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                        <div class="spin-logo">Spin</div>
+                                    </div>
+                                    <div class="wheel">
+                                        <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                        <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-wrapper d-flex flex-column">
+                                <div class="d-flex flex-row justify-content-end p-3">
+                                    <div class="close-btn-wrapper">
+                                        <svg class="close-btn" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="title text-center mb-3 mt-5">
+                                    Spin The Wheel!
+                                </div>
+                                <div class="message-wrapper d-flex flex-row justify-content text-center pl-5 pr-5 mt-2">
+                                    <div class="message pl-4 pr-4 pb-2">
+                                        Now, Try your luck and Spin The Wheel quickly to get a <b>Free discount code!</b>
+                                    </div>
+                                </div>
+                                <div class="spin-btn-wrapper d-flex flex-row justify-content-center mt-5">
+                                    <div class="spin-btn mt-4">
+                                        <b>Spin!</b>
+                                    </div>
+                                </div>
+                                <div class="try-later-wrapper d-flex flex-row justify-content-center mt-3">
+                                    <u>Try Later :(</u>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="second-tab-wrapper d-none">
+                        <div class="card-body-wrapper d-flex flex-row justify-content-between align-items-center">
+                            <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                                <div class="spin-wheel-inner-wrapper">
+                                    <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                        <div class="spin-logo">Spin</div>
+                                    </div>
+                                    <div class="wheel">
+                                        <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                        <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-wrapper d-flex flex-column">
+                                <div class="d-flex flex-row justify-content-end p-3">
+                                    <div class="close-btn-wrapper">
+                                        <svg class="close-btn" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="shopnameholder pl-4 ml-5">
+                                    Shop Name
+                                </div>
+                                <div class="code-container d-flex flex-row justify-content-center text-center mt-2 mb-1">
+                                    <div class="code-wrapper p-4 pr-5 pl-5">
+                                        <div class="label">
+                                            Your Discount Code:
+                                        </div>
+                                        <div class="code-wrapper">
+                                            ●●●●●●●●●●
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="get-code-message-wrapper d-flex flex-row justify-content-center">
+                                    <div class="get-code-message mt-2">
+                                        Get Your Code
+                                    </div>
+                                </div>
+                                <div class="email-input-wrapper d-flex flex-row  mt-5">
+                                    <div class="email-input pl-5 pr-5">
+                                        <input placeholder="Enter your Email" class="p-3 pt-2 pb-2" name="email">
+                                    </div>
+                                    <div class="email-btn-wrapper d-flex flex-row align-items-center ">
+                                        <div class="email-btn get-code-btn p-3 pt-2 pb-2 pl-4 pr-4">
+                                            <b>Get</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="message-wrapper d-flex flex-row justify-content text-center p-2 pl-3 pr-3 ">
+                                    <div class="message pl-5 pr-5 pb-2">
+                                        Enter your email to receive Your discount code.
+                                    </div>
+                                </div>
+                                <div class="error-wrapper ml-5 mr-5 d-none">
+                                    <div
+                                        class="error-inner-wrapper d-flex flex-row justify-content-start align-items-center align-content-center text-center p-2 w-100 h-100 text-center rounded">
+                                        <div class="alert-circle">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_3406_30)">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0193 2.99681C11.6925 -0.32998 6.30213 -0.335337 2.98178 2.98502C-0.340724 6.30859 -0.337509 11.6968 2.99142 15.0236C6.3182 18.3504 11.7096 18.3547 15.0289 15.0343C18.3503 11.7139 18.3471 6.32359 15.0193 2.99681ZM10.7303 12.5904L8.92178 10.7818L7.1132 12.5904C6.37499 13.3286 5.81999 13.9714 4.93928 13.0918C4.0607 12.2122 4.70035 11.6572 5.44178 10.9179L7.25035 9.11038L5.44178 7.30181C4.70249 6.56359 4.0607 6.00859 4.93928 5.12788C5.81999 4.24931 6.37499 4.89109 7.1132 5.63038L8.92178 7.43681L10.7303 5.63038C11.4696 4.89216 12.0214 4.24823 12.9021 5.12788C13.7828 6.00859 13.1411 6.56359 12.4018 7.30181L10.5932 9.10931L12.4018 10.9168C13.14 11.6572 13.7828 12.2122 12.9021 13.0918C12.0236 13.9714 11.4696 13.3286 10.7303 12.5904Z" fill="#D51A52"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_3406_30">
+                                                <rect width="17.1429" height="17.1429" fill="white" transform="translate(0.428589 0.428589)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                        <div class="message pl-3 pr-3 text-danger">
+                                            this email is already taken!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tele-second-tab-wrapper d-none">
+                        <div class="card-body-wrapper d-flex flex-row justify-content-center align-items-center">
+                            <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center">
+                                <div class="spin-wheel-inner-wrapper">
+                                    <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                        <div class="spin-logo">Spin</div>
+                                    </div>
+                                    <div class="wheel">
+                                        <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                        <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-wrapper d-flex flex-column">
+                                <div class="d-flex flex-row justify-content-end p-3">
+                                    <div class="close-btn-wrapper">
+                                        <svg class="close-btn" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="shopnameholder pl-4 ml-5">
+                                    Shop Name
+                                </div>
+                                <div class="code-container d-flex flex-row justify-content-center text-center mt-2 mb-1">
+                                    <div class="code-wrapper p-4 pr-5 pl-5">
+                                        <div class="label">
+                                            Your Discount Code:
+                                        </div>
+                                        <div class="code-wrapper">
+                                            ●●●●●●●●●●
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="get-code-message-wrapper d-flex flex-row justify-content-center">
+                                    <div class="get-code-message mt-1">
+                                        Get Your Code
+                                    </div>
+                                </div>
+                                <div class="email-input-wrapper d-flex flex-row  mt-2">
+                                    <div class="email-input pl-5 pr-5">
+                                        <input placeholder="Enter your Email" class="p-3 pt-2 pb-2" name="email">
+                                    </div>
+                                </div>
+                                <div class="phone-input-wrapper d-flex flex-row mt-1">
+                                    <div class="phone-input pl-5 pr-5">
+                                        <input placeholder="Enter your Phone Number" class="p-3 pt-2 pb-2" name="phone-number">
+                                    </div>
+                                </div>
+                                <div class="email-btn-wrapper d-flex flex-row justify-content-center mt-1">
+                                    <div class="email-btn get-code-btn">
+                                        <b>Get</b>
+                                    </div>
+                                </div>
+                                <div class="message-wrapper d-flex flex-row justify-content text-center p-2 pl-3 pr-3 ">
+                                    <div class="message pl-5 pr-5 pb-2">
+                                        Enter your email and phone number to receive Your discount code.
+                                    </div>
+                                </div>
+                                <div class="error-wrapper ml-5 mr-5 d-none">
+                                    <div
+                                        class="error-inner-wrapper d-flex flex-row justify-content-start align-items-center align-content-center text-center p-2 w-100 h-100 text-center rounded">
+                                        <div class="alert-circle">
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_3406_30)">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0193 2.99681C11.6925 -0.32998 6.30213 -0.335337 2.98178 2.98502C-0.340724 6.30859 -0.337509 11.6968 2.99142 15.0236C6.3182 18.3504 11.7096 18.3547 15.0289 15.0343C18.3503 11.7139 18.3471 6.32359 15.0193 2.99681ZM10.7303 12.5904L8.92178 10.7818L7.1132 12.5904C6.37499 13.3286 5.81999 13.9714 4.93928 13.0918C4.0607 12.2122 4.70035 11.6572 5.44178 10.9179L7.25035 9.11038L5.44178 7.30181C4.70249 6.56359 4.0607 6.00859 4.93928 5.12788C5.81999 4.24931 6.37499 4.89109 7.1132 5.63038L8.92178 7.43681L10.7303 5.63038C11.4696 4.89216 12.0214 4.24823 12.9021 5.12788C13.7828 6.00859 13.1411 6.56359 12.4018 7.30181L10.5932 9.10931L12.4018 10.9168C13.14 11.6572 13.7828 12.2122 12.9021 13.0918C12.0236 13.9714 11.4696 13.3286 10.7303 12.5904Z" fill="#D51A52"/>
+                                                </g>
+                                                <defs>
+                                                <clipPath id="clip0_3406_30">
+                                                <rect width="17.1429" height="17.1429" fill="white" transform="translate(0.428589 0.428589)"/>
+                                                </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                        <div class="message pl-3 pr-3 text-danger">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="third-tab-wrapper d-none">
+                        <div class="card-body-wrapper d-flex flex-row justify-content-between align-items-center">
+                            <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                                <div class="spin-wheel-inner-wrapper">
+                                    <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                        <div class="spin-logo">Spin</div>
+                                    </div>
+                                    <div class="wheel">
+                                        <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                        <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                        <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                        <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                        <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="detail-wrapper d-flex flex-column">
+                                <div class="d-flex flex-row justify-content-end p-3">
+                                    <div class="close-btn-wrapper">
+                                        <svg class="close-btn" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"/></svg>
+                                    </div>
+                                </div>
+                                <div class="shopnameholder ml-5">
+                                    Shop Name
+                                </div>
+                                <div class="code-container d-flex flex-row justify-content-center text-center mt-2 mb-1">
+                                    <div class="code-wrapper p-4 pr-5 pl-5">
+                                        <div class="label">
+                                            Your Discount Code:
+                                        </div>
+                                        <div class="discount-code">
+                                            1122334445
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="get-code-message-wrapper d-flex flex-row justify-content-center">
+                                    <div class="get-code-message mt-2">
+                                        Clam Your Code
+                                    </div>
+                                </div>
+                                <div class="copy-code-wrapper d-flex flex-row justify-content-center mt-5">
+                                    <div class="copy-code mt-4">
+                                        <b>Copy Code</b>
+                                    </div>
+                                </div>
+                                <div class="message-wrapper d-flex flex-row justify-content text-center  p-2 pl-3 pr-3 mt-2 ">
+                                    <div class="message pl-5 pr-5 pb-2">
+                                        you can use it just today! <br> Try it ASAP!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-main-overlay-container-wrapper d-md-none d-lg-none d-xl-none d-sm-block">
+            <div class="card-wrapper">
+                <div class="loading-tab-wrapper d-none w-100 h-100">
+                    <div class="w-100 h-100 d-flex flex-row justify-content-center align-items-center">
+                        <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><path d="M15.542 1.487A21.507 21.507 0 00.5 22c0 11.874 9.626 21.5 21.5 21.5 9.847 0 18.364-6.675 20.809-16.072a1.5 1.5 0 00-2.904-.756C37.803 34.755 30.473 40.5 22 40.5 11.783 40.5 3.5 32.217 3.5 22c0-8.137 5.3-15.247 12.942-17.65a1.5 1.5 0 10-.9-2.863z"></path></svg>
+                    </div>
+                </div>
+                <div class="card-header d-flex flex-row justify-content-end pt-3 pr-3">
+                    <div class="close-btn-wrapper">
+                        <svg class="close-btn" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"/></svg>
+                    </div>
+                </div>
+                <div class="first-tab-wrapper">
+                    <div class="card-body-wrapper d-flex flex-column justify-content-center">
+                        <div class="title text-center mb-1">
+                            Spin The Wheel!
+                        </div>
+                        <div class="message-wrapper d-flex flex-row justify-content text-center pl-1 pr-1 mt-3">
+                            <div class="message">
+                                Now, Try your luck and spin the wheel quickly to get a <b>Free discount code!</b>
+                            </div>
+                        </div>
+                        <div class="spin-btn-wrapper d-flex flex-row justify-content-center">
+                            <div class="spin-btn">
+                                FREE Spin!
+                            </div>
+                        </div>
+                        <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                            <div class="spin-wheel-inner-wrapper">
+                                <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                    <div class="spin-logo">Spin</div>
+                                </div>
+                                <div class="wheel">
+                                    <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                    <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="second-tab-wrapper d-none">
+                    <div class="card-body-wrapper d-flex flex-column justify-content-center">
+                        <div class="title text-center">
+                            Get Your Code
+                        </div>
+                        <div class="code-container d-flex flex-row justify-content-center text-center mt-2 mb-1">
+                            <div class="code-wrapper">
+                                <div class="label">
+                                    Your Discount Code:
+                                </div>
+                                <div class="code-wrapper">
+                                    ●●●●●●●
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-wrapper d-flex flex-row justify-content-center text-center pl-1 pr-1 mt-4">
+                            <div class="message">
+                                Enter your Email to receive Your discount code.
+                            </div>
+                        </div>
+                        <div class="error-wrapper ml-5 mr-5 d-none">
+                            <div
+                                class="error-inner-wrapper d-flex flex-row justify-content-start align-items-center align-content-center text-center p-2 w-100 h-100 text-center rounded">
+                                <div class="alert-circle">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_3406_30)">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0193 2.99681C11.6925 -0.32998 6.30213 -0.335337 2.98178 2.98502C-0.340724 6.30859 -0.337509 11.6968 2.99142 15.0236C6.3182 18.3504 11.7096 18.3547 15.0289 15.0343C18.3503 11.7139 18.3471 6.32359 15.0193 2.99681ZM10.7303 12.5904L8.92178 10.7818L7.1132 12.5904C6.37499 13.3286 5.81999 13.9714 4.93928 13.0918C4.0607 12.2122 4.70035 11.6572 5.44178 10.9179L7.25035 9.11038L5.44178 7.30181C4.70249 6.56359 4.0607 6.00859 4.93928 5.12788C5.81999 4.24931 6.37499 4.89109 7.1132 5.63038L8.92178 7.43681L10.7303 5.63038C11.4696 4.89216 12.0214 4.24823 12.9021 5.12788C13.7828 6.00859 13.1411 6.56359 12.4018 7.30181L10.5932 9.10931L12.4018 10.9168C13.14 11.6572 13.7828 12.2122 12.9021 13.0918C12.0236 13.9714 11.4696 13.3286 10.7303 12.5904Z" fill="#D51A52"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_3406_30">
+                                        <rect width="17.1429" height="17.1429" fill="white" transform="translate(0.428589 0.428589)"/>
+                                        </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="message pl-3 pr-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="email-input-wrapper d-flex flex-row justify-content-center">
+                            <div class="email-input">
+                                <input placeholder="Enter your Email" class="pt-4 pb-4 pl-5 pr-5" name="email">
+                            </div>
+                        </div>
+                        <div class="get-code-btn-wrapper d-flex flex-row justify-content-center">
+                            <div class="get-code-btn">
+                                Get Code
+                            </div>
+                        </div>
+                        <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                            <div class="spin-wheel-inner-wrapper">
+                                <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                    <div class="spin-logo">Spin</div>
+                                </div>
+                                <div class="wheel">
+                                    <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                    <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tele-second-tab-wrapper d-none">
+                    <div class="card-body-wrapper d-flex flex-column justify-content-center">
+                        <div class="title text-center mb-2">
+                            Get Your Code
+                        </div>
+                        <div class="code-container d-flex flex-row justify-content-center text-center mt-2 mb-1">
+                            <div class="code-wrapper">
+                                <div class="label">
+                                    Your Discount Code:
+                                </div>
+                                <div class="code-wrapper">
+                                    ●●●●●●●
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-wrapper d-flex flex-row justify-content-center text-center pl-1 pr-1 mt-2">
+                            <div class="message">
+                                Enter your Email and Phone Number to receive Your discount code.
+                            </div>
+                        </div>
+                        <div class="error-wrapper ml-5 mr-5 d-none">
+                            <div
+                                class="error-inner-wrapper d-flex flex-row justify-content-start align-items-center align-content-center text-center p-2 w-100 h-100 text-center rounded">
+                                <div class="alert-circle">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_3406_30)">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0193 2.99681C11.6925 -0.32998 6.30213 -0.335337 2.98178 2.98502C-0.340724 6.30859 -0.337509 11.6968 2.99142 15.0236C6.3182 18.3504 11.7096 18.3547 15.0289 15.0343C18.3503 11.7139 18.3471 6.32359 15.0193 2.99681ZM10.7303 12.5904L8.92178 10.7818L7.1132 12.5904C6.37499 13.3286 5.81999 13.9714 4.93928 13.0918C4.0607 12.2122 4.70035 11.6572 5.44178 10.9179L7.25035 9.11038L5.44178 7.30181C4.70249 6.56359 4.0607 6.00859 4.93928 5.12788C5.81999 4.24931 6.37499 4.89109 7.1132 5.63038L8.92178 7.43681L10.7303 5.63038C11.4696 4.89216 12.0214 4.24823 12.9021 5.12788C13.7828 6.00859 13.1411 6.56359 12.4018 7.30181L10.5932 9.10931L12.4018 10.9168C13.14 11.6572 13.7828 12.2122 12.9021 13.0918C12.0236 13.9714 11.4696 13.3286 10.7303 12.5904Z" fill="#D51A52"/>
+                                        </g>
+                                        <defs>
+                                        <clipPath id="clip0_3406_30">
+                                        <rect width="17.1429" height="17.1429" fill="white" transform="translate(0.428589 0.428589)"/>
+                                        </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="message pl-3 pr-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="email-input-wrapper d-flex flex-row justify-content-center">
+                            <div class="email-input">
+                                <input placeholder="Enter your Email" class="pt-4 pb-4 pl-5 pr-5" name="email">
+                            </div>
+                        </div>
+                        <div class="phone-input-wrapper d-flex flex-row justify-content-center">
+                            <div class="phone-input">
+                                <input placeholder="Enter your Phone Number" class="pt-4 pb-4 pl-5 pr-5" name="phone_number">
+                            </div>
+                        </div>
+                        <div class="get-code-btn-wrapper d-flex flex-row justify-content-center">
+                            <div class="get-code-btn">
+                                Get Code
+                            </div>
+                        </div>
+                        <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                            <div class="spin-wheel-inner-wrapper">
+                                <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                    <div class="spin-logo">Spin</div>
+                                </div>
+                                <div class="wheel">
+                                    <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                    <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="third-tab-wrapper d-none">
+                    <div class="card-body-wrapper d-flex flex-column justify-content-center">
+                        <div class="title text-center mb-2">
+                            Clam Your Code!
+                        </div>
+                        <div class="code-container d-flex flex-row justify-content-center text-center mt-2 mb-1">
+                            <div class="code-wrapper">
+                                <div class="label">
+                                    Your Discount Code:
+                                </div>
+                                <div class="discount-code">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="message-wrapper d-flex flex-row justify-content-center text-center pl-1 pr-1 mt-1">
+                            <div class="message mt-2">
+                                you can use it just today!
+                            </div>
+                        </div>
+                        <div class="get-code-btn-wrapper d-flex flex-row justify-content-center">
+                            <div class="copy-code">
+                                Copy Code
+                            </div>
+                        </div>
+                        <div class="spin-wheel-wrapper d-flex flex-row-reverse align-items-center justify-content-start">
+                            <div class="spin-wheel-inner-wrapper">
+                                <div class="spin-logo-wrapper w-100 h-100 d-flex justify-content-center align-content-center">
+                                    <div class="spin-logo">Spin</div>
+                                </div>
+                                <div class="wheel">
+                                    <div class="option" style="--i:0; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:1; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:2; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:3; --clr:#F1592D"><span>off 40%</span></div>
+                                    <div class="option" style="--i:4; --clr:#D3D3D3"><span>off 10%</span></div>
+                                    <div class="option" style="--i:5; --clr:#F1592D"><span>off 20%</span></div>
+                                    <div class="option" style="--i:6; --clr:#D3D3D3"><span>off 30%</span></div>
+                                    <div class="option" style="--i:7; --clr:#F1592D"><span>off 40%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        Api = (function(){
+    
+            var obj = {};
+    
+            obj.send_ajax_get = function(url, data, timeout, success_callback, error_callback){
+                var full_url = url + '?' + obj._get_encoded_data(data);
+                var request = new XMLHttpRequest();
+                request.open('GET', full_url, true);
+                if(timeout){
+                    request.timeout = timeout;
+                }
+                request.setRequestHeader('accept', 'application/json');
+                request.setRequestHeader('content-type', 'application/json');
+                request.onload = function () {
+                    if(request.status >= 200 && request.status < 300){
+                        if(success_callback !== undefined) {
+                            success_callback(JSON.parse(request.responseText));
+                        }
+                    } else {
+                        if(error_callback !== undefined){
+                            error_callback('status code ' + request.status.toString());
+                        }
+                    }
+                };
+                request.onerror = function (e) {
+                    if(error_callback !== undefined){
+                        error_callback(e)
+                    }
+                };
+                request.send();
+            };
+    
+            obj.send_ajax_post = function(url, data, timeout, success_callback, error_callback){
+                var encoded_data = obj._get_encoded_data(data);
+                var request = new XMLHttpRequest();
+                request.open('POST', url, true);
+                if(timeout){
+                    request.timeout = timeout;
+                }
+                request.setRequestHeader('accept', 'application/json');
+                request.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+                request.onload = function () {
+                    if(request.status >= 200 && request.status < 300){
+                        if(success_callback !== undefined) {
+                            success_callback(JSON.parse(request.responseText));
+                        }
+                    } else {
+                        if(error_callback !== undefined){
+                            // Check if response is parsable JSON (might not always be)
+                            try {
+                                var error_data = JSON.parse(request.responseText);
+                                if (error_data && error_data.message) {
+                                    error_callback(error_data.message);
+                                } else {
+                                    error_callback('Received error status code: ' + request.status);
+                                }
+                            } catch (e) {
+                                // If parsing fails, assume network error or non-JSON response
+                                error_callback('Network error or unexpected response format');
+                            }
+                        }
+                    }
+                };
+                request.onerror = function (e) {
+                    if(error_callback !== undefined){
+                        error_callback(e)
+                    }
+                };
+                request.send(encoded_data);
+            };
+    
+            obj._get_encoded_data = function(data) {
+                var encoded_data = '';
+                for(var i in data){
+                    if(data.hasOwnProperty(i)) {
+                        encoded_data += i + '=' + encodeURIComponent(data[i]) + '&';
+                    }
+                }
+                return encoded_data;
+            };
+    
+            return obj;
+    
+        }());
+    </script>
+    
+    <script>
+        (function(){
+            const NULL_VALUE = "Oops!";
+            var obj = {};
+            obj.email = "";
+            obj.phone_number = "";
+            obj.api_domain = 'https://alshifa.me/';
+            // obj.api_domain = "http://localhost:8000/";
+            obj.discount_code = "";
+            let screen_width = window.screen.width;
+            obj.main_prefix = ".main-overlay-container-wrapper";
+            if (screen_width >= 500) {
+                obj.selector_prefix = '.main-overlay-container-wrapper .desktop-main-overlay-container-wrapper';
+            } else {
+                obj.selector_prefix = '.main-overlay-container-wrapper .mobile-main-overlay-container-wrapper';
+            }
+            obj.chances_options = {
+                "Never": 0,
+                "Low": 5,
+                "Medium": 10,
+                "High": 20
+            }
+            obj.first_tab_wrapper = document.querySelector(obj.selector_prefix + ' .first-tab-wrapper');
+            obj.second_tab_wrapper = document.querySelector(obj.selector_prefix + ' .second-tab-wrapper');
+            obj.third_tab_wrapper = document.querySelector(obj.selector_prefix + ' .third-tab-wrapper');
+            obj.loading_tab_wrapper = document.querySelector(obj.selector_prefix + ' .loading-tab-wrapper');
+            obj.result_value = "";
+            obj.result_index = 0;
+            obj.wrapper_before_loading = undefined;
+
+            obj.init = function() {
+                try{
+                    obj.fetch_popup(function() {
+                        obj.result_value = obj.find_random_result();
+                        obj.initialize_spin_wheel_options();
+                        obj.set_on_click_listeners_for_spin_btn();
+                        obj.set_on_click_listeners_for_email_btn();
+                        obj.set_on_click_listeners_for_close_btn();
+                        obj.set_on_click_listeners_for_copy_btn();
+                        obj.show_main_overlay_container_wrapper();
+                    }, function(error) {
+                        console.log("error", error);
+                    });
+                } catch (error) {
+                    console.log("error", error);
+                    let wrapper = document.querySelector(obj.main_prefix);
+                    if (wrapper.classList.contains('d-none') == false) {
+                        wrapper.classList.add('d-none');
+                    }
+                }
+            };
+
+            obj.show_main_overlay_container_wrapper = function() {
+                let main_wrapper = document.querySelector(obj.main_prefix);
+                if (main_wrapper.classList.contains('d-none') == true) {
+                    main_wrapper.classList.remove('d-none');
+                }
+            };
+
+            obj.fetch_popup = function(succes_callback, error_callback) {
+                const urlParams = new URLSearchParams(window.location.search);
+                let popup_id = urlParams.get('popup_id');
+                let url = obj.api_domain + 'api/get_popup';
+                let shop_domain = obj.get_shop_domain();
+                obj.show_loading();
+                if(popup_id == undefined) {
+                    popup_id = "";
+                }
+                Api.send_ajax_post(url, {"popup_id": popup_id, "shop_domain": shop_domain}, undefined,
+                    function(results) {
+                        obj.wheel_options_data = obj.prepare_options_data(results.model.popup_config);
+                        obj.hide_loading();
+                        succes_callback();
+                    }, function(error) {
+                        obj.hide_loading();
+                        error_callback();
+                    })
+            }
+
+            obj.prepare_options_data = function(options_str){
+                options_str = options_str.replaceAll("\'", "\"");
+                return JSON.parse(options_str);
+            };
+
+            obj.initialize_spin_wheel_options = function() {
+                let all_options = [];
+                all_options.push(obj.wheel_options_data["option_1"]["type"] ? obj.wheel_options_data["option_1"]["type"] : NULL_VALUE);
+                all_options.push(obj.wheel_options_data["option_2"]["type"] ? obj.wheel_options_data["option_2"]["type"] : NULL_VALUE);
+                all_options.push(obj.wheel_options_data["option_3"]["type"] ? obj.wheel_options_data["option_3"]["type"] : NULL_VALUE);
+                all_options.push(NULL_VALUE);
+                all_options.push(obj.wheel_options_data["option_1"]["type"] ? obj.wheel_options_data["option_1"]["type"] : NULL_VALUE);
+                all_options.push(obj.wheel_options_data["option_2"]["type"] ? obj.wheel_options_data["option_2"]["type"] : NULL_VALUE);
+                all_options.push(obj.wheel_options_data["option_3"]["type"] ? obj.wheel_options_data["option_3"]["type"] : NULL_VALUE);
+                all_options.push(NULL_VALUE);
+                let all_spin_wheels = document.querySelectorAll(obj.selector_prefix + ' .wheel');
+                for(let i in all_spin_wheels) {
+                    if(all_spin_wheels.hasOwnProperty(i)) {
+                        let span_options = all_spin_wheels[i].querySelectorAll("span");
+                        for(let j=0; j<span_options.length; j++) {
+                            if(span_options.hasOwnProperty(j)) {
+                                span_options[j].textContent = all_options[j];
+                            }
+                        }
+                    }
+                }
+                for(let i in all_options) {
+                    if(all_options[i] == obj.result_value){
+                        obj.result_index = i;
+                        break;
+                    }
+                }
+            };
+            
+            obj.find_random_result = function() {
+                let all_chances_list = []
+                let filled_chance = 0;
+                for(let i=0; i<obj.chances_options[obj.wheel_options_data["option_1"]["chance"]]; i++) {
+                    all_chances_list.push(obj.wheel_options_data["option_1"]["type"]);
+                    filled_chance += 1;
+                }
+                for(let i=0; i<obj.chances_options[obj.wheel_options_data["option_2"]["chance"]]; i++) {
+                    all_chances_list.push(obj.wheel_options_data["option_2"]["type"]);
+                    filled_chance += 1;
+                }
+                for(let i=0; i<obj.chances_options[obj.wheel_options_data["option_3"]["chance"]]; i++) {
+                    all_chances_list.push(obj.wheel_options_data["option_3"]["type"]);
+                    filled_chance += 1;
+                }
+                for(let i=0; i<(100-filled_chance); i++) {
+                    all_chances_list.push(NULL_VALUE);
+                }
+                let result_index = Math.ceil(Math.random() * 100);
+                let result_value = all_chances_list[result_index];
+                return result_value;
+            }
+
+            obj.set_on_click_listeners_for_spin_btn = function(){
+                let spin_btn = document.querySelector(obj.selector_prefix + ' .spin-btn');
+                spin_btn.addEventListener('click', function() {
+                    let value = 3 * 360 + ((parseInt(obj.result_index) + 5) * 45); // 5 is offset of final result
+                    obj.rotate_all_wheel(value);
+                    setTimeout(obj.update_scene_1, 7000);
+                });
+            };
+
+            obj.set_on_click_listeners_for_email_btn = function() {
+                let email_btn = obj.second_tab_wrapper.querySelector('.get-code-btn');
+                email_btn.addEventListener('click', function() {
+                    let email_wrapper = obj.second_tab_wrapper.querySelector('input[name="email"]');
+                    if (email_wrapper) {
+                        obj.email = email_wrapper.value;
+                    } 
+                    let phone_number_wrapper = obj.second_tab_wrapper.querySelector('input[name="phone_number"]');
+                    if (phone_number_wrapper) {
+                        obj.phone_number = phone_number_wrapper.value;
+                    }
+                    obj.validate_and_save();
+                });
+            };
+
+            obj.set_on_click_listeners_for_close_btn = function(){
+                let close_btns = document.querySelectorAll(obj.selector_prefix + ' .close-btn');
+                let wrapper = document.querySelector('.main-overlay-container-wrapper');
+                for(let i in close_btns) {
+                    if (close_btns.hasOwnProperty(i)) {
+                        close_btns[i].addEventListener('click', function(){
+                            if (wrapper.classList.contains('d-none') === false) {
+                                wrapper.classList.add('d-none');
+                            }
+                        });
+                    }
+                }
+            }
+
+            obj.set_on_click_listeners_for_copy_btn = function() {
+                let copy_discount_code_btn = document.querySelector(obj.selector_prefix + ' .copy-code');
+                copy_discount_code_btn.addEventListener('click', function(){
+                    obj.copy(obj.discount_code);
+                });
+            }
+
+            obj.copy = function(str) {
+                navigator.clipboard.writeText(str);
+            }
+
+            obj.validate_and_save = function() {
+                obj.show_loading();
+                if (obj.second_tab_wrapper.classList.contains('d-none') === false) {
+                    obj.second_tab_wrapper.classList.add('d-none');
+                }
+                let shop_domain = obj.get_shop_domain();
+                let url = obj.api_domain + 'api/add_subscriber';
+                Api.send_ajax_post(url, {"shop_domain": shop_domain,
+                                        "email": obj.email,
+                                        "phone_number": obj.phone_number,
+                                        "user_input_type": "email",
+                                        "result": obj.result_value}, undefined,
+                function(results) {
+                    obj.discount_code = results.discount_code;
+                    obj.hide_loading();
+                    obj.update_scene_2();
+                }, function(error) {
+                    obj.hide_loading();
+                    if (obj.second_tab_wrapper.classList.contains('d-none') === true) {
+                        obj.second_tab_wrapper.classList.remove('d-none');
+                    }
+                    let error_container = obj.second_tab_wrapper.querySelector('.error-wrapper');
+                    let error_wrapper = obj.second_tab_wrapper.querySelector('.error-wrapper .message');
+                    if(error_wrapper) {
+                        let error_msg = error;
+                        if(error_msg){
+                            error_wrapper.textContent = error_msg;
+                            error_container.classList.remove('d-none');
+                        } else {
+                            error_wrapper.textContent = "something went wrong!";
+                            error_container.classList.remove('d-none');
+                        }
+                    }
+                });
+            };
+
+            obj.get_shop_domain = function(){
+                const current_host = window.location.host;
+                if(current_host == "" || current_host.length == 0) {
+                    return "smmiri01-second-store.myshopify.com"; // test domain
+                }
+                return current_host;
+            };
+
+            obj.rotate_all_wheel = function(value) {
+                let wheels = document.querySelectorAll('.wheel');
+                for(let i in wheels) {
+                    if(wheels.hasOwnProperty(i)) {
+                        wheels[i].style.transform = "rotate(" + -value + "deg)";
+                    }
+                }
+            };
+
+            obj.update_scene_1 = function() {
+                if (obj.first_tab_wrapper.classList.contains('d-none') == false) {
+                    obj.first_tab_wrapper.classList.add('d-none');
+                }
+                if (obj.second_tab_wrapper.classList.contains('d-none') == true) {
+                    obj.second_tab_wrapper.classList.remove('d-none');
+                }
+            };
+
+            obj.update_scene_2 = function() {
+                let discount_code_wrapper = obj.third_tab_wrapper.querySelector('.discount-code');
+                if (discount_code_wrapper) {
+                    discount_code_wrapper.textContent = obj.discount_code;
+                }
+                if (obj.second_tab_wrapper.classList.contains('d-none') == false) {
+                    obj.second_tab_wrapper.classList.add('d-none');
+                }
+                if (obj.third_tab_wrapper.classList.contains('d-none') == true) {
+                    obj.third_tab_wrapper.classList.remove('d-none');
+                }
+            };
+
+            obj.show_loading = function() {
+                if (obj.first_tab_wrapper.classList.contains('d-none') === false){
+                    obj.wrapper_before_loading = obj.first_tab_wrapper;
+                    obj.first_tab_wrapper.classList.add('d-none');
+                }
+                if (obj.second_tab_wrapper.classList.contains('d-none') === false){
+                    obj.wrapper_before_loading = obj.second_tab_wrapper;
+                    obj.second_tab_wrapper.classList.add('d-none');
+                }
+                if (obj.third_tab_wrapper.classList.contains('d-none') === false){
+                    obj.wrapper_before_loading = obj.third_tab_wrapper;
+                    obj.third_tab_wrapper.classList.add('d-none');
+                }
+                if (obj.loading_tab_wrapper.classList.contains('d-none') === true) {
+                    obj.loading_tab_wrapper.classList.remove('d-none');
+                }
+            };
+
+            obj.hide_loading = function() {
+                if (obj.wrapper_before_loading.classList.contains('d-none') === true) {
+                    obj.wrapper_before_loading.classList.remove('d-none');
+                }
+                if (obj.loading_tab_wrapper.classList.contains('d-none') === false) {
+                    obj.loading_tab_wrapper.classList.add('d-none');
+                }
+            };
+
+            (function() {
+                obj.init();
+            })();
+        })();
+    </script>
+</body>
+</html>

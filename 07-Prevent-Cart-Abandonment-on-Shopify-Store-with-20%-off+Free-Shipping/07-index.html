@@ -8,6 +8,16 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="../internationalPhoneNumber/build/css/intlTelInput.css"
@@ -23,21 +33,17 @@
         --primary-color: #ff5174;
       }
       /* fonts */
-      .roboto-regular {
-        font-family: "Roboto", sans-serif;
+      .poppins-regular {
+        font-family: "Poppins", sans-serif;
         font-weight: 400;
         font-style: normal;
       }
-      .roboto-bold {
-        font-family: "Roboto", sans-serif;
-        font-weight: 600;
+      .abril-fatface-regular {
+        font-family: "Abril Fatface", serif;
+        font-weight: 400;
         font-style: normal;
       }
-      .roboto-black {
-        font-family: "Roboto", sans-serif;
-        font-weight: 900;
-        font-style: normal;
-      }
+
       /* Popup container */
       .popup {
         display: flex;
@@ -447,7 +453,7 @@
         </button>
         <div class="main-popup-body">
           <div class="main-popup-form">
-            <h1 class="main-popup-form-title roboto-black">
+            <h1 class="main-popup-form-title abril-fatface-regular">
               Stop! <br />
               Don't leave<br />
               just yet..
@@ -456,14 +462,17 @@
               Get %20 off your order <br />
               + free shipping! 🐈
             </p>
-            <div class="main-popup-time-container roboto-regular">
+            <div class="main-popup-time-container poppins-regular">
               <div class="main-popup-time-bg"><span class="time">0</span></div>
               <div class="main-popup-time-bg"><span>1</span></div>
               <span class="main-popup-colon">:</span>
               <div class="main-popup-time-bg"><span>2</span></div>
               <div class="main-popup-time-bg"><span>9</span></div>
             </div>
-            <button id="subscribeBtn" class="main-popup-form-btn roboto-bold">
+            <button
+              id="subscribeBtn"
+              class="main-popup-form-btn poppins-regular"
+            >
               Get My 20% Off
             </button>
           </div>
@@ -492,7 +501,7 @@
         </button>
         <div class="step-two-popup-body">
           <div class="step-two-popup-form-input-container">
-            <h1 class="step-two-popup-form-title roboto-black">
+            <h1 class="step-two-popup-form-title abril-fatface-regular">
               Get %20 off <br />
               and free <br />
               shipping
@@ -501,7 +510,7 @@
               <input
                 type="email"
                 id="subscribeEmailInput"
-                class="step-two-popup-form-input roboto-regular"
+                class="step-two-popup-form-input poppins-regular"
                 name="subscribe"
                 placeholder="Enter your email address"
               />
@@ -523,7 +532,7 @@
               <input
                 type="tel"
                 id="subscribeTelInput"
-                class="step-two-popup-form-input roboto-regular"
+                class="step-two-popup-form-input poppins-regular"
                 name="subscribeTel"
                 placeholder="Enter your phone number"
               />
@@ -541,7 +550,10 @@
                 ></path>
               </svg>
             </div>
-            <button id="stepTwoBtn" class="step-two-popup-form-btn roboto-bold">
+            <button
+              id="stepTwoBtn"
+              class="step-two-popup-form-btn poppins-regular"
+            >
               Get the Coupon Code
             </button>
           </div>
@@ -566,8 +578,8 @@
           </svg>
         </button>
         <div class="success-modal-body">
-          <h1 class="success-title roboto-bold">Hooray! 🎉</h1>
-          <p class="success-describe roboto-regular">
+          <h1 class="success-title poppins-regular">Hooray! 🎉</h1>
+          <p class="success-describe poppins-regular">
             Here is the coupon code to apply free shipping and %20 discount.
           </p>
           <p id="couponCode" class="coupon-code">
@@ -593,7 +605,7 @@
               </g>
             </svg>
           </p>
-          <button class="success-btn roboto-regular">Bye!</button>
+          <button class="success-btn poppins-regular">Bye!</button>
         </div>
       </div>
       <!-- Error message -->

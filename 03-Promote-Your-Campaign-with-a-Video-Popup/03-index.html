@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -28,18 +28,21 @@
         --bg: #9b3424;
       }
       /* fonts */
-      .roboto-regular {
-        font-family: "Roboto", sans-serif;
+      .chivo-regular {
+        font-family: "Chivo", sans-serif;
+        font-optical-sizing: auto;
         font-weight: 400;
         font-style: normal;
       }
-      .roboto-bold {
-        font-family: "Roboto", sans-serif;
+      .chivo-bold {
+        font-family: "Chivo", sans-serif;
+        font-optical-sizing: auto;
         font-weight: 600;
         font-style: normal;
       }
-      .roboto-black {
-        font-family: "Roboto", sans-serif;
+      .chivo-black {
+        font-family: "Chivo", sans-serif;
+        font-optical-sizing: auto;
         font-weight: 900;
         font-style: normal;
       }
@@ -316,25 +319,25 @@
             </svg>
           </div>
           <div>
-            <h1 class="main-popup-form-title roboto-black">
+            <h1 class="main-popup-form-title chivo-black">
               FOR MORE<br />INSPIRATION✨
             </h1>
           </div>
-          <p class="main-popup-form-describe roboto-regular">
+          <p class="main-popup-form-describe chivo-regular">
             Sign up with your email address and get video inspiration weekly.
           </p>
           <div class="main-popup-form-input-container">
             <input
               type="text"
               id="subscribeNameInput"
-              class="main-popup-form-input roboto-regular"
+              class="main-popup-form-input chivo-regular"
               name="subscribeName"
               placeholder="Name"
             />
             <input
               type="email"
               id="subscribeEmailInput"
-              class="main-popup-form-input roboto-regular"
+              class="main-popup-form-input chivo-regular"
               name="subscribe"
               placeholder="Email Address"
             />
@@ -342,7 +345,7 @@
               <input
                 type="tel"
                 id="subscribeTelInput"
-                class="main-popup-form-input roboto-regular"
+                class="main-popup-form-input chivo-regular"
                 name="subscribeTel"
                 placeholder="Phone number"
               />
@@ -363,7 +366,7 @@
           </div>
           <button
             id="subscribeBtn"
-            class="main-popup-form-btn roboto-regular"
+            class="main-popup-form-btn chivo-regular"
             disabled
           >
             Submit
@@ -390,8 +393,8 @@
         </button>
         <div class="success-modal-body">
           <img class="success-image" src="./successImage.png" alt="Subscribe" />
-          <h1 class="success-title roboto-bold">Success</h1>
-          <p class="success-describe roboto-regular">
+          <h1 class="success-title chivo-bold">Success</h1>
+          <p class="success-describe chivo-regular">
             You've successfully subscribed to out newsletter.
           </p>
           <p id="couponCode" class="coupon-code">
@@ -418,7 +421,7 @@
               </g>
             </svg>
           </p>
-          <button id="successBtn" class="success-btn roboto-regular">
+          <button id="successBtn" class="success-btn chivo-regular">
             OKAY
           </button>
         </div>
