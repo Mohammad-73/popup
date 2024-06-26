@@ -137,7 +137,7 @@
         background-color: var(--bg);
         border-radius: 2em;
         width: 65%;
-        height: 70%;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -157,6 +157,8 @@
         margin: 15px 15px 0 0;
         transition: 0.2s;
         position: absolute;
+        top: 0;
+        right: 0;
       }
       .main-popup-close-btn:hover {
         background-color: #b5b5b5;
@@ -166,6 +168,7 @@
         align-items: center;
         flex: 1;
         height: 100%;
+        position: relative;
       }
       .main-popup-body-form-and-success {
         display: flex;
@@ -237,9 +240,10 @@
         justify-content: flex-start;
         align-items: center;
         height: 100%;
-        width: auto;
+        width: 100%;
       }
       .main-image {
+        width: 100%;
         height: 100%;
         border-top-left-radius: 2em;
         border-bottom-left-radius: 2em;
@@ -312,7 +316,7 @@
         padding: 20px;
         border-radius: 35px;
         width: 25%;
-        height: 70%;
+        height: fit-content;
         display: none;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -323,7 +327,7 @@
         align-items: center;
         justify-content: center;
         height: 100%;
-        padding: 0 30px;
+        padding: 30px;
       }
       .success-close-popup-btn {
         align-self: flex-end;
@@ -360,7 +364,7 @@
         justify-content: center;
         position: relative;
         border: 2px dashed black;
-        padding: 1em 4em;
+        padding: 0.5em 4em;
         margin: 0 0 20px;
         width: 100%;
       }

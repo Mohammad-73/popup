@@ -132,7 +132,7 @@
         background-color: var(--bg);
         border-radius: 2em;
         width: 60%;
-        height: 70%;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -151,6 +151,8 @@
         margin: 15px 15px 0 0;
         transition: 0.2s;
         position: absolute;
+        top: 0;
+        right: 0;
       }
       .main-popup-close-btn:hover {
         background-color: #b5b5b5;
@@ -160,6 +162,7 @@
         align-items: center;
         flex: 1;
         height: 100%;
+        position: relative;
       }
       .main-popup-body-form-and-success {
         display: flex;
@@ -173,7 +176,7 @@
         text-align: center;
         justify-content: center;
         align-items: flex-start;
-        padding: 0 40px;
+        padding: 20px 30px;
         height: 100%;
       }
       .main-popup-form-title {
@@ -217,7 +220,7 @@
         width: 100%;
       }
       .main-image {
-        height: 100%;
+        width: 100%;
         border-top-left-radius: 2em;
         border-bottom-left-radius: 2em;
         object-fit: cover;
